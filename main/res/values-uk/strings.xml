@@ -4,4 +4,8 @@
     <string name="app_name">Avtopoisk</string>
     <!--/Application-->
 
+    <!--SearchActivity-->
+    <string name="btn_find_text">Знайти</string>
+    <!--/SearchActivity-->
+
 </resources>

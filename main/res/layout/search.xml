@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <Button
+            android:id="@+id/btn_find"
+            android:layout_margin="5dp"
+            android:layout_width="50pt"
+            android:layout_gravity="center"
+            android:layout_height= "30pt"
+            android:layout_alignParentBottom="true"
+            android:text="@string/btn_find_text">
+    </Button>
+
+</LinearLayout>

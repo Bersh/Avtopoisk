@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+    <ImageView android:layout_width="120dip"
+               android:layout_height="100dip"
+               android:layout_marginLeft="2dp"
+               android:id="@+id/img"
+               android:src="@drawable/sample_car_image"
+               android:contentDescription="@string/car_photo_description"/>
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="100dip"
+            android:paddingBottom="8dip"
+            android:paddingLeft="5dip">
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dip"
+                android:paddingBottom="8dip"
+                android:paddingLeft="8dip">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/year"
+                      android:textColor="#ffa800"
+                      android:text="year"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/brand"
+                      android:layout_marginLeft="5dp"
+                      android:textColor="#ffffff"
+                      android:layout_toRightOf="@+id/year"
+                      android:text="brand"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/model"
+                      android:layout_marginLeft="5dp"
+                      android:layout_toRightOf="@+id/brand"
+                      android:textColor="#ffa800"
+                      android:text="model"/>
+
+        </LinearLayout>
+
+        <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentBottom="true"
+                  android:id="@+id/price"
+                  android:paddingLeft="5dip"
+                  android:textColor="#ffa800"
+                  android:text="price"/>
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,7 +1,5 @@
 package domain;
 
-import java.awt.image.BufferedImage;
-
 /**
  * Represents car
  *
@@ -18,14 +16,14 @@ public class Car {
     private TransmissionType transmissionType;
     private EngineType engineType;
     private String linkToDetails;
-    private BufferedImage image;
+    private String imageUrl;
 
-    public Car(String model, String brand, int mileage, int year, float engineCapacity, long price) {
-        this(model, brand, mileage, year, engineCapacity, price, TransmissionType.NA, EngineType.NA, "", null);
+    public Car(String model, String brand, int mileage, int year, float engineCapacity, long price, String imageUrl) {
+        this(model, brand, mileage, year, engineCapacity, price, TransmissionType.NA, EngineType.NA, "", imageUrl);
     }
 
     public Car(String model, String brand, int mileage, int year, float engineCapacity, long price, TransmissionType transmissionType,
-        EngineType engineType, String linkToDetails, BufferedImage image) {
+        EngineType engineType, String linkToDetails, String imageUrl) {
         this.model = model;
         this.brand = brand;
         this.mileage = mileage;
@@ -35,7 +33,7 @@ public class Car {
         this.transmissionType = transmissionType;
         this.engineType = engineType;
         this.linkToDetails = linkToDetails;
-        this.image = image;
+        this.imageUrl = imageUrl;
     }
 
     public String getModel() {
@@ -74,7 +72,7 @@ public class Car {
         return linkToDetails;
     }
 
-    public BufferedImage getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 }

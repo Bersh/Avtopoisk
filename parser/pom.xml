@@ -40,5 +40,10 @@
             <version>1.9.9</version>
         </dependency>
 
+        <dependency>
+            <groupId>ua.avtopoisk</groupId>
+            <artifactId>domain</artifactId>
+            <version>0.5</version>
+        </dependency>
     </dependencies>
 </project>

@@ -24,6 +24,18 @@
             <groupId>de.akquinet.android.androlog</groupId>
             <artifactId>androlog</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>ua.avtopoisk</groupId>
+            <artifactId>domain</artifactId>
+            <version>0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>ua.avtopoisk</groupId>
+            <artifactId>parser</artifactId>
+            <version>0.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>

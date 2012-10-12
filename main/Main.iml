@@ -19,7 +19,7 @@
         <option name="LIBRARY_PROJECT" value="false" />
         <option name="RUN_PROCESS_RESOURCES_MAVEN_TASK" value="false" />
         <option name="GENERATE_UNSIGNED_APK" value="false" />
-        <option name="CUSTOM_DEBUG_KEYSTORE_PATH" value="" />
+        <option name="CUSTOM_DEBUG_KEYSTORE_PATH" value="file://$MODULE_DIR$/../debug_work.keystore" />
         <option name="PACK_TEST_CODE" value="false" />
         <option name="RUN_PROGUARD" value="false" />
         <option name="PROGUARD_CFG_PATH" value="/proguard-project.txt" />
@@ -37,10 +37,14 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/r" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/annotations" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/generated-sources/combined-assets" />
       <excludeFolder url="file://$MODULE_DIR$/target/generated-sources/combined-resources" />
       <excludeFolder url="file://$MODULE_DIR$/target/generated-sources/extracted-dependencies" />
+      <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.android:android:2.2.1" level="project" />
@@ -54,6 +58,12 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.json:json:20080701" level="project" />
     <orderEntry type="library" name="Maven: de.akquinet.android.androlog:androlog:1.0.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: junit:junit:4.8.1" level="project" />
+    <orderEntry type="module" module-name="domain" />
+    <orderEntry type="module" module-name="parser" />
+    <orderEntry type="library" name="Maven: commons-collections:commons-collections:20040616" level="project" />
+    <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.6.3" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.9" level="project" />
     <orderEntry type="jdk" jdkName="Android 3.0 Platform" jdkType="Android SDK" />
   </component>
 </module>

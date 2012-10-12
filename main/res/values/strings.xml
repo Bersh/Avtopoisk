@@ -4,4 +4,9 @@
     <string name="app_name">Avtopoisk</string>
     <!--/Application-->
 
+    <!--SearchActivity-->
+    <string name="btn_find_text">Find</string>
+    <string name="car_photo_description">Car photo</string>
+    <!--/SearchActivity-->
+
 </resources>

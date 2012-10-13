@@ -7,6 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import ua.avtopoisk.R;
 
+/**
+ * Start activity. Search params located here
+ *
+ * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
+ * @since 12.10.12
+ */
 public class SearchActivity extends Activity{
 
     @Override
@@ -23,4 +29,6 @@ public class SearchActivity extends Activity{
             }
         });
     }
+
+
 }

@@ -77,7 +77,7 @@
                 <!--date posted-->
                 <TextView android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
-                          android:id="@+id/datePosted"
+                          android:id="@+id/date_posted"
                           android:paddingRight="2dip"
                           android:gravity="right"
                           android:text="сегодня,11:00"/>

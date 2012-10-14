@@ -2,6 +2,7 @@
 <resources>
     <!--Application-->
     <string name="app_name">Avtopoisk</string>
+    <string name="dlg_progress_search">Загрузка данных…</string>
     <!--/Application-->
 
     <!--SearchActivity-->
@@ -9,6 +10,8 @@
     <!--/SearchActivity-->
 
     <!--SearchActivity-->
-    <string name="dlg_progress_search">Загрузка данных…</string>
+    <string name="brand_hint_text">Марка:</string>
+    <string name="model_hint_text">Модель:</string>
+    <string name="region_hint_text">Регион:</string>
     <!--/SearchActivity-->
 </resources>

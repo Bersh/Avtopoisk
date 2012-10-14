@@ -2,15 +2,109 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+              android:background="#F7F7F7">
 
+    <!--all spinners-->
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dip"
+            android:background="#D8D8D8">
+
+        <!--brands-->
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:orientation="horizontal">
+
+            <TextView android:layout_width="80dip"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/brand_hint"
+                      android:paddingRight="2dip"
+                      android:gravity="left"
+                      android:textSize="20dip"
+                      android:textColor="#000"
+                      android:layout_gravity="center_vertical"
+                      android:text="@string/brand_hint_text"/>
+
+            <Spinner
+                    android:id="@+id/brands"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!--bottom line-->
+        <View android:background="#C6C6C6" android:layout_width="fill_parent" android:layout_height="1dip"/>
+
+        <!--models-->
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:orientation="horizontal">
+
+            <TextView android:layout_width="80dip"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/model_hint"
+                      android:paddingRight="2dip"
+                      android:gravity="left"
+                      android:textSize="20dip"
+                      android:textColor="#000"
+                      android:layout_gravity="center_vertical"
+                      android:text="@string/model_hint_text"/>
+
+            <Spinner
+                    android:id="@+id/models"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!--bottom line-->
+        <View android:background="#C6C6C6" android:layout_width="fill_parent" android:layout_height="1dip"/>
+
+        <!--regions-->
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:orientation="horizontal">
+
+            <TextView android:layout_width="80dip"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/region_hint"
+                      android:paddingRight="2dip"
+                      android:gravity="left"
+                      android:textSize="20dip"
+                      android:textColor="#000"
+                      android:layout_gravity="center_vertical"
+                      android:text="@string/region_hint_text"/>
+
+            <Spinner
+                    android:id="@+id/regions"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!--bottom line-->
+        <View android:background="#C6C6C6" android:layout_width="fill_parent" android:layout_height="1dip"/>
+
+    </LinearLayout>
+
+    <!--find button-->
     <Button
             android:id="@+id/btn_find"
             android:layout_margin="5dp"
             android:layout_width="50pt"
             android:layout_gravity="center"
-            android:layout_height= "30pt"
-            android:layout_alignParentBottom="true"
+            android:layout_height="50dip"
             android:text="@string/btn_find_text">
     </Button>
 

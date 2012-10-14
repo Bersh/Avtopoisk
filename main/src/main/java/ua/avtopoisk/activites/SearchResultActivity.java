@@ -103,7 +103,7 @@ public class SearchResultActivity extends ListActivity {
             CarAdapter adapter = new CarAdapter(listView.getContext(),
                     items, R.layout.list_item,
                     new String[]{HEADER, PRICE, IMAGE, CITY, DATE_POSTED, ENGINE_DESC},
-                    new int[]{R.id.car_info_header, R.id.price, R.id.img, R.id.city, R.id.datePosted, R.id.engine_desc},
+                    new int[]{R.id.car_info_header, R.id.price, R.id.img, R.id.city, R.id.date_posted, R.id.engine_desc},
                     IMAGE);
 
             listView.setAdapter(adapter);

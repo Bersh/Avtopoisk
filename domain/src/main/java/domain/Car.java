@@ -19,14 +19,15 @@ public class Car{
     private String imageUrl;
     private String city;
     private String datePosted;
+    private String engineDesc; //pure engine description string. As it is on web page
 
 
-    public Car(String model, String brand, int mileage, int year, float engineCapacity, long price, String imageUrl, String city, String datePosted) {
-        this(model, brand, mileage, year, engineCapacity, price, TransmissionType.NA, EngineType.NA, "", imageUrl, city, datePosted);
+    public Car(String model, String brand, int mileage, int year, float engineCapacity, long price, String imageUrl, String city, String datePosted, String engineDesc) {
+        this(model, brand, mileage, year, engineCapacity, price, TransmissionType.NA, EngineType.NA, "", imageUrl, city, datePosted, engineDesc);
     }
 
     public Car(String model, String brand, int mileage, int year, float engineCapacity, long price, TransmissionType transmissionType,
-               EngineType engineType, String linkToDetails, String imageUrl, String city, String datePosted) {
+               EngineType engineType, String linkToDetails, String imageUrl, String city, String datePosted, String engineDesc) {
         this.model = model;
         this.brand = brand;
         this.mileage = mileage;
@@ -39,6 +40,7 @@ public class Car{
         this.imageUrl = imageUrl;
         this.city = city;
         this.datePosted = datePosted;
+        this.engineDesc = engineDesc;
     }
 
     public String getModel() {
@@ -87,5 +89,9 @@ public class Car{
 
     public String getDatePosted() {
         return datePosted;
+    }
+
+    public String getEngineDesc() {
+        return engineDesc;
     }
 }

@@ -5,39 +5,58 @@
         android:orientation="vertical"
         android:background="#ffffff"
         android:layout_height="fill_parent">
+
+    <!--layout added to place all info left to image-->
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
-        <ImageView android:layout_width="120dip"
+
+        <!--image-->
+        <ImageView android:layout_width="130dip"
                    android:layout_height="100dip"
                    android:layout_marginLeft="2dp"
                    android:id="@+id/img"
                    android:src="@drawable/sample_car_image"
                    android:contentDescription="@string/car_photo_description"/>
+
+        <!--all information-->
         <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="100dip"
-                android:paddingBottom="8dip"
+                android:layout_height="fill_parent"
+                android:paddingBottom="2dip"
                 android:paddingRight="2dip"
                 android:paddingLeft="5dip">
 
+            <!--year, brand and model-->
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/car_info_header"
                       android:textColor="#000"
                       android:textStyle="bold"
-                      android:textSize="16dip"
+                      android:textSize="14dip"
+                      android:paddingBottom="0dip"
                       android:maxLines="2"
                       android:text="2007' Subary Legacy Special Editiion"/>
 
+            <!--engine description as it is on web page-->
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/engine_desc"
+                      android:layout_below="@+id/car_info_header"
+                      android:textColor="#606060"
+                      android:text="1.6, i (инж.), бензин"/>
+
+            <!--city-->
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/city"
                       android:layout_above="@+id/footer"
-                      android:paddingBottom="1dip"
+                      android:textColor="#606060"
                       android:text="Днепропетровск"/>
+
+            <!--price and date posted-->
             <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="fill_parent"
@@ -46,24 +65,28 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true">
 
+                <!--price-->
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:id="@+id/price"
                           android:textSize="17dip"
                           android:textStyle="bold"
-                          android:textColor="#ffa800"
+                          android:textColor="#09B700"
                           android:text="200000$"/>
 
+                <!--date posted-->
                 <TextView android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
                           android:id="@+id/datePosted"
-                          android:paddingLeft="2dip"
+                          android:paddingRight="2dip"
                           android:gravity="right"
-                          android:text="сегодня, 11:00"/>
+                          android:text="сегодня,11:00"/>
             </LinearLayout>
 
         </RelativeLayout>
 
     </LinearLayout>
+
+    <!--bottom black line-->
     <View android:background="#000" android:layout_width="fill_parent" android:layout_height="1dip"/>
 </LinearLayout>

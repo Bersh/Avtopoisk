@@ -24,6 +24,11 @@ public class AvtopoiskParser {
 
             for (Element carElement : carElements) {
                 Element info = carElement.getElementsByClass("info").get(0);
+
+                if(!info.getElementsByClass("sold").isEmpty()) {       //check if car already sold
+                    continue;
+                }
+
                 long price = (long) (Float.parseFloat(carElement.getElementsByClass("price").get(0).text().replace("$", "").replace(".", "")) * 100);
                 int year = Integer.parseInt(info.child(0).text());
                 String s = info.child(1).child(0).text(); //tmp string
@@ -40,23 +45,26 @@ public class AvtopoiskParser {
                 Element values = info.getElementsByClass("values").get(0); // get values separated by <br>
 
                 strings = values.html().replaceAll("\n", "").split("<br />");
+                String engineDesc = Jsoup.parse(strings[0]).text(); //line 1.6, i (инж.), бензин
+
                 float engineCapacity;
                 try {
                     engineCapacity = Float.parseFloat(strings[0].substring(0, 3));
                 } catch (Exception e) {
                     engineCapacity = 0;    //if not present
                 }
-                int milage = Integer.parseInt(strings[1].trim());
-                if (milage < 1000) {
-                    milage *= 1000;
+
+                int mileage = Integer.parseInt(strings[1].trim());
+                if (mileage < 1000) {
+                    mileage *= 1000;
                 }
 
                 values = info.getElementsByClass("city").get(0);  // city + datePosted + site + id   separated <by br>
                 strings = values.html().replaceAll("\n", "").split("<br />");
                 String city = Jsoup.parse(strings[0]).text();
-                String datePosted = Jsoup.parse(strings[1]).text();
+                String datePosted = Jsoup.parse(strings[1]).text().replace(" ", "");
 
-                resultList.add(new Car(model, brand, milage, year, engineCapacity, price, imageUrl, city, datePosted));
+                resultList.add(new Car(model, brand, mileage, year, engineCapacity, price, imageUrl, city, datePosted, engineDesc));
             }
         }
         return resultList;

@@ -8,7 +8,6 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
@@ -37,6 +36,7 @@ public class AvtopoiskParser {
                 strings = s.split("'");
                 String imageUrl = strings[1];
 
+
                 Element values = info.getElementsByClass("values").get(0); // get values separated by <br>
 
                 strings = values.html().replaceAll("\n", "").split("<br />");
@@ -51,7 +51,12 @@ public class AvtopoiskParser {
                     milage *= 1000;
                 }
 
-                resultList.add(new Car(model, brand, milage, year, engineCapacity, price, imageUrl));
+                values = info.getElementsByClass("city").get(0);  // city + datePosted + site + id   separated <by br>
+                strings = values.html().replaceAll("\n", "").split("<br />");
+                String city = Jsoup.parse(strings[0]).text();
+                String datePosted = Jsoup.parse(strings[1]).text();
+
+                resultList.add(new Car(model, brand, milage, year, engineCapacity, price, imageUrl, city, datePosted));
             }
         }
         return resultList;

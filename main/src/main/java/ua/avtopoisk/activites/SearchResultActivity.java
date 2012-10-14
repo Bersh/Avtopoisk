@@ -48,6 +48,8 @@ public class SearchResultActivity extends ListActivity {
         private static final String HEADER = "header";
         private static final String PRICE = "price";
         private static final String IMAGE = "image";
+        private static final String CITY = "city";
+        private static final String DATE_POSTED = "datePosted";
 
         private ListView listView;
         private ArrayList<HashMap<String, Object>> items;
@@ -75,6 +77,8 @@ public class SearchResultActivity extends ListActivity {
                 String header = car.getYear() + "' " + car.getBrand() + " " + car.getModel();
                 hm.put(HEADER, header);
                 hm.put(PRICE, Long.valueOf(car.getPrice() / 100).toString() + " $");
+                hm.put(CITY, car.getCity());
+                hm.put(DATE_POSTED, car.getDatePosted());
 
                 URL url;
                 Bitmap bmp = null;
@@ -96,8 +100,8 @@ public class SearchResultActivity extends ListActivity {
         protected void onPostExecute(Void result) {
             CarAdapter adapter = new CarAdapter(listView.getContext(),
                     items, R.layout.list_item,
-                    new String[]{HEADER, PRICE, IMAGE},
-                    new int[]{R.id.car_info_header, R.id.price, R.id.img}, IMAGE);
+                    new String[]{HEADER, PRICE, IMAGE, CITY, DATE_POSTED},
+                    new int[]{R.id.car_info_header, R.id.price, R.id.img, R.id.city, R.id.datePosted}, IMAGE);
 
             listView.setAdapter(adapter);
             progressDialog.dismiss();

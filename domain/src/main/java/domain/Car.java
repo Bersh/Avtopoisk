@@ -17,14 +17,16 @@ public class Car{
     private EngineType engineType;
     private String linkToDetails;
     private String imageUrl;
+    private String city;
+    private String datePosted;
 
 
-    public Car(String model, String brand, int mileage, int year, float engineCapacity, long price, String imageUrl) {
-        this(model, brand, mileage, year, engineCapacity, price, TransmissionType.NA, EngineType.NA, "", imageUrl);
+    public Car(String model, String brand, int mileage, int year, float engineCapacity, long price, String imageUrl, String city, String datePosted) {
+        this(model, brand, mileage, year, engineCapacity, price, TransmissionType.NA, EngineType.NA, "", imageUrl, city, datePosted);
     }
 
     public Car(String model, String brand, int mileage, int year, float engineCapacity, long price, TransmissionType transmissionType,
-               EngineType engineType, String linkToDetails, String imageUrl) {
+               EngineType engineType, String linkToDetails, String imageUrl, String city, String datePosted) {
         this.model = model;
         this.brand = brand;
         this.mileage = mileage;
@@ -35,6 +37,8 @@ public class Car{
         this.engineType = engineType;
         this.linkToDetails = linkToDetails;
         this.imageUrl = imageUrl;
+        this.city = city;
+        this.datePosted = datePosted;
     }
 
     public String getModel() {
@@ -75,5 +79,13 @@ public class Car{
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getDatePosted() {
+        return datePosted;
     }
 }

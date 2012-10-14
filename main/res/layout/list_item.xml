@@ -28,20 +28,39 @@
                       android:id="@+id/car_info_header"
                       android:textColor="#000"
                       android:textStyle="bold"
-                      android:textSize="17dip"
+                      android:textSize="16dip"
                       android:maxLines="2"
                       android:text="2007' Subary Legacy Special Editiion"/>
 
-
-            <TextView android:layout_width="fill_parent"
+            <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:layout_alignParentBottom="true"
-                      android:id="@+id/price"
-                      android:paddingLeft="5dip"
-                      android:textSize="20dip"
-                      android:textStyle="bold"
-                      android:textColor="#ffa800"
-                      android:text="price"/>
+                      android:id="@+id/city"
+                      android:layout_above="@+id/footer"
+                      android:paddingBottom="1dip"
+                      android:text="Днепропетровск"/>
+            <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:orientation="horizontal"
+                    android:id="@+id/footer"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true">
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/price"
+                          android:textSize="17dip"
+                          android:textStyle="bold"
+                          android:textColor="#ffa800"
+                          android:text="200000$"/>
+
+                <TextView android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/datePosted"
+                          android:paddingLeft="2dip"
+                          android:gravity="right"
+                          android:text="сегодня, 11:00"/>
+            </LinearLayout>
 
         </RelativeLayout>
 

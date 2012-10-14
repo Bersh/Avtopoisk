@@ -9,4 +9,8 @@
     <string name="car_photo_description">Car photo</string>
     <!--/SearchActivity-->
 
+    <!--SearchActivity-->
+    <string name="dlg_progress_search">Loading…</string>
+    <!--/SearchActivity-->
+
 </resources>

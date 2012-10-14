@@ -6,6 +6,9 @@
 
     <!--SearchActivity-->
     <string name="btn_find_text">Знайти</string>
-    <!--/SearchActivity-->
 
+    <!--/SearchActivity-->
+    <!--SearchActivity-->
+    <string name="dlg_progress_search">Завантаження даних…</string>
+    <!--/SearchActivity-->
 </resources>

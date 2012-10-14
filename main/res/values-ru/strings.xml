@@ -7,4 +7,8 @@
     <!--SearchActivity-->
     <string name="btn_find_text">Найти</string>
     <!--/SearchActivity-->
+
+    <!--SearchActivity-->
+    <string name="dlg_progress_search">Загрузка данных…</string>
+    <!--/SearchActivity-->
 </resources>

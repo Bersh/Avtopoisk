@@ -20,43 +20,18 @@
                 android:layout_width="fill_parent"
                 android:layout_height="100dip"
                 android:paddingBottom="8dip"
+                android:paddingRight="2dip"
                 android:paddingLeft="5dip">
 
-            <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dip"
-                    android:paddingBottom="8dip"
-                    android:paddingLeft="8dip">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/car_info_header"
+                      android:textColor="#000"
+                      android:textStyle="bold"
+                      android:textSize="17dip"
+                      android:maxLines="2"
+                      android:text="2007' Subary Legacy Special Editiion"/>
 
-                <TextView android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:id="@+id/year"
-                          android:textColor="#000"
-                          android:textStyle="bold"
-                          android:textSize="18dip"
-                          android:text="year"/>
-
-                <TextView android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:id="@+id/brand"
-                          android:layout_marginLeft="5dip"
-                          android:textStyle="bold"
-                          android:textSize="17dip"
-                          android:textColor="#000"
-                          android:text="brand"/>
-
-                <TextView android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:id="@+id/model"
-                          android:layout_marginLeft="5dip"
-                          android:textSize="17dip"
-                          android:textStyle="bold"
-                          android:textColor="#000"
-                          android:text="model"/>
-
-            </LinearLayout>
 
             <TextView android:layout_width="fill_parent"
                       android:layout_height="wrap_content"

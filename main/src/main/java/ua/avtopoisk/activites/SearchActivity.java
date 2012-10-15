@@ -4,8 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import parsers.AvtopoiskParser;
 import ua.avtopoisk.R;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Start activity. Search params located here
@@ -28,6 +34,19 @@ public class SearchActivity extends Activity{
                 startActivity(intent);
             }
         });
+
+        AvtopoiskParser parser = new AvtopoiskParser();
+        Spinner brands = (Spinner) findViewById(R.id.brands);
+        ArrayAdapter<String> adapter = null;
+        ArrayList<String> brandsList = null;
+        try {
+            brandsList = new ArrayList<String>(parser.getBrands().keySet());
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        adapter = new ArrayAdapter<String>(this,
+                            android.R.layout.simple_list_item_1, brandsList) ;
+        brands.setAdapter(adapter);
     }
 
 

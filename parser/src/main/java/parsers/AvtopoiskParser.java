@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
@@ -68,5 +69,20 @@ public class AvtopoiskParser {
             }
         }
         return resultList;
+    }
+
+    /**
+     * Parse brands list from select
+     * @return brands list
+     * @throws IOException is parsing fails
+     */
+    public HashMap<String, Integer> getBrands() throws IOException {
+        HashMap<String, Integer> result = new HashMap<String, Integer>();
+        Document doc = Jsoup.connect(baseUrl).get();
+        Elements brands = doc.getElementsByClass("select_mark").get(0).children();
+        for(Element brand : brands) {
+            result.put(brand.text(), Integer.parseInt(brand.val()));
+        }
+        return result;
     }
 }

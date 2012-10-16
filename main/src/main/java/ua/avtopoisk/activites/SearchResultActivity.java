@@ -101,7 +101,7 @@ public class SearchResultActivity extends ListActivity {
         @Override
         protected void onPostExecute(Void result) {
             CarAdapter adapter = new CarAdapter(listView.getContext(),
-                    items, R.layout.list_item,
+                    items, R.layout.cars_list_item,
                     new String[]{HEADER, PRICE, IMAGE, CITY, DATE_POSTED, ENGINE_DESC},
                     new int[]{R.id.car_info_header, R.id.price, R.id.img, R.id.city, R.id.date_posted, R.id.engine_desc},
                     IMAGE);

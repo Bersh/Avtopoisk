@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import com.googlecode.androidannotations.annotations.Click;
+import com.googlecode.androidannotations.annotations.EActivity;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.R;
 
@@ -19,21 +21,12 @@ import java.util.ArrayList;
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 12.10.12
  */
+@EActivity(R.layout.search)
 public class SearchActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search);
-
-        Button btnFind = (Button) findViewById(R.id.btn_find);
-        btnFind.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                startActivity(intent);
-            }
-        });
 
         AvtopoiskParser parser = new AvtopoiskParser();
         Spinner brands = (Spinner) findViewById(R.id.brands);
@@ -49,5 +42,9 @@ public class SearchActivity extends Activity{
         brands.setAdapter(adapter);
     }
 
-
+    @Click(R.id.btn_find)
+    public void btnFindOnClick(View view) {
+        final Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+        startActivity(intent);
+    }
 }

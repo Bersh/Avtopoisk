@@ -17,6 +17,19 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.googlecode.androidannotations</groupId>
+            <artifactId>androidannotations</artifactId>
+            <version>2.6</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.androidannotations</groupId>
+            <artifactId>androidannotations</artifactId>
+            <classifier>api</classifier>
+            <version>2.6</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
         </dependency>

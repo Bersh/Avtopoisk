@@ -11,6 +11,7 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.ViewById;
+import de.akquinet.android.androlog.Log;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.R;
 
@@ -40,7 +41,7 @@ public class SearchActivity extends Activity{
         try {
             brandsList = new ArrayList<String>(parser.getBrands().keySet());
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            Log.e(getString(R.string.app_name), e.getMessage());
         }
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, brandsList) ;
     }
@@ -52,7 +53,7 @@ public class SearchActivity extends Activity{
 
     @Click(R.id.btn_find)
     public void btnFindOnClick(View view) {
-        final Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+        final Intent intent = new Intent(SearchActivity.this, SearchResultActivity_.class);
         startActivity(intent);
     }
 }

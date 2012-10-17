@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.EActivity;
 import domain.Car;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.CarAdapter;
@@ -25,20 +27,25 @@ import java.util.HashMap;
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 12.10.12
  */
+
+@EActivity(R.layout.search_result)
 public class SearchResultActivity extends ListActivity {
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_result);
         progressDialog = ProgressDialog.show(this, "", getString(R.string.dlg_progress_search), true);
+    }
+
+    @AfterViews
+    protected void init() {
         new SearchAsyncTask().execute(getListView());
     }
 
     @Override
     protected void onDestroy() {
-        if(progressDialog != null) {
+        if (progressDialog != null) {
             progressDialog.dismiss();
         }
         super.onDestroy();
@@ -67,7 +74,7 @@ public class SearchResultActivity extends ListActivity {
                 Log.e(listView.getContext().getString(R.string.app_name), e.getMessage());
             }
 
-            if(cars==null) {
+            if (cars == null) {
                 return null;
             }
 

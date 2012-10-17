@@ -23,7 +23,7 @@
                 android:layout_margin="5dip"
                 android:orientation="horizontal">
 
-            <TextView android:layout_width="80dip"
+            <TextView android:layout_width="85dip"
                       android:layout_height="wrap_content"
                       android:id="@+id/brand_hint"
                       android:paddingRight="2dip"
@@ -50,7 +50,7 @@
                 android:layout_margin="5dip"
                 android:orientation="horizontal">
 
-            <TextView android:layout_width="80dip"
+            <TextView android:layout_width="85dip"
                       android:layout_height="wrap_content"
                       android:id="@+id/model_hint"
                       android:paddingRight="2dip"
@@ -77,7 +77,7 @@
                 android:layout_margin="5dip"
                 android:orientation="horizontal">
 
-            <TextView android:layout_width="80dip"
+            <TextView android:layout_width="85dip"
                       android:layout_height="wrap_content"
                       android:id="@+id/region_hint"
                       android:paddingRight="2dip"

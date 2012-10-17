@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>ua.avtopoisk</groupId>
-    <artifactId>Main</artifactId>
+    <artifactId>main</artifactId>
     <version>0.5</version>
     <packaging>apk</packaging>
     <name>Avtopoisk - Application</name>

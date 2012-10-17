@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.ViewById;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.R;
 
@@ -24,21 +26,27 @@ import java.util.ArrayList;
 @EActivity(R.layout.search)
 public class SearchActivity extends Activity{
 
+    @ViewById(R.id.brands)
+    protected Spinner brands;
+
+    private ArrayAdapter<String> adapter;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         AvtopoiskParser parser = new AvtopoiskParser();
-        Spinner brands = (Spinner) findViewById(R.id.brands);
-        ArrayAdapter<String> adapter = null;
         ArrayList<String> brandsList = null;
         try {
             brandsList = new ArrayList<String>(parser.getBrands().keySet());
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        adapter = new ArrayAdapter<String>(this,
-                            android.R.layout.simple_list_item_1, brandsList) ;
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, brandsList) ;
+    }
+
+    @AfterViews
+    protected void init() {
         brands.setAdapter(adapter);
     }
 

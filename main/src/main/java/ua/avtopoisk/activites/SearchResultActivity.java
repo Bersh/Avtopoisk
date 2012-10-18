@@ -34,13 +34,13 @@ import java.util.HashMap;
 public class SearchResultActivity extends ListActivity {
     private ProgressDialog progressDialog;
 
-    @Extra(SearchActivity_.BRAND_ID_KEY)
+    @Extra(SearchActivity.BRAND_ID_KEY)
     int brandId;
 
-    @Extra(SearchActivity_.MODEL_ID_KEY)
+    @Extra(SearchActivity.MODEL_ID_KEY)
     int modelId;
 
-    @Extra(SearchActivity_.REGION_ID_KEY)
+    @Extra(SearchActivity.REGION_ID_KEY)
     int regionId;
 
     @Override

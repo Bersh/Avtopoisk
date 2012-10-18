@@ -3,6 +3,7 @@ package ua.avtopoisk.activites;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.widget.ListView;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.Extra;
 import domain.Car;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.CarAdapter;
@@ -32,10 +34,19 @@ import java.util.HashMap;
 public class SearchResultActivity extends ListActivity {
     private ProgressDialog progressDialog;
 
+    @Extra(SearchActivity_.BRAND_ID_KEY)
+    int brandId;
+
+    @Extra(SearchActivity_.MODEL_ID_KEY)
+    int modelId;
+
+    @Extra(SearchActivity_.REGION_ID_KEY)
+    int regionId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressDialog = ProgressDialog.show(this, "", getString(R.string.dlg_progress_search), true);
+        progressDialog = ProgressDialog.show(this, "", getString(R.string.dlg_progress_data_loading), true);
     }
 
     @AfterViews
@@ -69,7 +80,7 @@ public class SearchResultActivity extends ListActivity {
 
             ArrayList<Car> cars = null;
             try {
-                cars = parser.parse();
+                cars = parser.parse(brandId, modelId, regionId);
             } catch (IOException e) {
                 Log.e(listView.getContext().getString(R.string.app_name), e.getMessage());
             }

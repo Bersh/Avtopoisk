@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
@@ -17,16 +17,41 @@ import java.util.HashMap;
 public class AvtopoiskParser {
     private static final String baseUrl = "http://www.avtopoisk.ua/";
 
-    public ArrayList<Car> parse() throws IOException {
+    /**
+     * Build params string from given params values
+     * @param brandId brand id
+     * @param modelId model is
+     * @param regionId region id
+     * @return result params string like &m[]=223&n[]=1761&r[]=2
+     */
+    private String buildParamsString(int brandId, int modelId, int regionId){
+        StringBuilder sb = new StringBuilder();
+        if (brandId > 0) {
+            sb.append("&m[]=");
+            sb.append(brandId);
+        }
+        if (modelId > 0) {
+            sb.append("&n[]=");
+            sb.append(modelId);
+        }
+        if (regionId > 0) {
+            sb.append("&r[]=");
+            sb.append(regionId);
+        }
+        return sb.toString();
+    }
+
+    public ArrayList<Car> parse(int brandId, int modelId, int regionId) throws IOException {
         ArrayList<Car> resultList = new ArrayList<Car>();
+        String paramsString = buildParamsString(brandId, modelId, regionId);
         for (int w = 1; w < 2; ++w) {
-            Document doc = Jsoup.connect(baseUrl + "?w=" + w).get();
+            Document doc = Jsoup.connect(baseUrl + "?w=" + w + paramsString).get();
             Elements carElements = doc.getElementsByClass("car");
 
             for (Element carElement : carElements) {
                 Element info = carElement.getElementsByClass("info").get(0);
 
-                if(!info.getElementsByClass("sold").isEmpty()) {       //check if car already sold
+                if (!info.getElementsByClass("sold").isEmpty()) {       //check if car already sold
                     continue;
                 }
 
@@ -73,15 +98,48 @@ public class AvtopoiskParser {
 
     /**
      * Parse brands list from select
+     *
      * @return brands list
      * @throws IOException is parsing fails
      */
-    public HashMap<String, Integer> getBrands() throws IOException {
-        HashMap<String, Integer> result = new HashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> getBrands() throws IOException {
+        LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
         Document doc = Jsoup.connect(baseUrl).get();
         Elements brands = doc.getElementsByClass("select_mark").get(0).children();
-        for(Element brand : brands) {
+        for (Element brand : brands) {
             result.put(brand.text(), Integer.parseInt(brand.val()));
+        }
+        return result;
+    }
+
+    /**
+     * Parse models list from select for given brand
+     *
+     * @return models list
+     * @throws IOException is parsing fails
+     */
+    public LinkedHashMap<String, Integer> getModels(int brandId) throws IOException {
+        LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
+        Document doc = Jsoup.connect(baseUrl + "?m[]=" + brandId).get();
+        Elements models = doc.getElementsByAttributeValue("name", "n[]").get(0).children();
+        for (Element model : models) {
+            result.put(model.text(), Integer.parseInt(model.val()));
+        }
+        return result;
+    }
+
+    /**
+     * Parse regions list from select
+     *
+     * @return regions list
+     * @throws IOException is parsing fails
+     */
+    public LinkedHashMap<String, Integer> getRegions() throws IOException {
+        LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
+        Document doc = Jsoup.connect(baseUrl).get();
+        Elements regions = doc.getElementsByAttributeValue("name", "r[]").get(0).children();
+        for (Element region : regions) {
+            result.put(region.text(), Integer.parseInt(region.val()));
         }
         return result;
     }

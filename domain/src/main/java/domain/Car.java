@@ -1,5 +1,7 @@
 package domain;
 
+import android.graphics.Bitmap;
+
 /**
  * Represents car
  *
@@ -17,13 +19,14 @@ public class Car{
     private EngineType engineType;
     private String linkToDetails;
     private String imageUrl;
+    private Bitmap image;
     private String city;
     private String datePosted;
     private String engineDesc; //pure engine description string. As it is on web page
 
 
-    public Car(String model, String brand, int mileage, int year, float engineCapacity, long price, String imageUrl, String city, String datePosted, String engineDesc) {
-        this(model, brand, mileage, year, engineCapacity, price, TransmissionType.NA, EngineType.NA, "", imageUrl, city, datePosted, engineDesc);
+    public Car(String model, String brand, int mileage, int year, float engineCapacity, long price, String linkToDetails, String imageUrl, String city, String datePosted, String engineDesc) {
+        this(model, brand, mileage, year, engineCapacity, price, TransmissionType.NA, EngineType.NA, linkToDetails, imageUrl, city, datePosted, engineDesc);
     }
 
     public Car(String model, String brand, int mileage, int year, float engineCapacity, long price, TransmissionType transmissionType,
@@ -93,5 +96,13 @@ public class Car{
 
     public String getEngineDesc() {
         return engineDesc;
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 }

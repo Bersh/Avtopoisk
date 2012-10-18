@@ -6,14 +6,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
-import com.googlecode.androidannotations.annotations.AfterViews;
-import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.Extra;
+import com.googlecode.androidannotations.annotations.*;
 import domain.Car;
+import org.apache.commons.codec.DecoderException;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.CarAdapter;
 import ua.avtopoisk.R;
@@ -62,26 +62,26 @@ public class SearchResultActivity extends ListActivity {
         super.onDestroy();
     }
 
-    private class SearchAsyncTask extends AsyncTask<ListView, Void, Void> {
-        private static final String HEADER = "header";
-        private static final String PRICE = "price";
-        private static final String IMAGE = "image";
-        private static final String CITY = "city";
-        private static final String DATE_POSTED = "datePosted";
-        private static final String ENGINE_DESC = "engineDesc";
+    @ItemLongClick
+    public void listItemLongClicked(Car clicked) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(clicked.getLinkToDetails()));
+        startActivity(intent);
+    }
 
+    private class SearchAsyncTask extends AsyncTask<ListView, Void, Void> {
         private ListView listView;
-        private ArrayList<HashMap<String, Object>> items;
+        private ArrayList<Car> cars;
 
         @Override
         protected Void doInBackground(ListView... lv) {
             this.listView = lv[0];
             AvtopoiskParser parser = new AvtopoiskParser();
 
-            ArrayList<Car> cars = null;
             try {
                 cars = parser.parse(brandId, modelId, regionId);
             } catch (IOException e) {
+                Log.e(listView.getContext().getString(R.string.app_name), e.getMessage());
+            } catch (DecoderException e) {
                 Log.e(listView.getContext().getString(R.string.app_name), e.getMessage());
             }
 
@@ -89,20 +89,12 @@ public class SearchResultActivity extends ListActivity {
                 return null;
             }
 
-            items = new ArrayList<HashMap<String, Object>>();
-
             for (Car car : cars) {
-                final HashMap<String, Object> hm = new HashMap<String, Object>();
-                String header = car.getYear() + "' " + car.getBrand() + " " + car.getModel();
-                hm.put(HEADER, header);
-                hm.put(PRICE, Long.valueOf(car.getPrice() / 100).toString() + " $");
-                hm.put(CITY, car.getCity());
-                hm.put(DATE_POSTED, car.getDatePosted());
-                hm.put(ENGINE_DESC, car.getEngineDesc());
-
                 URL url;
                 Bitmap bmp = null;
-                if (!car.getImageUrl().contains("no_foto")) {     //if no photo default image will be loaded in adapter
+                if (car.getImageUrl().contains("no_foto")) {  //if no photo load default image
+                    bmp = BitmapFactory.decodeResource(getResources(), R.drawable.no_photo);
+                } else {  //if no photo present load it from net
                     try {
                         url = new URL(car.getImageUrl());
                         bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
@@ -110,19 +102,14 @@ public class SearchResultActivity extends ListActivity {
                         Log.e(listView.getContext().getString(R.string.app_name), e.getMessage());
                     }
                 }
-                hm.put(IMAGE, bmp);
-                items.add(hm);
+                car.setImage(bmp);
             }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            CarAdapter adapter = new CarAdapter(listView.getContext(),
-                    items, R.layout.cars_list_item,
-                    new String[]{HEADER, PRICE, IMAGE, CITY, DATE_POSTED, ENGINE_DESC},
-                    new int[]{R.id.car_info_header, R.id.price, R.id.img, R.id.city, R.id.date_posted, R.id.engine_desc},
-                    IMAGE);
+            CarAdapter adapter = new CarAdapter(listView.getContext(), R.layout.cars_list_item, cars);
 
             listView.setAdapter(adapter);
             progressDialog.dismiss();

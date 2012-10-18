@@ -1,6 +1,8 @@
 package parsers;
 
 import domain.Car;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.net.URLCodec;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -41,7 +43,7 @@ public class AvtopoiskParser {
         return sb.toString();
     }
 
-    public ArrayList<Car> parse(int brandId, int modelId, int regionId) throws IOException {
+    public ArrayList<Car> parse(int brandId, int modelId, int regionId) throws IOException, DecoderException {
         ArrayList<Car> resultList = new ArrayList<Car>();
         String paramsString = buildParamsString(brandId, modelId, regionId);
         for (int w = 1; w < 2; ++w) {
@@ -61,6 +63,11 @@ public class AvtopoiskParser {
                 String[] strings = s.split(" ", 2);  //formatted like "ВАЗ 2101"
                 String brand = strings[0]; //ВАЗ
                 String model = strings[1]; //2101
+
+                s = info.child(1).child(0).attr("href"); // /go/?s=1&c=217972&u=http%3A%2F%2Favtobazar.infocar.ua%2Fcar%2Fdnepropetrovskaya-oblast%2Fdnepropetrovsk%2Fvaz%2F2106%2Fsedan-1986-217972.html
+                s = s.substring(s.indexOf("http"));  //http%3A%2F%2Favtobazar.infocar.ua%2Fcar%2Fdnepropetrovskaya-oblast%2Fdnepropetrovsk%2Fvaz%2F2106%2Fsedan-1986-217972.html
+                URLCodec codec = new URLCodec();
+                String linkToDetails = codec.decode(s);
 
                 Element imageContainer = carElement.getElementsByClass("foto").get(0);
                 s = imageContainer.child(0).attr("style");   //background-image:url('http://i2.avtopoisk.ua/foto/1/4618918.jpg')
@@ -90,7 +97,7 @@ public class AvtopoiskParser {
                 String city = Jsoup.parse(strings[0]).text();
                 String datePosted = Jsoup.parse(strings[1]).text().replace(" ", "");
 
-                resultList.add(new Car(model, brand, mileage, year, engineCapacity, price, imageUrl, city, datePosted, engineDesc));
+                resultList.add(new Car(model, brand, mileage, year, engineCapacity, price, linkToDetails, imageUrl, city, datePosted, engineDesc));
             }
         }
         return resultList;

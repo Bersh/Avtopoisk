@@ -2,13 +2,20 @@
 <resources>
 
     <style name="CustomWindowTitleBackground">
-        <item name="android:background">@drawable/background_header</item>
+        <item name="android:background">@drawable/title_background</item>
+    </style>
+
+    <style name="CustomWindowTitleText">
+        <item name="android:textSize">25dip</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:paddingLeft">5dip</item>
     </style>
 
     <style name="AvtopoiskTheme" parent="android:Theme.Light">
         <item name="android:windowBackground">@drawable/bitmap_background</item>
         <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
+        <item name="android:windowTitleStyle">@style/CustomWindowTitleText</item>
         <item name="android:windowTitleSize">24dip</item>
     </style>
 

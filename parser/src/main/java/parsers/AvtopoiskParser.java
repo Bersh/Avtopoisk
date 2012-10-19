@@ -21,12 +21,13 @@ public class AvtopoiskParser {
 
     /**
      * Build params string from given params values
-     * @param brandId brand id
-     * @param modelId model is
+     *
+     * @param brandId  brand id
+     * @param modelId  model is
      * @param regionId region id
      * @return result params string like &m[]=223&n[]=1761&r[]=2
      */
-    private String buildParamsString(int brandId, int modelId, int regionId){
+    private String buildParamsString(int brandId, int modelId, int regionId) {
         StringBuilder sb = new StringBuilder();
         if (brandId > 0) {
             sb.append("&m[]=");
@@ -65,7 +66,7 @@ public class AvtopoiskParser {
                 String model = strings[1]; //2101
 
                 s = info.child(1).child(0).attr("href"); // /go/?s=1&c=217972&u=http%3A%2F%2Favtobazar.infocar.ua%2Fcar%2Fdnepropetrovskaya-oblast%2Fdnepropetrovsk%2Fvaz%2F2106%2Fsedan-1986-217972.html
-                s = s.substring(s.indexOf("http"));  //http%3A%2F%2Favtobazar.infocar.ua%2Fcar%2Fdnepropetrovskaya-oblast%2Fdnepropetrovsk%2Fvaz%2F2106%2Fsedan-1986-217972.html
+                s = s.substring(s.indexOf("http"));
                 URLCodec codec = new URLCodec();
                 String linkToDetails = codec.decode(s);
 

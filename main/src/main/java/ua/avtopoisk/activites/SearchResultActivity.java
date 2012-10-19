@@ -11,7 +11,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
-import com.googlecode.androidannotations.annotations.*;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.Extra;
+import com.googlecode.androidannotations.annotations.ItemClick;
 import domain.Car;
 import org.apache.commons.codec.DecoderException;
 import parsers.AvtopoiskParser;
@@ -21,7 +24,6 @@ import ua.avtopoisk.R;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Search result activity. List of cars returned by parser
@@ -62,8 +64,8 @@ public class SearchResultActivity extends ListActivity {
         super.onDestroy();
     }
 
-    @ItemLongClick
-    public void listItemLongClicked(Car clicked) {
+    @ItemClick
+    public void listItemClicked(Car clicked) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(clicked.getLinkToDetails()));
         startActivity(intent);
     }

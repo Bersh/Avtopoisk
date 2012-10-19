@@ -1,4 +1,5 @@
 package ua.avtopoisk;
+
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import de.akquinet.android.androlog.Log;

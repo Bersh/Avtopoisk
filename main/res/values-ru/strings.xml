@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Application-->
-    <string name="app_name">Avtopoisk</string>
+    <string name="app_name">Автопоиск</string>
     <string name="dlg_progress_data_loading">Загрузка данных…</string>
     <!--/Application-->
 
@@ -13,6 +13,7 @@
     <string name="brand_hint_text">Марка:</string>
     <string name="model_hint_text">Модель:</string>
     <string name="region_hint_text">Регион:</string>
+    <string name="year_section_hint_text">Год выпуска</string>
     <string name="brands_prompt">Выберите марку</string>
     <string name="models_prompt">Выберите модель</string>
     <string name="regions_prompt">Выберите регион</string>

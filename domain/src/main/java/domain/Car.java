@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 07.10.12
  */
-public class Car{
+public class Car {
     private String model;
     private String brand;
     private int mileage;

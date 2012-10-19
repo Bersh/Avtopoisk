@@ -65,8 +65,8 @@
         <profile>
             <id>release</id>
             <build>
-               <plugins>
-<!--                    <plugin>
+                <plugins>
+                    <!--                    <plugin>
                         <groupId>com.pyx4me</groupId>
                         <artifactId>proguard-maven-plugin</artifactId>
                         <executions>

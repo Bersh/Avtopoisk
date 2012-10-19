@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomWindowTitleBackground">
+        <item name="android:background">@drawable/background_header</item>
+        <item name="android:paddingLeft">5dip</item>
+    </style>
+
+    <style name="AvtopoiskTheme" parent="android:Theme.Light">
+        <item name="android:windowBackground">@drawable/bitmap_background</item>
+        <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
+        <item name="android:windowTitleSize">24dip</item>
+    </style>
+
+</resources>

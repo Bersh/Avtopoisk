@@ -18,5 +18,4 @@
         <item name="android:windowTitleStyle">@style/CustomWindowTitleStyle</item>
         <item name="android:windowTitleSize">30dip</item>
     </style>
-
 </resources>

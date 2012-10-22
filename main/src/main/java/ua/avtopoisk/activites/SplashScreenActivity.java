@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ProgressBar;
+import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
 import parsers.AvtopoiskParser;
+import parsers.AvtopoiskParserImpl;
 import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.R;
 
@@ -20,8 +22,10 @@ import java.util.LinkedHashMap;
  * @since 19.10.12
  */
 @EActivity(R.layout.splash)
+@RoboGuice
 public class SplashScreenActivity extends Activity {
-    private AvtopoiskParser parser = new AvtopoiskParser();
+    @Inject
+    private AvtopoiskParserImpl parser;
 
     @Bean
     BrandsAndRegionsHolder brandsAndRegionsHolder;

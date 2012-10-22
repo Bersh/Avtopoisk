@@ -11,13 +11,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
-import com.googlecode.androidannotations.annotations.AfterViews;
-import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.Extra;
-import com.googlecode.androidannotations.annotations.ItemClick;
+import com.google.inject.Inject;
+import com.googlecode.androidannotations.annotations.*;
 import domain.Car;
 import org.apache.commons.codec.DecoderException;
 import parsers.AvtopoiskParser;
+import parsers.AvtopoiskParserImpl;
 import ua.avtopoisk.CarAdapter;
 import ua.avtopoisk.R;
 
@@ -33,6 +32,7 @@ import java.util.ArrayList;
  */
 
 @EActivity(R.layout.search_result)
+@RoboGuice
 public class SearchResultActivity extends ListActivity {
     private ProgressDialog progressDialog;
 
@@ -44,6 +44,9 @@ public class SearchResultActivity extends ListActivity {
 
     @Extra(SearchActivity.REGION_ID_KEY)
     int regionId;
+
+    @Inject
+    private AvtopoiskParserImpl parser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +80,6 @@ public class SearchResultActivity extends ListActivity {
         @Override
         protected Void doInBackground(ListView... lv) {
             this.listView = lv[0];
-            AvtopoiskParser parser = new AvtopoiskParser();
 
             try {
                 cars = parser.parse(brandId, modelId, regionId);
@@ -117,6 +119,4 @@ public class SearchResultActivity extends ListActivity {
             progressDialog.dismiss();
         }
     }
-
-
 }

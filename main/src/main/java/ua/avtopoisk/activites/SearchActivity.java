@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
 import parsers.AvtopoiskParser;
+import parsers.AvtopoiskParserImpl;
 import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.R;
 
@@ -25,6 +27,7 @@ import java.util.LinkedHashMap;
  * @since 12.10.12
  */
 @EActivity(R.layout.search)
+@RoboGuice
 public class SearchActivity extends Activity {
     public static final String BRAND_ID_KEY = "brand";
     public static final String MODEL_ID_KEY = "model";
@@ -48,7 +51,8 @@ public class SearchActivity extends Activity {
     LinkedHashMap<String, Integer> regionsMap;
     private LinkedHashMap<String, Integer> modelsMap;
 
-    private AvtopoiskParser parser = new AvtopoiskParser();
+    @Inject
+    private AvtopoiskParserImpl parser;
     private ProgressDialog progressDialog;
 
     @Override

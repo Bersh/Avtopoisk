@@ -13,9 +13,12 @@
     <string name="brand_hint_text">Марка:</string>
     <string name="model_hint_text">Модель:</string>
     <string name="region_hint_text">Регион:</string>
-    <string name="year_section_hint_text">Год выпуска</string>
+    <string name="year_section_hint_text">Год выпуска:</string>
     <string name="brands_prompt">Выберите марку</string>
     <string name="models_prompt">Выберите модель</string>
     <string name="regions_prompt">Выберите регион</string>
+    <string name="year_prompt">Выберите год</string>
+    <string name="year_from_hint">От:</string>
+    <string name="year_to_hint">До:</string>
     <!--/SearchActivity-->
 </resources>

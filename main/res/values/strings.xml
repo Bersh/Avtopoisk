@@ -14,10 +14,13 @@
     <string name="brand_hint_text">Brand:</string>
     <string name="model_hint_text">Model:</string>
     <string name="region_hint_text">Region:</string>
-    <string name="year_section_hint_text">Year</string>
+    <string name="year_section_hint_text">Year:</string>
     <string name="brands_prompt">Select brand</string>
     <string name="models_prompt">Select model</string>
     <string name="regions_prompt">Select region</string>
+    <string name="year_prompt">Select year</string>
+    <string name="year_from_hint">From:</string>
+    <string name="year_to_hint">To:</string>
     <!--/SearchActivity-->
 
 </resources>

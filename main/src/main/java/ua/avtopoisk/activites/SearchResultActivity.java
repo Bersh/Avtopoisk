@@ -15,6 +15,7 @@ import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import domain.Car;
 import org.apache.commons.codec.DecoderException;
+import org.apache.commons.lang.StringUtils;
 import parsers.AvtopoiskParser;
 import parsers.AvtopoiskParserImpl;
 import ua.avtopoisk.CarAdapter;
@@ -44,6 +45,12 @@ public class SearchResultActivity extends ListActivity {
 
     @Extra(SearchActivity.REGION_ID_KEY)
     int regionId;
+
+    @Extra(SearchActivity.YEAR_FROM_KEY)
+    String yearFrom;
+
+    @Extra(SearchActivity.YEAR_TO_KEY)
+    String yearTo;
 
     @Inject
     private AvtopoiskParserImpl parser;
@@ -80,9 +87,11 @@ public class SearchResultActivity extends ListActivity {
         @Override
         protected Void doInBackground(ListView... lv) {
             this.listView = lv[0];
+            int aYearFrom = StringUtils.isEmpty(yearFrom) ? 0 : Integer.parseInt(yearFrom);
+            int aYearTo = StringUtils.isEmpty(yearFrom) ? 0 : Integer.parseInt(yearTo);
 
             try {
-                cars = parser.parse(brandId, modelId, regionId);
+                cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo);
             } catch (IOException e) {
                 Log.e(listView.getContext().getString(R.string.app_name), e.getMessage());
             } catch (DecoderException e) {

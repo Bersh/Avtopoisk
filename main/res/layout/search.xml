@@ -21,10 +21,11 @@
                 android:layout_margin="5dip"
                 android:orientation="horizontal">
 
-            <TextView android:layout_width="85dip"
+            <TextView android:layout_width="90dip"
                       android:layout_height="wrap_content"
                       android:id="@+id/brand_hint"
                       android:paddingRight="2dip"
+                      android:textStyle="bold"
                       android:gravity="left"
                       android:textSize="20dip"
                       android:textColor="#000"
@@ -48,12 +49,13 @@
                 android:layout_margin="5dip"
                 android:orientation="horizontal">
 
-            <TextView android:layout_width="85dip"
+            <TextView android:layout_width="90dip"
                       android:layout_height="wrap_content"
                       android:id="@+id/model_hint"
                       android:paddingRight="2dip"
                       android:gravity="left"
                       android:textSize="20dip"
+                      android:textStyle="bold"
                       android:textColor="#000"
                       android:layout_gravity="center_vertical"
                       android:text="@string/model_hint_text"/>
@@ -75,12 +77,13 @@
                 android:layout_margin="5dip"
                 android:orientation="horizontal">
 
-            <TextView android:layout_width="85dip"
+            <TextView android:layout_width="90dip"
                       android:layout_height="wrap_content"
                       android:id="@+id/region_hint"
                       android:paddingRight="2dip"
                       android:gravity="left"
                       android:textSize="20dip"
+                      android:textStyle="bold"
                       android:textColor="#000"
                       android:layout_gravity="center_vertical"
                       android:text="@string/region_hint_text"/>
@@ -101,11 +104,12 @@
                   android:layout_height="wrap_content"
                   android:id="@+id/year_section_hint"
                   android:paddingTop="5dip"
+                  android:paddingLeft="5dip"
                   android:paddingBottom="5dip"
-                  android:gravity="center"
+                  android:textStyle="bold"
                   android:textSize="20dip"
                   android:textColor="#000"
-                  android:layout_gravity="center_vertical"
+                  android:layout_gravity="left"
                   android:text="@string/year_section_hint_text"/>
 
         <!--year spinners and hints-->
@@ -123,12 +127,13 @@
                       android:paddingRight="5dip"
                       android:layout_alignParentLeft="true"
                       android:layout_centerInParent="true"
-                      android:text="От:"/>
+                      android:text="@string/year_from_hint"/>
 
             <Spinner
                     android:id="@+id/year_from"
                     android:layout_width="100dip"
                     android:layout_toRightOf="@+id/year_from_hint"
+                    android:gravity="center"
                     android:layout_height="wrap_content"/>
 
             <TextView android:layout_width="wrap_content"
@@ -139,11 +144,12 @@
                       android:textColor="#000"
                       android:layout_toLeftOf="@+id/year_to"
                       android:layout_centerInParent="true"
-                      android:text="До:"/>
+                      android:text="@string/year_to_hint"/>
             <Spinner
                     android:id="@+id/year_to"
                     android:layout_alignParentRight="true"
                     android:layout_width="100dip"
+                    android:gravity="center"
                     android:layout_height="wrap_content"/>
         </RelativeLayout>
 

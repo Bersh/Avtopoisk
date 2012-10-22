@@ -32,6 +32,8 @@ public class SearchActivity extends Activity {
     public static final String BRAND_ID_KEY = "brand";
     public static final String MODEL_ID_KEY = "model";
     public static final String REGION_ID_KEY = "region";
+    public static final String YEAR_FROM_KEY = "yearFrom";
+    public static final String YEAR_TO_KEY = "yearTo";
 
     @Bean
     BrandsAndRegionsHolder brandsAndRegionsHolder;
@@ -45,10 +47,20 @@ public class SearchActivity extends Activity {
     @ViewById(R.id.regions)
     protected Spinner regions;
 
+    @ViewById(R.id.year_from)
+    protected Spinner yearFrom;
+
+    @ViewById(R.id.year_to)
+    protected Spinner yearTo;
+
     private ArrayAdapter<String> adapter;
 
     LinkedHashMap<String, Integer> brandsMap;
     LinkedHashMap<String, Integer> regionsMap;
+
+    @Extra(SplashScreenActivity.YEARS_KEY)
+    ArrayList<String> yearsList;
+
     private LinkedHashMap<String, Integer> modelsMap;
 
     @Inject
@@ -66,6 +78,7 @@ public class SearchActivity extends Activity {
     protected void init() {
         populateBrands();
         populateRegions();
+        populateYears();
 
         brands.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -94,22 +107,15 @@ public class SearchActivity extends Activity {
     }
 
     @Click(R.id.btn_find)
-    public void btnFindOnClick(View view) {
+    protected void btnFindOnClick(View view) {
         final Intent intent = new Intent(SearchActivity.this, SearchResultActivity_.class);
         intent.putExtra(BRAND_ID_KEY, brandsMap.get(brands.getSelectedItem().toString()));
         int modelId = (models.isEnabled()) ? modelsMap.get(models.getSelectedItem().toString()) : 0;
         intent.putExtra(MODEL_ID_KEY, modelId);
+        intent.putExtra(YEAR_FROM_KEY, yearFrom.getSelectedItem().toString());
+        intent.putExtra(YEAR_TO_KEY, yearTo.getSelectedItem().toString());
         intent.putExtra(REGION_ID_KEY, regionsMap.get(regions.getSelectedItem().toString()));
         startActivity(intent);
-    }
-
-
-    @UiThread
-    protected void populateBrands() {
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new ArrayList<String>(brandsMap.keySet()));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        brands.setAdapter(adapter);
-        brands.setPrompt(getString(R.string.brands_prompt));
     }
 
     @Background
@@ -123,7 +129,22 @@ public class SearchActivity extends Activity {
         populateModels(aModels);
     }
 
-    @UiThread
+    protected void populateBrands() {
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new ArrayList<String>(brandsMap.keySet()));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        brands.setAdapter(adapter);
+        brands.setPrompt(getString(R.string.brands_prompt));
+    }
+
+    protected void populateYears() {
+        ArrayAdapter<String> yearsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, yearsList);
+        yearsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        yearFrom.setAdapter(yearsAdapter);
+        yearFrom.setPrompt(getString(R.string.year_prompt));
+        yearTo.setAdapter(yearsAdapter);
+        yearTo.setPrompt(getString(R.string.year_prompt));
+    }
+
     protected void populateModels(LinkedHashMap<String, Integer> aModels) {
         modelsMap = aModels;
         adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(modelsMap.keySet()));
@@ -136,7 +157,6 @@ public class SearchActivity extends Activity {
         }
     }
 
-    @UiThread
     protected void populateRegions() {
         adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(regionsMap.keySet()));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

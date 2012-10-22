@@ -7,12 +7,12 @@ import android.widget.ProgressBar;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
-import parsers.AvtopoiskParser;
 import parsers.AvtopoiskParserImpl;
 import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -24,6 +24,8 @@ import java.util.LinkedHashMap;
 @EActivity(R.layout.splash)
 @RoboGuice
 public class SplashScreenActivity extends Activity {
+    public static final String YEARS_KEY = "years";
+
     @Inject
     private AvtopoiskParserImpl parser;
 
@@ -36,34 +38,45 @@ public class SplashScreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getBrandsAndRegions();
+        loadData();
     }
 
     @Background
-    protected void getBrandsAndRegions() {
+    protected void loadData() {
         publishProgress(10);
-        LinkedHashMap<String, Integer> aBrands = null;
+        LinkedHashMap<String, Integer> brands = null;
         try {
-            aBrands = parser.getBrands();
+            brands = parser.getBrands();
         } catch (IOException e) {
             Log.e(getString(R.string.app_name), e.getMessage());
         }
-        publishProgress(40);
-        LinkedHashMap<String, Integer> aRegions = null;
+        publishProgress(30);
+
+        LinkedHashMap<String, Integer> regions = null;
         try {
-            aRegions = parser.getRegions();
+            regions = parser.getRegions();
         } catch (IOException e) {
             Log.e(getString(R.string.app_name), e.getMessage());
         }
-        populateData(aBrands, aRegions);
+        publishProgress(60);
+
+        ArrayList<String> years = null;
+        try {
+            years = parser.getYears();
+        } catch (IOException e) {
+            Log.e(getString(R.string.app_name), e.getMessage());
+        }
+
+        populateData(brands, regions, years);
         publishProgress(70);
     }
 
     @UiThread
-    protected void populateData(LinkedHashMap<String, Integer> aBrands, LinkedHashMap<String, Integer> aRegions) {
+    protected void populateData(LinkedHashMap<String, Integer> brands, LinkedHashMap<String, Integer> regions, ArrayList<String> years) {
         Intent intent = new Intent(SplashScreenActivity.this, SearchActivity_.class);
-        brandsAndRegionsHolder.brandsMap = aBrands;
-        brandsAndRegionsHolder.regionsMap = aRegions;
+        brandsAndRegionsHolder.brandsMap = brands;
+        brandsAndRegionsHolder.regionsMap = regions;
+        intent.putExtra(YEARS_KEY, years);
         publishProgress(100);
         startActivity(intent);
         finish();

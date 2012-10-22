@@ -21,14 +21,9 @@ import java.util.LinkedHashMap;
 @Singleton
 public class AvtopoiskParserImpl implements AvtopoiskParser{
     private static final String baseUrl = "http://www.avtopoisk.ua/";
-    private static Document baseDoc;
-    static {
-        try {
-            baseDoc = Jsoup.connect(baseUrl).get();
-        } catch (IOException e) {
 
-        }
-    }
+    //cached document instance to receive base data
+    private static Document baseDoc;
 
     /**
      * Build params string from given params values
@@ -38,7 +33,7 @@ public class AvtopoiskParserImpl implements AvtopoiskParser{
      * @param regionId region id
      * @return result params string like &m[]=223&n[]=1761&r[]=2
      */
-    private String buildParamsString(int brandId, int modelId, int regionId) {
+    private String buildParamsString(int brandId, int modelId, int regionId, int yearFrom, int yearTo) {
         StringBuilder sb = new StringBuilder();
         if (brandId > 0) {
             sb.append("&m[]=");
@@ -52,12 +47,20 @@ public class AvtopoiskParserImpl implements AvtopoiskParser{
             sb.append("&r[]=");
             sb.append(regionId);
         }
+        if (yearFrom > 0) {
+            sb.append("&y1=");
+            sb.append(yearFrom);
+        }
+        if (yearTo > 0) {
+            sb.append("&y2=");
+            sb.append(yearTo);
+        }
         return sb.toString();
     }
 
-    public ArrayList<Car> parse(int brandId, int modelId, int regionId) throws IOException, DecoderException {
+    public ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo) throws IOException, DecoderException {
         ArrayList<Car> resultList = new ArrayList<Car>();
-        String paramsString = buildParamsString(brandId, modelId, regionId);
+        String paramsString = buildParamsString(brandId, modelId, regionId, yearFrom, yearTo);
         for (int w = 1; w < 2; ++w) {
             Document doc = Jsoup.connect(baseUrl + "?w=" + w + paramsString).get();
             Elements carElements = doc.getElementsByClass("car");
@@ -115,68 +118,54 @@ public class AvtopoiskParserImpl implements AvtopoiskParser{
         return resultList;
     }
 
-    /**
-     * Parse brands list from select
-     *
-     * @return brands list
-     * @throws IOException is parsing fails
-     */
     public LinkedHashMap<String, Integer> getBrands() throws IOException {
+        checkBaseDoc();
         LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
-        Document doc = Jsoup.connect(baseUrl).get();
-        Elements brands = doc.getElementsByClass("select_mark").get(0).children();
+        Elements brands = baseDoc.getElementsByClass("select_mark").get(0).children();
         for (Element brand : brands) {
             result.put(brand.text(), Integer.parseInt(brand.val()));
         }
         return result;
     }
 
-    /**
-     * Parse models list from select for given brand
-     *
-     * @return models list
-     * @throws IOException is parsing fails
-     */
     public LinkedHashMap<String, Integer> getModels(int brandId) throws IOException {
+        checkBaseDoc();
         LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
-        Document doc = Jsoup.connect(baseUrl + "?m[]=" + brandId).get();
-        Elements models = doc.getElementsByAttributeValue("name", "n[]").get(0).children();
+        Elements models = baseDoc.getElementsByAttributeValue("name", "n[]").get(0).children();
         for (Element model : models) {
             result.put(model.text(), Integer.parseInt(model.val()));
         }
         return result;
     }
 
-    /**
-     * Parse regions list from select
-     *
-     * @return regions list
-     * @throws IOException is parsing fails
-     */
     public LinkedHashMap<String, Integer> getRegions() throws IOException {
+        checkBaseDoc();
         LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
-        Document doc = Jsoup.connect(baseUrl).get();
-        Elements regions = doc.getElementsByAttributeValue("name", "r[]").get(0).children();
+        Elements regions = baseDoc.getElementsByAttributeValue("name", "r[]").get(0).children();
         for (Element region : regions) {
             result.put(region.text(), Integer.parseInt(region.val()));
         }
         return result;
     }
 
+    public ArrayList<String> getYears() throws IOException {
+        checkBaseDoc();
+        ArrayList<String> result = new ArrayList<String>();
+        Elements years = baseDoc.getElementsByAttributeValue("name", "y1").get(0).children();
+        for (Element year : years) {
+            result.add(year.text());
+        }
+        return result;
+    }
 
     /**
-     * Parse years list from select
-     *
-     * @return years list
-     * @throws IOException is parsing fails
+     * Load baseDoc if null
+     * @throws IOException if connect fails
      */
-    public LinkedHashMap<String, Integer> getYears() throws IOException {
-        LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
-        Document doc = Jsoup.connect(baseUrl).get();
-        Elements regions = doc.getElementsByAttributeValue("name", "r[]").get(0).children();
-        for (Element region : regions) {
-            result.put(region.text(), Integer.parseInt(region.val()));
+    private void checkBaseDoc() throws IOException {
+        if(baseDoc == null) {
+            baseDoc = Jsoup.connect(baseUrl).get();
         }
-        return result;
     }
+
 }

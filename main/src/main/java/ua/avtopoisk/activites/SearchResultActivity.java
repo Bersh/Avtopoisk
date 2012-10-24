@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.ListView;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
+import com.googlecode.androidannotations.annotations.res.StringRes;
 import domain.Car;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.lang.StringUtils;
@@ -53,6 +54,15 @@ public class SearchResultActivity extends ListActivity {
     @Extra(SearchActivity.YEAR_TO_KEY)
     String yearTo;
 
+    @Extra(SearchActivity.PRICE_FROM_KEY)
+    String priceFrom;
+
+    @Extra(SearchActivity.PRICE_TO_KEY)
+    String priceTo;
+
+    @StringRes(R.string.any)
+    String anyString;
+
     @Inject
     private AvtopoiskParserImpl parser;
 
@@ -91,11 +101,12 @@ public class SearchResultActivity extends ListActivity {
         @Override
         protected Void doInBackground(ListView... lv) {
             this.listView = lv[0];
-            int aYearFrom = StringUtils.isEmpty(yearFrom) ? 0 : Integer.parseInt(yearFrom);
-            int aYearTo = StringUtils.isEmpty(yearFrom) ? 0 : Integer.parseInt(yearTo);
-
+            int aYearFrom = StringUtils.isEmpty(yearFrom) || yearFrom.equals(anyString) ? 0 : Integer.parseInt(yearFrom);
+            int aYearTo = StringUtils.isEmpty(yearTo) || yearTo.equals(anyString) ? 0 : Integer.parseInt(yearTo);
+            int aPriceFrom =  StringUtils.isEmpty(priceFrom) || priceFrom.equals(anyString) ? 0 : Integer.parseInt(priceFrom);
+            int aPriceTo = StringUtils.isEmpty(priceTo) || priceTo.equals(anyString) ? 0 : Integer.parseInt(priceTo);
             try {
-                cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo);
+                cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo, aPriceFrom, aPriceTo);
             } catch (IOException e) {
                 Log.e(listView.getContext().getString(R.string.app_name), e.getMessage());
             } catch (DecoderException e) {

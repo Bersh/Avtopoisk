@@ -1,6 +1,6 @@
 <resources>
     <string-array name="years">
-        <item></item>
+        <item>@string/any</item>
         <item>2012</item>
         <item>2011</item>
         <item>2010</item>
@@ -64,5 +64,25 @@
         <item>1952</item>
         <item>1951</item>
         <item>1950</item>
+    </string-array>
+
+    <string-array name="prices">
+        <item>@string/any</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>3000</item>
+        <item>4000</item>
+        <item>5000</item>
+        <item>6000</item>
+        <item>7000</item>
+        <item>8000</item>
+        <item>9000</item>
+        <item>10000</item>
+        <item>15000</item>
+        <item>20000</item>
+        <item>30000</item>
+        <item>40000</item>
+        <item>50000</item>
+        <item>100000</item>
     </string-array>
 </resources>

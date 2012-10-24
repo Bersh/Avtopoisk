@@ -3,6 +3,7 @@
     <!--Application-->
     <string name="app_name">Автопоиск</string>
     <string name="dlg_progress_data_loading">Загрузка данных…</string>
+    <string name="any">Любой</string>
     <!--/Application-->
 
     <!--SearchActivity-->
@@ -18,7 +19,8 @@
     <string name="models_prompt">Выберите модель</string>
     <string name="regions_prompt">Выберите регион</string>
     <string name="year_prompt">Выберите год</string>
-    <string name="year_from_hint">От:</string>
-    <string name="year_to_hint">До:</string>
+    <string name="price_prompt">Выберите цену</string>
+    <string name="from_hint">От:</string>
+    <string name="to_hint">До:</string>
     <!--/SearchActivity-->
 </resources>

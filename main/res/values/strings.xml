@@ -3,6 +3,7 @@
     <!--Application-->
     <string name="app_name">Avtopoisk</string>
     <string name="dlg_progress_data_loading">Loading…</string>
+    <string name="any">Any</string>
     <!--/Application-->
 
     <!--SearchActivity-->
@@ -19,8 +20,8 @@
     <string name="models_prompt">Select model</string>
     <string name="regions_prompt">Select region</string>
     <string name="year_prompt">Select year</string>
-    <string name="year_from_hint">From:</string>
-    <string name="year_to_hint">To:</string>
+    <string name="price_prompt">Select price</string>
+    <string name="from_hint">From:</string>
+    <string name="to_hint">To:</string>
     <!--/SearchActivity-->
-
 </resources>

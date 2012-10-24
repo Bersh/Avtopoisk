@@ -36,6 +36,8 @@ public class SearchActivity extends Activity {
     public static final String REGION_ID_KEY = "region";
     public static final String YEAR_FROM_KEY = "yearFrom";
     public static final String YEAR_TO_KEY = "yearTo";
+    public static final String PRICE_FROM_KEY = "priceFrom";
+    public static final String PRICE_TO_KEY = "priceTo";
 
     @Bean
     BrandsAndRegionsHolder brandsAndRegionsHolder;
@@ -54,6 +56,12 @@ public class SearchActivity extends Activity {
 
     @ViewById(R.id.year_to)
     protected Spinner yearTo;
+
+    @ViewById(R.id.price_from)
+    protected Spinner priceFrom;
+
+    @ViewById(R.id.price_to)
+    protected Spinner priceTo;
 
     private ArrayAdapter<String> adapter;
 
@@ -80,6 +88,7 @@ public class SearchActivity extends Activity {
         populateBrands();
         populateRegions();
         populateYears();
+        populatePrices();
 
         brands.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -116,6 +125,8 @@ public class SearchActivity extends Activity {
         intent.putExtra(MODEL_ID_KEY, modelId);
         intent.putExtra(YEAR_FROM_KEY, yearFrom.getSelectedItem().toString());
         intent.putExtra(YEAR_TO_KEY, yearTo.getSelectedItem().toString());
+        intent.putExtra(PRICE_FROM_KEY, priceFrom.getSelectedItem().toString());
+        intent.putExtra(PRICE_TO_KEY, priceTo.getSelectedItem().toString());
         intent.putExtra(REGION_ID_KEY, regionsMap.get(regions.getSelectedItem().toString()));
         startActivity(intent);
     }
@@ -145,6 +156,15 @@ public class SearchActivity extends Activity {
         yearFrom.setPrompt(getString(R.string.year_prompt));
         yearTo.setAdapter(yearsAdapter);
         yearTo.setPrompt(getString(R.string.year_prompt));
+    }
+
+    protected void populatePrices() {
+        ArrayAdapter pricesAdapter = ArrayAdapter.createFromResource(this, R.array.prices, android.R.layout.simple_spinner_item);
+        pricesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        priceFrom.setAdapter(pricesAdapter);
+        priceFrom.setPrompt(getString(R.string.year_prompt));
+        priceTo.setAdapter(pricesAdapter);
+        priceTo.setPrompt(getString(R.string.year_prompt));
     }
 
     protected void populateModels(LinkedHashMap<String, Integer> aModels) {

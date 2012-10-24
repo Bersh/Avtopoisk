@@ -5,8 +5,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
@@ -58,9 +60,6 @@ public class SearchActivity extends Activity {
     LinkedHashMap<String, Integer> brandsMap;
     LinkedHashMap<String, Integer> regionsMap;
 
-    @Extra(SplashScreenActivity.YEARS_KEY)
-    ArrayList<String> yearsList;
-
     private LinkedHashMap<String, Integer> modelsMap;
 
     @Inject
@@ -72,6 +71,8 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         brandsMap = brandsAndRegionsHolder.brandsMap;
         regionsMap = brandsAndRegionsHolder.regionsMap;
+
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
     }
 
     @AfterViews
@@ -96,6 +97,7 @@ public class SearchActivity extends Activity {
         });
 
         models.setEnabled(false);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_layout);
     }
 
     @Override
@@ -137,7 +139,7 @@ public class SearchActivity extends Activity {
     }
 
     protected void populateYears() {
-        ArrayAdapter<String> yearsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, yearsList);
+        ArrayAdapter yearsAdapter = ArrayAdapter.createFromResource(this, R.array.years, android.R.layout.simple_spinner_item);
         yearsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearFrom.setAdapter(yearsAdapter);
         yearFrom.setPrompt(getString(R.string.year_prompt));

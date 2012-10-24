@@ -21,13 +21,12 @@
                 android:layout_margin="5dip"
                 android:orientation="horizontal">
 
-            <TextView android:layout_width="90dip"
+            <TextView android:layout_width="70dip"
                       android:layout_height="wrap_content"
                       android:id="@+id/brand_hint"
                       android:paddingRight="2dip"
                       android:textStyle="bold"
                       android:gravity="left"
-                      android:textSize="20dip"
                       android:textColor="#000"
                       android:layout_gravity="center_vertical"
                       android:text="@string/brand_hint_text"/>
@@ -49,12 +48,11 @@
                 android:layout_margin="5dip"
                 android:orientation="horizontal">
 
-            <TextView android:layout_width="90dip"
+            <TextView android:layout_width="70dip"
                       android:layout_height="wrap_content"
                       android:id="@+id/model_hint"
                       android:paddingRight="2dip"
                       android:gravity="left"
-                      android:textSize="20dip"
                       android:textStyle="bold"
                       android:textColor="#000"
                       android:layout_gravity="center_vertical"
@@ -77,12 +75,11 @@
                 android:layout_margin="5dip"
                 android:orientation="horizontal">
 
-            <TextView android:layout_width="90dip"
+            <TextView android:layout_width="70dip"
                       android:layout_height="wrap_content"
                       android:id="@+id/region_hint"
                       android:paddingRight="2dip"
                       android:gravity="left"
-                      android:textSize="20dip"
                       android:textStyle="bold"
                       android:textColor="#000"
                       android:layout_gravity="center_vertical"
@@ -103,11 +100,10 @@
         <TextView android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:id="@+id/year_section_hint"
-                  android:paddingTop="5dip"
+                  android:paddingTop="10dip"
                   android:paddingLeft="5dip"
                   android:paddingBottom="5dip"
                   android:textStyle="bold"
-                  android:textSize="20dip"
                   android:textColor="#000"
                   android:layout_gravity="left"
                   android:text="@string/year_section_hint_text"/>
@@ -122,7 +118,6 @@
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/year_from_hint"
-                      android:textSize="20dip"
                       android:textColor="#000"
                       android:paddingRight="5dip"
                       android:layout_alignParentLeft="true"
@@ -140,7 +135,7 @@
                       android:layout_height="wrap_content"
                       android:id="@+id/year_to_hint"
                       android:paddingRight="5dip"
-                      android:textSize="20dip"
+
                       android:textColor="#000"
                       android:layout_toLeftOf="@+id/year_to"
                       android:layout_centerInParent="true"
@@ -168,7 +163,6 @@
         <!--find button-->
         <Button
                 android:id="@+id/btn_find"
-                android:layout_margin="5dp"
                 android:layout_width="50pt"
                 android:layout_gravity="center"
                 android:layout_height="50dip"

@@ -50,7 +50,7 @@ public class SplashScreenActivity extends Activity {
         } catch (IOException e) {
             Log.e(getString(R.string.app_name), e.getMessage());
         }
-        publishProgress(30);
+        publishProgress(50);
 
         LinkedHashMap<String, Integer> regions = null;
         try {
@@ -58,25 +58,16 @@ public class SplashScreenActivity extends Activity {
         } catch (IOException e) {
             Log.e(getString(R.string.app_name), e.getMessage());
         }
-        publishProgress(60);
 
-        ArrayList<String> years = null;
-        try {
-            years = parser.getYears();
-        } catch (IOException e) {
-            Log.e(getString(R.string.app_name), e.getMessage());
-        }
-
-        populateData(brands, regions, years);
         publishProgress(70);
+        populateData(brands, regions);
     }
 
     @UiThread
-    protected void populateData(LinkedHashMap<String, Integer> brands, LinkedHashMap<String, Integer> regions, ArrayList<String> years) {
+    protected void populateData(LinkedHashMap<String, Integer> brands, LinkedHashMap<String, Integer> regions) {
         Intent intent = new Intent(SplashScreenActivity.this, SearchActivity_.class);
         brandsAndRegionsHolder.brandsMap = brands;
         brandsAndRegionsHolder.regionsMap = regions;
-        intent.putExtra(YEARS_KEY, years);
         publishProgress(100);
         startActivity(intent);
         finish();

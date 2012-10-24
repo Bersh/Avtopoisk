@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.widget.ListView;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
@@ -58,11 +59,14 @@ public class SearchResultActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_layout);
         progressDialog = ProgressDialog.show(this, "", getString(R.string.dlg_progress_data_loading), true);
     }
 
     @AfterViews
     protected void init() {
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_layout);
         new SearchAsyncTask().execute(getListView());
     }
 

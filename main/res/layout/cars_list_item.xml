@@ -3,7 +3,6 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:orientation="vertical"
-        android:background="#ffffff"
         android:layout_height="fill_parent">
 
     <!--layout added to place all info left to image-->

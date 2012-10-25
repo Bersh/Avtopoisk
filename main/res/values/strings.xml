@@ -23,5 +23,6 @@
     <string name="price_prompt">Select price</string>
     <string name="from_hint">From:</string>
     <string name="to_hint">To:</string>
+    <string name="price_section_hint_text">Price:</string>
     <!--/SearchActivity-->
 </resources>

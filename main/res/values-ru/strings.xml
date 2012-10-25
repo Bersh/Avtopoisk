@@ -22,5 +22,6 @@
     <string name="price_prompt">Выберите цену</string>
     <string name="from_hint">От:</string>
     <string name="to_hint">До:</string>
+    <string name="price_section_hint_text">Цена:</string>
     <!--/SearchActivity-->
 </resources>

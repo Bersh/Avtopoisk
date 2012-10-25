@@ -8,12 +8,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
-import parsers.AvtopoiskParser;
 import parsers.AvtopoiskParserImpl;
 import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.R;
@@ -162,11 +160,12 @@ public class SearchActivity extends Activity {
         ArrayAdapter pricesAdapter = ArrayAdapter.createFromResource(this, R.array.prices, android.R.layout.simple_spinner_item);
         pricesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         priceFrom.setAdapter(pricesAdapter);
-        priceFrom.setPrompt(getString(R.string.year_prompt));
+        priceFrom.setPrompt(getString(R.string.price_prompt));
         priceTo.setAdapter(pricesAdapter);
-        priceTo.setPrompt(getString(R.string.year_prompt));
+        priceTo.setPrompt(getString(R.string.price_prompt));
     }
 
+    @UiThread
     protected void populateModels(LinkedHashMap<String, Integer> aModels) {
         modelsMap = aModels;
         adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(modelsMap.keySet()));

@@ -167,7 +167,7 @@
                           android:textStyle="bold"
                           android:textColor="#000"
                           android:layout_gravity="left"
-                          android:text="Цена:"/>
+                          android:text="@string/price_section_hint_text"/>
 
                 <!--price spinners and hints-->
                 <RelativeLayout

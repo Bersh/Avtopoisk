@@ -142,9 +142,9 @@ public class AvtopoiskParserImpl implements AvtopoiskParser{
     }
 
     public LinkedHashMap<String, Integer> getModels(int brandId) throws IOException {
-        checkBaseDoc();
         LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
-        Elements models = baseDoc.getElementsByAttributeValue("name", "n[]").get(0).children();
+        Document doc = Jsoup.connect(baseUrl + "?m[]=" + brandId).get();
+        Elements models = doc.getElementsByAttributeValue("name", "n[]").get(0).children();
         for (Element model : models) {
             result.put(model.text(), Integer.parseInt(model.val()));
         }

@@ -26,7 +26,7 @@ import java.util.LinkedHashMap;
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 12.10.12
  */
-@EActivity(R.layout.search)
+@EActivity(R.layout.search_layout)
 @RoboGuice
 public class SearchActivity extends Activity {
     public static final String BRAND_ID_KEY = "brand";
@@ -104,7 +104,7 @@ public class SearchActivity extends Activity {
         });
 
         models.setEnabled(false);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_layout);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_title);
     }
 
     @Override

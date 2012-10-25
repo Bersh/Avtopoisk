@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip"
+        android:layout_below="@+id/filters_layout"
+        android:orientation="vertical">
+    <!--find button-->
+    <Button
+            android:id="@+id/btn_find"
+            android:layout_width="150dip"
+            android:layout_gravity="center"
+            android:layout_height="60dip"
+            android:text="@string/btn_find_text"
+            android:textStyle="bold"
+            android:textSize="25dip"
+            android:textColor="#EB3D3F"
+            android:background="@drawable/find_button_background">
+    </Button>
+</LinearLayout>

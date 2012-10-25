@@ -18,7 +18,6 @@ import com.googlecode.androidannotations.annotations.res.StringRes;
 import domain.Car;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.lang.StringUtils;
-import parsers.AvtopoiskParser;
 import parsers.AvtopoiskParserImpl;
 import ua.avtopoisk.CarAdapter;
 import ua.avtopoisk.R;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
  * @since 12.10.12
  */
 
-@EActivity(R.layout.search_result)
+@EActivity(R.layout.layout_search_result)
 @RoboGuice
 public class SearchResultActivity extends ListActivity {
     private ProgressDialog progressDialog;
@@ -70,13 +69,13 @@ public class SearchResultActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_layout);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_title);
         progressDialog = ProgressDialog.show(this, "", getString(R.string.dlg_progress_data_loading), true);
     }
 
     @AfterViews
     protected void init() {
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_layout);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_title);
         new SearchAsyncTask().execute(getListView());
     }
 

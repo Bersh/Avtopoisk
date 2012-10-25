@@ -12,7 +12,6 @@ import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.R;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -21,7 +20,7 @@ import java.util.LinkedHashMap;
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 19.10.12
  */
-@EActivity(R.layout.splash)
+@EActivity(R.layout.layout_splash)
 @RoboGuice
 public class SplashScreenActivity extends Activity {
     public static final String YEARS_KEY = "years";

@@ -4,14 +4,11 @@
     <string name="app_name">Avtopoisk</string>
     <string name="dlg_progress_data_loading">Loading…</string>
     <string name="any">Any</string>
+    <string name="any2">Any</string>
     <!--/Application-->
 
-    <!--SearchActivity-->
+    <!--SearchResultActivity-->
     <string name="btn_find_text">Find</string>
-    <string name="car_photo_description">Car photo</string>
-    <!--/SearchActivity-->
-
-    <!--SearchActivity-->
     <string name="brand_hint_text">Brand:</string>
     <string name="model_hint_text">Model:</string>
     <string name="region_hint_text">Region:</string>
@@ -25,4 +22,10 @@
     <string name="to_hint">To:</string>
     <string name="price_section_hint_text">Price:</string>
     <!--/SearchActivity-->
+
+    <!--SearchResultActivity-->
+    <string name="car_photo_description">Car photo</string>
+    <string name="load_ten_more">Load next 10 results</string>
+    <string name="loaded_count_text">Loaded %1$d from %2$d</string>
+    <!--/SearchResultActivity-->
 </resources>

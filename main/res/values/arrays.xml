@@ -67,7 +67,7 @@
     </string-array>
 
     <string-array name="prices">
-        <item>@string/any</item>
+        <item>@string/any2</item>
         <item>1000</item>
         <item>2000</item>
         <item>3000</item>

@@ -26,7 +26,7 @@ import java.util.LinkedHashMap;
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 12.10.12
  */
-@EActivity(R.layout.search_layout)
+@EActivity(R.layout.layout_search)
 @RoboGuice
 public class SearchActivity extends Activity {
     public static final String BRAND_ID_KEY = "brand";

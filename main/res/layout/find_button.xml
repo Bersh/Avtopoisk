@@ -11,7 +11,7 @@
     <!--find button-->
     <Button
             android:id="@+id/btn_find"
-            android:layout_width="150dip"
+            android:layout_width="170dip"
             android:layout_gravity="center"
             android:layout_height="60dip"
             android:text="@string/btn_find_text"

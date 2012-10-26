@@ -59,4 +59,11 @@ public interface AvtopoiskParser {
      * @throws IOException is parsing fails
      */
     ArrayList<String> getYears() throws IOException;
+
+    int getLastRequestResultsCount();
+
+    /**
+     * Set current page number to 0
+     */
+    void resetCurrentPage();
 }

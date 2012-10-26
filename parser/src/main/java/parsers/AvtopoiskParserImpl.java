@@ -19,22 +19,33 @@ import java.util.LinkedHashMap;
  */
 
 @Singleton
-public class AvtopoiskParserImpl implements AvtopoiskParser{
+public class AvtopoiskParserImpl implements AvtopoiskParser {
     private static final String baseUrl = "http://www.avtopoisk.ua/";
 
     //cached document instance to receive base data
     private static Document baseDoc;
+    private int pageNumber = 1;
+    private int resultsCount;
+
+
+    public int getLastRequestResultsCount() {
+        return resultsCount;
+    }
+
+    public void resetCurrentPage() {
+        pageNumber = 1;
+    }
 
     /**
      * Build params string from given params values
      *
-     * @param brandId  brand id
-     * @param modelId  model is
-     * @param regionId region id
-     * @param yearFrom year from
-     * @param yearTo year to
+     * @param brandId   brand id
+     * @param modelId   model is
+     * @param regionId  region id
+     * @param yearFrom  year from
+     * @param yearTo    year to
      * @param priceFrom price from
-     * @param priceTo price to
+     * @param priceTo   price to
      * @return result params string like &m[]=223&n[]=1761&r[]=2
      */
     private String buildParamsString(int brandId, int modelId, int regionId, int yearFrom, int yearTo,
@@ -74,59 +85,79 @@ public class AvtopoiskParserImpl implements AvtopoiskParser{
     public ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo, int priceFrom, int priceTo) throws IOException, DecoderException {
         ArrayList<Car> resultList = new ArrayList<Car>();
         String paramsString = buildParamsString(brandId, modelId, regionId, yearFrom, yearTo, priceFrom, priceTo);
-        for (int w = 1; w < 2; ++w) {
-            Document doc = Jsoup.connect(baseUrl + "?w=" + w + paramsString).get();
-            Elements carElements = doc.getElementsByClass("car");
+        Document doc = Jsoup.connect(baseUrl + "?w=" + pageNumber + paramsString).get();
+        ++pageNumber;
 
-            for (Element carElement : carElements) {
-                Element info = carElement.getElementsByClass("info").get(0);
+        //get results count
+        //TODO optimization
+        String s = doc.getElementsByClass("content").get(0).child(0).html();
+        String[] strings = s.split("<strong>", 2);
+        strings = strings[1].split("</strong>", 2);
+        s = strings[0].replace(".", "");
+        resultsCount = Integer.parseInt(s);
+        //
 
-                if (!info.getElementsByClass("sold").isEmpty()) {       //check if car already sold
-                    continue;
-                }
+        Elements carElements = doc.getElementsByClass("car");
 
-                long price = (long) (Float.parseFloat(carElement.getElementsByClass("price").get(0).text().replace("$", "").replace(".", "")) * 100);
-                int year = Integer.parseInt(info.child(0).text());
-                String s = info.child(1).child(0).text(); //tmp string
-                String[] strings = s.split(" ", 2);  //formatted like "ВАЗ 2101"
-                String brand = strings[0]; //ВАЗ
-                String model = strings[1]; //2101
+        for (Element carElement : carElements) {
+            Element info = carElement.getElementsByClass("info").get(0);
 
-                s = info.child(1).child(0).attr("href"); // /go/?s=1&c=217972&u=http%3A%2F%2Favtobazar.infocar.ua%2Fcar%2Fdnepropetrovskaya-oblast%2Fdnepropetrovsk%2Fvaz%2F2106%2Fsedan-1986-217972.html
-                s = s.substring(s.indexOf("http"));
-                URLCodec codec = new URLCodec();
-                String linkToDetails = codec.decode(s);
-
-                Element imageContainer = carElement.getElementsByClass("foto").get(0);
-                s = imageContainer.child(0).attr("style");   //background-image:url('http://i2.avtopoisk.ua/foto/1/4618918.jpg')
-                strings = s.split("'");
-                String imageUrl = strings[1];
-
-
-                Element values = info.getElementsByClass("values").get(0); // get values separated by <br>
-
-                strings = values.html().replaceAll("\n", "").split("<br />");
-                String engineDesc = Jsoup.parse(strings[0]).text(); //line 1.6, i (инж.), бензин
-
-                float engineCapacity;
-                try {
-                    engineCapacity = Float.parseFloat(strings[0].substring(0, 3));
-                } catch (Exception e) {
-                    engineCapacity = 0;    //if not present
-                }
-
-                int mileage = Integer.parseInt(strings[1].trim());
-                if (mileage < 1000) {
-                    mileage *= 1000;
-                }
-
-                values = info.getElementsByClass("city").get(0);  // city + datePosted + site + id   separated <by br>
-                strings = values.html().replaceAll("\n", "").split("<br />");
-                String city = Jsoup.parse(strings[0]).text();
-                String datePosted = Jsoup.parse(strings[1]).text().replace(" ", "");
-
-                resultList.add(new Car(model, brand, mileage, year, engineCapacity, price, linkToDetails, imageUrl, city, datePosted, engineDesc));
+            if (!info.getElementsByClass("sold").isEmpty()) {       //check if car already sold
+                continue;
             }
+
+            long price = (long) (Float.parseFloat(carElement.getElementsByClass("price").get(0).text().replace("$", "").replace(".", "")) * 100);
+            int year = Integer.parseInt(info.child(0).text());
+            s = info.child(1).child(0).text(); //tmp string
+            strings = s.split(" ", 2);  //formatted like "ВАЗ 2101"
+            String brand;
+            String model;
+            //Sometimes failed without this ifs
+            if (strings.length > 0) {
+                brand = strings[0]; //ВАЗ
+            } else {
+                brand = "";
+            }
+            if (strings.length > 1) {
+                model = strings[1]; //2101
+            } else {
+                model = "";
+            }
+
+            s = info.child(1).child(0).attr("href"); // /go/?s=1&c=217972&u=http%3A%2F%2Favtobazar.infocar.ua%2Fcar%2Fdnepropetrovskaya-oblast%2Fdnepropetrovsk%2Fvaz%2F2106%2Fsedan-1986-217972.html
+            s = s.substring(s.indexOf("http"));
+            URLCodec codec = new URLCodec();
+            String linkToDetails = codec.decode(s);
+
+            Element imageContainer = carElement.getElementsByClass("foto").get(0);
+            s = imageContainer.child(0).attr("style");   //background-image:url('http://i2.avtopoisk.ua/foto/1/4618918.jpg')
+            strings = s.split("'");
+            String imageUrl = strings[1];
+
+
+            Element values = info.getElementsByClass("values").get(0); // get values separated by <br>
+
+            strings = values.html().replaceAll("\n", "").split("<br />");
+            String engineDesc = Jsoup.parse(strings[0]).text(); //line 1.6, i (инж.), бензин
+
+            float engineCapacity;
+            try {
+                engineCapacity = Float.parseFloat(strings[0].substring(0, 3));
+            } catch (Exception e) {
+                engineCapacity = 0;    //if not present
+            }
+
+            int mileage = Integer.parseInt(strings[1].trim());
+            if (mileage < 1000) {
+                mileage *= 1000;
+            }
+
+            values = info.getElementsByClass("city").get(0);  // city + datePosted + site + id   separated <by br>
+            strings = values.html().replaceAll("\n", "").split("<br />");
+            String city = Jsoup.parse(strings[0]).text();
+            String datePosted = Jsoup.parse(strings[1]).text().replace(" ", "");
+
+            resultList.add(new Car(model, brand, mileage, year, engineCapacity, price, linkToDetails, imageUrl, city, datePosted, engineDesc));
         }
         return resultList;
     }
@@ -173,10 +204,11 @@ public class AvtopoiskParserImpl implements AvtopoiskParser{
 
     /**
      * Load baseDoc if null
+     *
      * @throws IOException if connect fails
      */
     private void checkBaseDoc() throws IOException {
-        if(baseDoc == null) {
+        if (baseDoc == null) {
             baseDoc = Jsoup.connect(baseUrl).get();
         }
     }

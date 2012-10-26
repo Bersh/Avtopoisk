@@ -11,12 +11,4 @@
             android:fastScrollEnabled="true"
             android:cacheColorHint="#00000000"/>
 
-    <Button
-            android:id="@+id/btn_more"
-            android:layout_width="fill_parent"
-            android:layout_height="70dip"
-            android:text="Показать еще 10 результатов"
-            android:textSize="22dip">
-    </Button>
-
 </LinearLayout>

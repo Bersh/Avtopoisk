@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="?android:attr/listPreferredItemHeight"
+              android:background="@drawable/loadmore_background"
+              android:weightSum="2">
+
+    <TextView
+            android:id="@id/android:empty"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:paddingTop="10dip"
+            android:text="@string/load_ten_more"/>
+    <TextView
+            android:id="@+id/loaded_count_text"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:paddingBottom="10dip"
+            android:layout_weight="1"
+            android:text="@string/loaded_count_text"/>
+
+</LinearLayout>

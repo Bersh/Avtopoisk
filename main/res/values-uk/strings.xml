@@ -3,14 +3,12 @@
     <!--Application-->
     <string name="app_name">Автопошук</string>
     <string name="dlg_progress_data_loading">Завантаження даних…</string>
-    <string name="any">Будьякий</string>
+    <string name="any">Буд’який</string>
+    <string name="any2">Буд’яка</string>
     <!--/Application-->
 
-    <!--SearchActivity-->
+    <!--SearchResultActivity-->
     <string name="btn_find_text">Знайти</string>
-
-    <!--/SearchActivity-->
-    <!--SearchActivity-->
     <string name="brand_hint_text">Марка:</string>
     <string name="model_hint_text">Модель:</string>
     <string name="region_hint_text">Регiон:</string>
@@ -24,4 +22,9 @@
     <string name="to_hint">До:</string>
     <string name="price_section_hint_text">Цiна:</string>
     <!--/SearchActivity-->
+
+    <!--SearchResultActivity-->
+    <string name="load_ten_more">Завантажити наступнi 10 результатiв</string>
+    <string name="loaded_count_text">Завантажено %1$d з %2$d</string>
+    <!--/SearchResultActivity-->
 </resources>

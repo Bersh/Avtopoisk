@@ -11,7 +11,6 @@
 
     <groupId>ua.avtopoisk</groupId>
     <artifactId>main</artifactId>
-    <version>0.5</version>
     <packaging>apk</packaging>
     <name>Avtopoisk - Application</name>
 
@@ -27,6 +26,7 @@
             <version>2.6</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>com.googlecode.androidannotations</groupId>
             <artifactId>androidannotations</artifactId>
@@ -38,6 +38,7 @@
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
         </dependency>
+
         <dependency>
             <groupId>de.akquinet.android.androlog</groupId>
             <artifactId>androlog</artifactId>
@@ -48,12 +49,22 @@
             <artifactId>domain</artifactId>
             <version>0.5</version>
         </dependency>
+
         <dependency>
             <groupId>ua.avtopoisk</groupId>
             <artifactId>parser</artifactId>
             <version>0.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.pivotallabs</groupId>
+           	<artifactId>robolectric</artifactId>
+        </dependency>
+
+        <dependency>
+        	<groupId>org.mockito</groupId>
+        	<artifactId>mockito-all</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

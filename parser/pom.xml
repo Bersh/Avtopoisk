@@ -9,7 +9,6 @@
 
     <artifactId>parser</artifactId>
     <packaging>jar</packaging>
-
     <name>parser</name>
 
     <properties>

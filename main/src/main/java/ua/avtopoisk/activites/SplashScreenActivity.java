@@ -47,7 +47,7 @@ public class SplashScreenActivity extends Activity {
         try {
             brands = parser.getBrands();
         } catch (IOException e) {
-            Log.e(getString(R.string.app_name), e.getMessage());
+            Log.e(e.getMessage());
         }
         publishProgress(50);
 
@@ -55,7 +55,7 @@ public class SplashScreenActivity extends Activity {
         try {
             regions = parser.getRegions();
         } catch (IOException e) {
-            Log.e(getString(R.string.app_name), e.getMessage());
+            Log.e(e.getMessage());
         }
 
         publishProgress(70);

@@ -7,16 +7,9 @@
               android:targetSdkVersion="8"/>
     <!--Android 3 for attribute hardwareAccelerated works-->
 
-
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <!--To check is internet available-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
-    <application android:name=".AvtopoiskApplication" android:icon="@drawable/icon" android:label="@string/app_name"
+    <application android:name=".AvtopoiskApplication_" android:icon="@drawable/icon" android:label="@string/app_name"
                  android:theme="@style/AvtopoiskTheme">
         <activity android:name=".activites.SplashScreenActivity_"
                   android:screenOrientation="portrait"

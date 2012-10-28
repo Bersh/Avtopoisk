@@ -1,3 +1,4 @@
+/*
 package ua.avtopoisk.activites;
 
 import android.widget.Spinner;
@@ -15,10 +16,12 @@ import java.util.LinkedHashMap;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
+*/
 /**
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 27.10.12
- */
+ *//*
+
 
 @RunWith(RobolectricTestRunner.class)
 public class SearchActivityTest {
@@ -65,3 +68,4 @@ public class SearchActivityTest {
 
     }
 }
+*/

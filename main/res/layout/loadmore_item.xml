@@ -6,7 +6,7 @@
               android:weightSum="2">
 
     <TextView
-            android:id="@id/android:empty"
+            android:id="@+id/load_ten_more_text"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"

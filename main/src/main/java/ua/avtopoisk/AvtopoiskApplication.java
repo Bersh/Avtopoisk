@@ -1,6 +1,5 @@
 package ua.avtopoisk;
 
-import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import com.google.inject.Module;
 import com.googlecode.androidannotations.annotations.EApplication;
@@ -19,6 +18,7 @@ import java.util.List;
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 12.10.12
  */
+@EApplication
 public class AvtopoiskApplication extends RoboApplication {
     @Override
     public void onCreate() {

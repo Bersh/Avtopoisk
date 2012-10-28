@@ -135,7 +135,7 @@ public class SearchActivity extends Activity {
         try {
             aModels = parser.getModels(brandId);
         } catch (IOException e) {
-            Log.e(getString(R.string.app_name), e.getMessage());
+            Log.e(e.getMessage());
         }
         populateModels(aModels);
     }

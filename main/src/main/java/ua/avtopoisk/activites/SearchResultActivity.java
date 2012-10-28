@@ -9,10 +9,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import de.akquinet.android.androlog.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.google.inject.Inject;
@@ -39,6 +40,7 @@ import java.util.ArrayList;
 @EActivity(R.layout.layout_search_result)
 @RoboGuice
 public class SearchResultActivity extends ListActivity {
+    public static final int CARS_PER_PAGE = 10;
     private ProgressDialog progressDialog;
 
     @Extra(SearchActivity.BRAND_ID_KEY)
@@ -129,7 +131,7 @@ public class SearchResultActivity extends ListActivity {
     @Background
     void loadResults() {
         showProgressDialog();
-        ArrayList<Car> cars = null;
+        ArrayList<Car> cars = new ArrayList<Car>();
         int aYearFrom = StringUtils.isEmpty(yearFrom) || yearFrom.equals(anyString) ? 0 : Integer.parseInt(yearFrom);
         int aYearTo = StringUtils.isEmpty(yearTo) || yearTo.equals(anyString) ? 0 : Integer.parseInt(yearTo);
         int aPriceFrom =  StringUtils.isEmpty(priceFrom) || priceFrom.equals(anyString2) ? 0 : Integer.parseInt(priceFrom);
@@ -137,14 +139,10 @@ public class SearchResultActivity extends ListActivity {
         try {
             cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo, aPriceFrom, aPriceTo);
         } catch (IOException e) {
-            Log.e(getString(R.string.app_name), e.getMessage());
+            Log.e(e.getMessage());
 
         } catch (DecoderException e) {
-            Log.e(getString(R.string.app_name), e.getMessage());
-        }
-
-        if (cars == null) {
-            return;
+            Log.e(e.getMessage());
         }
 
         for (Car car : cars) {
@@ -157,11 +155,12 @@ public class SearchResultActivity extends ListActivity {
                     url = new URL(car.getImageUrl());
                     bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                 } catch (Exception e) {
-                    Log.e(getString(R.string.app_name), e.getMessage());
+                    Log.e(e.getMessage());
                 }
             }
             car.setImage(bmp);
         }
+
         populateResults(cars);
     }
 
@@ -179,8 +178,11 @@ public class SearchResultActivity extends ListActivity {
         if (listView.getFooterViewsCount() == 0) {
             listView.addFooterView(loadMoreView);
         }
-        if (cars.isEmpty() || cars.size() < 10) {
-            listView.removeFooterView(loadMoreView);
+        if ((cars.isEmpty() || cars.size() < CARS_PER_PAGE || loadedCount == resultsCount) && listView.getFooterViewsCount() > 0) {
+            View loadTenMoreText = loadMoreView.findViewById(R.id.load_ten_more_text);
+            ((LinearLayout)loadMoreView).removeView(loadTenMoreText);
+            loadedCountText.setPadding(0, 10, 0, 10);
+            loadMoreView.setOnClickListener(null);
         }
         currentResults.addAll(cars);
 

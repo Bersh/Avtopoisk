@@ -1,9 +1,11 @@
 package ua.avtopoisk.activites;
 
 
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,6 +25,7 @@ import domain.Car;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.lang.StringUtils;
 import parsers.AvtopoiskParserImpl;
+import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.CarAdapter;
 import ua.avtopoisk.R;
 
@@ -73,10 +76,26 @@ public class SearchResultActivity extends ListActivity {
     @Inject
     private AvtopoiskParserImpl parser;
 
+    @App
+    AvtopoiskApplication application;
+
     private View loadMoreView;
     private CarAdapter adapter;
     private ArrayList<Car> currentResults = new ArrayList<Car>();
     private int loadedCount;
+
+    private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case Dialog.BUTTON_POSITIVE:
+                    loadResults();
+                    break;
+                case Dialog.BUTTON_NEGATIVE:
+//                    models.setEnabled(false);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +147,11 @@ public class SearchResultActivity extends ListActivity {
         progressDialog = ProgressDialog.show(SearchResultActivity.this, "", getString(R.string.dlg_progress_data_loading), true);
     }
 
+    @UiThread
+    protected void showDataLoadingErrorDialog() {
+        application.showDataLoadingErrorDialog(this, );
+    }
+
     @Background
     void loadResults() {
         showProgressDialog();
@@ -140,7 +164,6 @@ public class SearchResultActivity extends ListActivity {
             cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo, aPriceFrom, aPriceTo);
         } catch (IOException e) {
             Log.e(e.getMessage());
-
         } catch (DecoderException e) {
             Log.e(e.getMessage());
         }
@@ -195,6 +218,4 @@ public class SearchResultActivity extends ListActivity {
 
         progressDialog.dismiss();
     }
-
-
 }

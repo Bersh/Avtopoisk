@@ -5,6 +5,13 @@
     <string name="dlg_progress_data_loading">Загрузка данных…</string>
     <string name="any">Любой</string>
     <string name="any2">Любая</string>
+    <string name="error">Ошибка</string>
+
+    <!--error data loading dialog-->
+    <string name="error_dlg_text">При загрузке данных произошла ошибка. Повторить запрос?</string>
+    <string name="error_dlg_yes">Да</string>
+    <string name="error_dlg_no">Нет</string>
+    <!--/error data loading dialog-->
     <!--/Application-->
 
     <!--SearchActivity-->
@@ -28,4 +35,8 @@
     <string name="load_ten_more">Загрузить следующие 10 результатов</string>
     <string name="loaded_count_text">Загружено %1$d из %2$d</string>
     <!--/SearchResultActivity-->
+
+    <!--SplashScreenActivity-->
+    <string name="splash_error_text">Произошла ошибка при загрузке данных. Перезапустите приложение</string>
+    <!--/SplashScreenActivity-->
 </resources>

@@ -1,7 +1,9 @@
 package ua.avtopoisk.activites;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
 import parsers.AvtopoiskParserImpl;
+import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.R;
 
@@ -61,6 +64,9 @@ public class SearchActivity extends Activity {
     @ViewById(R.id.price_to)
     protected Spinner priceTo;
 
+    @App
+    AvtopoiskApplication application;
+
     private ArrayAdapter<String> adapter;
 
     LinkedHashMap<String, Integer> brandsMap;
@@ -71,6 +77,19 @@ public class SearchActivity extends Activity {
     @Inject
     private AvtopoiskParserImpl parser;
     private ProgressDialog progressDialog;
+
+    private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case Dialog.BUTTON_POSITIVE:
+                    brandSelected(brands.getSelectedItemPosition());
+                    break;
+                case Dialog.BUTTON_NEGATIVE:
+                    models.setEnabled(false);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +110,7 @@ public class SearchActivity extends Activity {
         brands.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                models.setEnabled(position > 0);
-                if (models.isEnabled()) {
-                    progressDialog = ProgressDialog.show(SearchActivity.this, "", getString(R.string.dlg_progress_data_loading), true);
-                    getModels(brandsMap.get(brands.getSelectedItem().toString()));
-                }
+                brandSelected(position);
             }
 
             @Override
@@ -105,6 +120,14 @@ public class SearchActivity extends Activity {
 
         models.setEnabled(false);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_title);
+    }
+
+    private void brandSelected(int position) {
+        models.setEnabled(position > 0);
+        if (models.isEnabled()) {
+            progressDialog = ProgressDialog.show(SearchActivity.this, "", getString(R.string.dlg_progress_data_loading), true);
+            getModels(brandsMap.get(brands.getSelectedItem().toString()));
+        }
     }
 
     @Override
@@ -168,15 +191,22 @@ public class SearchActivity extends Activity {
     @UiThread
     protected void populateModels(LinkedHashMap<String, Integer> aModels) {
         modelsMap = aModels;
-        adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(modelsMap.keySet()));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        models.setPrompt(getString(R.string.models_prompt));
-        models.setAdapter(adapter);
-        models.invalidate();
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
+
+        if (modelsMap == null) {
+            models.setEnabled(false);
+            application.showDataLoadingErrorDialog(this, dataLoadingErrorDialogClickListener);
+        } else {
+            adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(modelsMap.keySet()));
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            models.setPrompt(getString(R.string.models_prompt));
+            models.setAdapter(adapter);
+            models.invalidate();
+        }
     }
+
 
     protected void populateRegions() {
         adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(regionsMap.keySet()));

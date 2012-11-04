@@ -1,5 +1,8 @@
 package ua.avtopoisk;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ApplicationInfo;
 import com.google.inject.Module;
 import com.googlecode.androidannotations.annotations.EApplication;
@@ -45,5 +48,15 @@ public class AvtopoiskApplication extends RoboApplication {
         protected void configure() {
             bind(AvtopoiskParser.class).to(AvtopoiskParserImpl.class);
         }
+    }
+
+    public void showDataLoadingErrorDialog(Context context, DialogInterface.OnClickListener onClickListener) {
+        AlertDialog.Builder adb = new AlertDialog.Builder(context);
+        adb.setCancelable(false);
+        adb.setTitle(R.string.error);
+        adb.setMessage(R.string.error_dlg_text);
+        adb.setPositiveButton(R.string.error_dlg_yes, onClickListener);
+        adb.setNegativeButton(R.string.error_dlg_no, onClickListener);
+        adb.create().show();
     }
 }

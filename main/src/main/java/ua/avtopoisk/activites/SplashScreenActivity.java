@@ -1,6 +1,8 @@
 package ua.avtopoisk.activites;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ProgressBar;
@@ -23,7 +25,6 @@ import java.util.LinkedHashMap;
 @EActivity(R.layout.layout_splash)
 @RoboGuice
 public class SplashScreenActivity extends Activity {
-    public static final String YEARS_KEY = "years";
 
     @Inject
     private AvtopoiskParserImpl parser;
@@ -40,22 +41,55 @@ public class SplashScreenActivity extends Activity {
         loadData();
     }
 
+    @UiThread
+    protected void showSplashError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.splash_error_text)
+                .setTitle(R.string.error)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     @Background
     protected void loadData() {
         publishProgress(10);
         LinkedHashMap<String, Integer> brands = null;
-        try {
-            brands = parser.getBrands();
-        } catch (IOException e) {
-            Log.e(e.getMessage());
+        for (int i = 0; i < 1; ++i) {
+            try {
+                brands = parser.getBrands();
+                break;
+            } catch (IOException e) {
+                Log.e(e.getMessage());
+            }
         }
+
+        if(brands == null) {
+            showSplashError();
+            return;
+        }
+
         publishProgress(50);
 
         LinkedHashMap<String, Integer> regions = null;
-        try {
-            regions = parser.getRegions();
-        } catch (IOException e) {
-            Log.e(e.getMessage());
+
+        for (int i = 0; i < 1; ++i) {
+            try {
+                regions = parser.getRegions();
+                break;
+            } catch (IOException e) {
+                Log.e(e.getMessage());
+            }
+        }
+
+        if(regions == null) {
+            showSplashError();
+            return;
         }
 
         publishProgress(70);

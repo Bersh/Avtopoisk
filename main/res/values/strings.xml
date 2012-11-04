@@ -5,6 +5,13 @@
     <string name="dlg_progress_data_loading">Loading…</string>
     <string name="any">Any</string>
     <string name="any2">Any</string>
+    <string name="error">Error</string>
+
+    <!--error data loading dialog-->
+    <string name="error_dlg_text">Error while loading data. Repeat request?</string>
+    <string name="error_dlg_yes">Yes</string>
+    <string name="error_dlg_no">No</string>
+    <!--/error data loading dialog-->
     <!--/Application-->
 
     <!--SearchResultActivity-->
@@ -28,4 +35,8 @@
     <string name="load_ten_more">Load next 10 results</string>
     <string name="loaded_count_text">Loaded %1$d from %2$d</string>
     <!--/SearchResultActivity-->
+
+    <!--SplashScreenActivity-->
+    <string name="splash_error_text">Error while loading data. Restart application</string>
+    <!--/SplashScreenActivity-->
 </resources>

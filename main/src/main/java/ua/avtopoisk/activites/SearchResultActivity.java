@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import de.akquinet.android.androlog.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -21,15 +20,14 @@ import android.widget.TextView;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import com.googlecode.androidannotations.annotations.res.StringRes;
+import de.akquinet.android.androlog.Log;
 import domain.Car;
-import org.apache.commons.codec.DecoderException;
 import org.apache.commons.lang.StringUtils;
 import parsers.AvtopoiskParserImpl;
 import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.CarAdapter;
 import ua.avtopoisk.R;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -91,7 +89,7 @@ public class SearchResultActivity extends ListActivity {
                     loadResults();
                     break;
                 case Dialog.BUTTON_NEGATIVE:
-//                    models.setEnabled(false);
+                    finish();
                     break;
             }
         }
@@ -102,7 +100,7 @@ public class SearchResultActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_title);
-        loadMoreView = ((LayoutInflater)this
+        loadMoreView = ((LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.loadmore_item, null, false);
     }
@@ -149,23 +147,26 @@ public class SearchResultActivity extends ListActivity {
 
     @UiThread
     protected void showDataLoadingErrorDialog() {
-        application.showDataLoadingErrorDialog(this, );
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+        application.showDataLoadingErrorDialog(this, dataLoadingErrorDialogClickListener);
     }
 
     @Background
     void loadResults() {
         showProgressDialog();
-        ArrayList<Car> cars = new ArrayList<Car>();
+        ArrayList<Car> cars;
         int aYearFrom = StringUtils.isEmpty(yearFrom) || yearFrom.equals(anyString) ? 0 : Integer.parseInt(yearFrom);
         int aYearTo = StringUtils.isEmpty(yearTo) || yearTo.equals(anyString) ? 0 : Integer.parseInt(yearTo);
-        int aPriceFrom =  StringUtils.isEmpty(priceFrom) || priceFrom.equals(anyString2) ? 0 : Integer.parseInt(priceFrom);
+        int aPriceFrom = StringUtils.isEmpty(priceFrom) || priceFrom.equals(anyString2) ? 0 : Integer.parseInt(priceFrom);
         int aPriceTo = StringUtils.isEmpty(priceTo) || priceTo.equals(anyString2) ? 0 : Integer.parseInt(priceTo);
         try {
             cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo, aPriceFrom, aPriceTo);
-        } catch (IOException e) {
+        } catch (Throwable e) {
             Log.e(e.getMessage());
-        } catch (DecoderException e) {
-            Log.e(e.getMessage());
+            showDataLoadingErrorDialog();
+            return;
         }
 
         for (Car car : cars) {
@@ -203,13 +204,13 @@ public class SearchResultActivity extends ListActivity {
         }
         if ((cars.isEmpty() || cars.size() < CARS_PER_PAGE || loadedCount == resultsCount) && listView.getFooterViewsCount() > 0) {
             View loadTenMoreText = loadMoreView.findViewById(R.id.load_ten_more_text);
-            ((LinearLayout)loadMoreView).removeView(loadTenMoreText);
+            ((LinearLayout) loadMoreView).removeView(loadTenMoreText);
             loadedCountText.setPadding(0, 10, 0, 10);
             loadMoreView.setOnClickListener(null);
         }
         currentResults.addAll(cars);
 
-        if(adapter == null) {
+        if (adapter == null) {
             adapter = new CarAdapter(this, R.layout.cars_list_item, currentResults);
             listView.setAdapter(adapter);
         } else {

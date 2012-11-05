@@ -165,7 +165,8 @@ public class SearchResultActivity extends ListActivity {
         try {
             cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo, aPriceFrom, aPriceTo);
         } catch (Throwable e) {
-            Log.e(e.getMessage());
+            String err = (e.getMessage()==null)? "No message" : e.getMessage();
+            Log.e(err);
             showDataLoadingErrorDialog();
             return;
         }

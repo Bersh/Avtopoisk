@@ -65,8 +65,9 @@ public class SplashScreenActivity extends Activity {
             try {
                 brands = parser.getBrands();
                 break;
-            } catch (Throwable e) {
-                Log.e(e.getMessage());
+            } catch (IOException e) {
+                String err = (e.getMessage()==null)? "No message" : e.getMessage();
+                Log.e(err);
             }
         }
 
@@ -83,8 +84,9 @@ public class SplashScreenActivity extends Activity {
             try {
                 regions = parser.getRegions();
                 break;
-            } catch (Throwable e) {
-                Log.e(e.getMessage());
+            } catch (IOException e) {
+                String err = (e.getMessage()==null)? "No message" : e.getMessage();
+                Log.e(err);
             }
         }
 

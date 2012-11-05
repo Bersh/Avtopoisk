@@ -9,7 +9,8 @@ import android.widget.ProgressBar;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
-import parsers.AvtopoiskParserImpl;
+import parsers.AvtopoiskBaseParser;
+import parsers.AvtopoiskParser;
 import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.R;
 
@@ -27,7 +28,7 @@ import java.util.LinkedHashMap;
 public class SplashScreenActivity extends Activity {
 
     @Inject
-    private AvtopoiskParserImpl parser;
+    private AvtopoiskParser parser;
 
     @Bean
     BrandsAndRegionsHolder brandsAndRegionsHolder;
@@ -64,7 +65,7 @@ public class SplashScreenActivity extends Activity {
             try {
                 brands = parser.getBrands();
                 break;
-            } catch (IOException e) {
+            } catch (Throwable e) {
                 Log.e(e.getMessage());
             }
         }
@@ -82,7 +83,7 @@ public class SplashScreenActivity extends Activity {
             try {
                 regions = parser.getRegions();
                 break;
-            } catch (IOException e) {
+            } catch (Throwable e) {
                 Log.e(e.getMessage());
             }
         }

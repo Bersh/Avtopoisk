@@ -1,10 +1,8 @@
 package ua.avtopoisk;
 
-import com.google.inject.Singleton;
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.api.Scope;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**

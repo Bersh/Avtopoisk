@@ -7,8 +7,8 @@ import android.content.pm.ApplicationInfo;
 import com.google.inject.Module;
 import com.googlecode.androidannotations.annotations.EApplication;
 import de.akquinet.android.androlog.Log;
+import parsers.AvtopoiskBaseParser;
 import parsers.AvtopoiskParser;
-import parsers.AvtopoiskParserImpl;
 import roboguice.application.RoboApplication;
 import roboguice.config.AbstractAndroidModule;
 
@@ -46,7 +46,7 @@ public class AvtopoiskApplication extends RoboApplication {
     static class AvtopoiskModule extends AbstractAndroidModule {
         @Override
         protected void configure() {
-            bind(AvtopoiskParser.class).to(AvtopoiskParserImpl.class);
+            bind(AvtopoiskParser.class).to(AvtopoiskBaseParser.class);
         }
     }
 

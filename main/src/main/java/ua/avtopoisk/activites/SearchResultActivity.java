@@ -23,7 +23,8 @@ import com.googlecode.androidannotations.annotations.res.StringRes;
 import de.akquinet.android.androlog.Log;
 import domain.Car;
 import org.apache.commons.lang.StringUtils;
-import parsers.AvtopoiskParserImpl;
+import parsers.AvtopoiskBaseParser;
+import parsers.AvtopoiskParser;
 import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.CarAdapter;
 import ua.avtopoisk.R;
@@ -72,7 +73,7 @@ public class SearchResultActivity extends ListActivity {
     String anyString2;
 
     @Inject
-    private AvtopoiskParserImpl parser;
+    private AvtopoiskParser parser;
 
     @App
     AvtopoiskApplication application;

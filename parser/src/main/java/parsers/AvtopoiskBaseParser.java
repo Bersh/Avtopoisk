@@ -19,7 +19,7 @@ import java.util.LinkedHashMap;
  */
 
 @Singleton
-public class AvtopoiskParserImpl implements AvtopoiskParser {
+public class AvtopoiskBaseParser implements AvtopoiskParser {
     private static final String baseUrl = "http://www.avtopoisk.ua/";
 
     //cached document instance to receive base data
@@ -27,11 +27,12 @@ public class AvtopoiskParserImpl implements AvtopoiskParser {
     private int pageNumber = 1;
     private int resultsCount;
 
-
+    @Override
     public int getLastRequestResultsCount() {
         return resultsCount;
     }
 
+    @Override
     public void resetCurrentPage() {
         pageNumber = 1;
     }
@@ -82,6 +83,7 @@ public class AvtopoiskParserImpl implements AvtopoiskParser {
         return sb.toString();
     }
 
+    @Override
     public ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo, int priceFrom, int priceTo) throws IOException, DecoderException {
         ArrayList<Car> resultList = new ArrayList<Car>();
         String paramsString = buildParamsString(brandId, modelId, regionId, yearFrom, yearTo, priceFrom, priceTo);
@@ -162,6 +164,7 @@ public class AvtopoiskParserImpl implements AvtopoiskParser {
         return resultList;
     }
 
+    @Override
     public LinkedHashMap<String, Integer> getBrands() throws IOException {
         checkBaseDoc();
         LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
@@ -172,6 +175,7 @@ public class AvtopoiskParserImpl implements AvtopoiskParser {
         return result;
     }
 
+    @Override
     public LinkedHashMap<String, Integer> getModels(int brandId) throws IOException {
         LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
         Document doc = Jsoup.connect(baseUrl + "?m[]=" + brandId).get();
@@ -182,6 +186,7 @@ public class AvtopoiskParserImpl implements AvtopoiskParser {
         return result;
     }
 
+    @Override
     public LinkedHashMap<String, Integer> getRegions() throws IOException {
         checkBaseDoc();
         LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
@@ -192,6 +197,7 @@ public class AvtopoiskParserImpl implements AvtopoiskParser {
         return result;
     }
 
+    @Override
     public ArrayList<String> getYears() throws IOException {
         checkBaseDoc();
         ArrayList<String> result = new ArrayList<String>();

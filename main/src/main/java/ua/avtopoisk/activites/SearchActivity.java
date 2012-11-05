@@ -14,7 +14,8 @@ import android.widget.Spinner;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
-import parsers.AvtopoiskParserImpl;
+import parsers.AvtopoiskBaseParser;
+import parsers.AvtopoiskParser;
 import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.R;
@@ -75,7 +76,7 @@ public class SearchActivity extends Activity {
     private LinkedHashMap<String, Integer> modelsMap;
 
     @Inject
-    private AvtopoiskParserImpl parser;
+    private AvtopoiskParser parser;
     private ProgressDialog progressDialog;
 
     private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = new DialogInterface.OnClickListener() {

@@ -22,6 +22,7 @@ import com.googlecode.androidannotations.annotations.*;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import de.akquinet.android.androlog.Log;
 import domain.Car;
+import domain.SortType;
 import org.apache.commons.lang.StringUtils;
 import parsers.AvtopoiskBaseParser;
 import parsers.AvtopoiskParser;
@@ -82,6 +83,7 @@ public class SearchResultActivity extends ListActivity {
     private CarAdapter adapter;
     private ArrayList<Car> currentResults = new ArrayList<Car>();
     private int loadedCount;
+    private SortType sortType = SortType.DATE;
 
     private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
@@ -163,7 +165,7 @@ public class SearchResultActivity extends ListActivity {
         int aPriceFrom = StringUtils.isEmpty(priceFrom) || priceFrom.equals(anyString2) ? 0 : Integer.parseInt(priceFrom);
         int aPriceTo = StringUtils.isEmpty(priceTo) || priceTo.equals(anyString2) ? 0 : Integer.parseInt(priceTo);
         try {
-            cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo, aPriceFrom, aPriceTo);
+            cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo, aPriceFrom, aPriceTo, sortType);
         } catch (Throwable e) {
             String err = (e.getMessage()==null)? "No message" : e.getMessage();
             Log.e(err);

@@ -2,6 +2,7 @@ package parsers;
 
 import com.google.inject.Singleton;
 import domain.Car;
+import domain.SortType;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.URLCodec;
 import org.jsoup.Jsoup;
@@ -50,7 +51,7 @@ public class AvtopoiskBaseParser implements AvtopoiskParser {
      * @return result params string like &m[]=223&n[]=1761&r[]=2
      */
     private String buildParamsString(int brandId, int modelId, int regionId, int yearFrom, int yearTo,
-                                     int priceFrom, int priceTo) {
+                                     int priceFrom, int priceTo, SortType sortType) {
         StringBuilder sb = new StringBuilder();
         if (brandId > 0) {
             sb.append("&m[]=");
@@ -80,13 +81,17 @@ public class AvtopoiskBaseParser implements AvtopoiskParser {
             sb.append("&p2=");
             sb.append(priceTo);
         }
+        if(sortType != null) {
+            sb.append("&s=");
+            sb.append(sortType.ordinal());
+        }
         return sb.toString();
     }
 
     @Override
-    public ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo, int priceFrom, int priceTo) throws IOException, DecoderException {
+    public ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo, int priceFrom, int priceTo, SortType sortType) throws IOException, DecoderException {
         ArrayList<Car> resultList = new ArrayList<Car>();
-        String paramsString = buildParamsString(brandId, modelId, regionId, yearFrom, yearTo, priceFrom, priceTo);
+        String paramsString = buildParamsString(brandId, modelId, regionId, yearFrom, yearTo, priceFrom, priceTo, sortType);
         Document doc = Jsoup.connect(baseUrl + "?w=" + pageNumber + paramsString).get();
         ++pageNumber;
 

@@ -28,6 +28,13 @@
     <string name="from_hint">From:</string>
     <string name="to_hint">To:</string>
     <string name="price_section_hint_text">Price:</string>
+    <!--menu-->
+    <string name="sort_by_date_text">Sort by year</string>
+    <string name="sort_by_year_desc_text">Sort by year (desc)</string>
+    <string name="sort_by_year_inc_text">Sort by year</string>
+    <string name="sort_by_price_desc_text">Sort by price (desc)</string>
+    <string name="sort_by_price_inc_text">Sort by price</string>
+    <!--/menu-->
     <!--/SearchActivity-->
 
     <!--SearchResultActivity-->

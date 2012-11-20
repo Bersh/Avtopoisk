@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+    <item android:id="@+id/sort_by_date"
+          android:height="40dip"
+          android:width="40dip"
+          android:title="@string/sort_by_date_text"/>
+    <item android:id="@+id/sort_by_year_desc"
+          android:height="40dip"
+          android:width="40dip"
+          android:title="@string/sort_by_year_desc_text"/>
+    <item android:id="@+id/sort_by_year_inc"
+          android:height="40dip"
+          android:width="40dip"
+          android:title="@string/sort_by_year_inc_text"/>
+    <item android:id="@+id/sort_by_price_desc"
+          android:height="40dip"
+          android:width="40dip"
+          android:title="@string/sort_by_price_desc_text"/>
+    <item android:id="@+id/sort_by_price_inc"
+          android:height="40dip"
+          android:width="40dip"
+          android:title="@string/sort_by_price_inc_text"/>
+</menu>

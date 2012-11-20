@@ -41,6 +41,7 @@ import java.util.ArrayList;
  */
 
 @EActivity(R.layout.layout_search_result)
+@OptionsMenu(R.menu.search_result_menu)
 @RoboGuice
 public class SearchResultActivity extends ListActivity {
     public static final int CARS_PER_PAGE = 10;
@@ -222,5 +223,12 @@ public class SearchResultActivity extends ListActivity {
         }
 
         progressDialog.dismiss();
+    }
+
+    @OptionsItem(R.id.sort_by_price_desc)
+    void myMethod() {
+        sortType = SortType.PRICE_DESC;
+        currentResults.clear();
+        loadResults();
     }
 }

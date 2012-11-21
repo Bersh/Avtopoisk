@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -24,7 +25,6 @@ import de.akquinet.android.androlog.Log;
 import domain.Car;
 import domain.SortType;
 import org.apache.commons.lang.StringUtils;
-import parsers.AvtopoiskBaseParser;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.CarAdapter;
@@ -168,7 +168,7 @@ public class SearchResultActivity extends ListActivity {
         try {
             cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo, aPriceFrom, aPriceTo, sortType);
         } catch (Throwable e) {
-            String err = (e.getMessage()==null)? "No message" : e.getMessage();
+            String err = (e.getMessage() == null) ? "No message" : e.getMessage();
             Log.e(err);
             showDataLoadingErrorDialog();
             return;
@@ -207,7 +207,7 @@ public class SearchResultActivity extends ListActivity {
         if (listView.getFooterViewsCount() == 0) {
             listView.addFooterView(loadMoreView);
         }
-        if ((cars.isEmpty() || cars.size() < CARS_PER_PAGE || loadedCount == resultsCount) && listView.getFooterViewsCount() > 0) {
+        if ((cars.isEmpty() || /*cars.size() < CARS_PER_PAGE ||*/ loadedCount == resultsCount) && listView.getFooterViewsCount() > 0) {
             View loadTenMoreText = loadMoreView.findViewById(R.id.load_ten_more_text);
             ((LinearLayout) loadMoreView).removeView(loadTenMoreText);
             loadedCountText.setPadding(0, 10, 0, 10);
@@ -226,9 +226,43 @@ public class SearchResultActivity extends ListActivity {
     }
 
     @OptionsItem(R.id.sort_by_price_desc)
-    void myMethod() {
+    void sortByPriceDesc(MenuItem item) {
         sortType = SortType.PRICE_DESC;
+        item.setChecked(true);
+        reloadResults();
+    }
+
+    @OptionsItem(R.id.sort_by_price_inc)
+    void sortByPriceInc(MenuItem item) {
+        sortType = SortType.PRICE_INC;
+        item.setChecked(true);
+        reloadResults();
+    }
+
+    @OptionsItem(R.id.sort_by_year_desc)
+    void sortByYearDesc(MenuItem item) {
+        sortType = SortType.YEAR_DESC;
+        item.setChecked(true);
+        reloadResults();
+    }
+
+    @OptionsItem(R.id.sort_by_year_inc)
+    void sortByYearInc(MenuItem item) {
+        sortType = SortType.YEAR_INC;
+        item.setChecked(true);
+        reloadResults();
+    }
+
+    @OptionsItem(R.id.sort_by_date)
+    void sortByDate(MenuItem item) {
+        sortType = SortType.DATE;
+        item.setChecked(true);
+        reloadResults();
+    }
+
+    private void reloadResults() {
         currentResults.clear();
+        loadedCount = 0;
         loadResults();
     }
 }

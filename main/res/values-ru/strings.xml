@@ -29,6 +29,14 @@
     <string name="from_hint">От:</string>
     <string name="to_hint">До:</string>
     <string name="price_section_hint_text">Цена:</string>
+    <!--menu-->
+    <string name="sort_text">Сортировка</string>
+    <string name="sort_by_date_text">По дате</string>
+    <string name="sort_by_year_desc_text">По году (убыв.)</string>
+    <string name="sort_by_year_inc_text">По году (возр.)</string>
+    <string name="sort_by_price_desc_text">По цене (убыв.)</string>
+    <string name="sort_by_price_inc_text">По цене (возр.)</string>
+    <!--/menu-->
     <!--/SearchActivity-->
 
     <!--SearchResultActivity-->

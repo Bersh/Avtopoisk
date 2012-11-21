@@ -68,6 +68,7 @@
 
     <string-array name="prices">
         <item>@string/any2</item>
+        <item>100</item>
         <item>1000</item>
         <item>2000</item>
         <item>3000</item>
@@ -84,5 +85,63 @@
         <item>40000</item>
         <item>50000</item>
         <item>100000</item>
+    </string-array>
+
+    <integer-array name="region_codes">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+    </integer-array>
+
+    <string-array name="region_names">
+        <item>@string/any</item>
+        <item>Винница</item>
+        <item>Днепропетровск</item>
+        <item>Донецк</item>
+        <item>Житомир</item>
+        <item>Запорожье</item>
+        <item>Ивано-Франковск</item>
+        <item>Киев</item>
+        <item>Кировоград</item>
+        <item>Крым</item>
+        <item>Луганск</item>
+        <item>Луцк</item>
+        <item>Львов</item>
+        <item>Николаев</item>
+        <item>Одесса</item>
+        <item>Полтава</item>
+        <item>Ровно</item>
+        <item>Суммы</item>
+        <item>Тернополь</item>
+        <item>Ужгород</item>
+        <item>Харьков</item>
+        <item>Херсон</item>
+        <item>Хмельницкий</item>
+        <item>Черкасы</item>
+        <item>Чернигов</item>
+        <item>Черновцы</item>
     </string-array>
 </resources>

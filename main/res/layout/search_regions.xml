@@ -8,7 +8,7 @@
         android:layout_margin="5dip"
         android:orientation="horizontal">
 
-    <TextView android:layout_width="70dip"
+    <TextView android:layout_width="100dip"
               android:layout_height="wrap_content"
               android:id="@+id/region_hint"
               android:paddingRight="2dip"

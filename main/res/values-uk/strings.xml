@@ -28,6 +28,12 @@
     <string name="from_hint">Вiд:</string>
     <string name="to_hint">До:</string>
     <string name="price_section_hint_text">Цiна:</string>
+    <string name="sort_hint">Сортувати:</string>
+    <!--/SearchActivity-->
+
+    <!--SearchResultActivity-->
+    <string name="load_ten_more">Завантажити наступнi 10 результатiв</string>
+    <string name="loaded_count_text">Завантажено %1$d з %2$d</string>
     <!--menu-->
     <string name="sort_text">Сортування</string>
     <string name="sort_by_date_text">По датi</string>
@@ -36,11 +42,6 @@
     <string name="sort_by_price_desc_text">По цiнi (убутн.)</string>
     <string name="sort_by_price_inc_text">По цiнi (зрост.)</string>
     <!--/menu-->
-    <!--/SearchActivity-->
-
-    <!--SearchResultActivity-->
-    <string name="load_ten_more">Завантажити наступнi 10 результатiв</string>
-    <string name="loaded_count_text">Завантажено %1$d з %2$d</string>
     <!--/SearchResultActivity-->
 
     <!--SplashScreenActivity-->

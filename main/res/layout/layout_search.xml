@@ -35,6 +35,12 @@
                 <!--bottom line-->
                 <View android:background="#C6C6C6" android:layout_width="fill_parent" android:layout_height="1dip"/>
 
+                <!--sort by-->
+                <include layout="@layout/search_sort_by"/>
+
+                <!--bottom line-->
+                <View android:background="#C6C6C6" android:layout_width="fill_parent" android:layout_height="1dip"/>
+
                 <!--year section-->
 
                 <!--year text-->

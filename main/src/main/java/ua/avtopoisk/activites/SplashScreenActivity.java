@@ -59,7 +59,7 @@ public class SplashScreenActivity extends Activity {
 
     @Background
     protected void loadData() {
-        publishProgress(10);
+        publishProgress(30);
         LinkedHashMap<String, Integer> brands = null;
         for (int i = 0; i < 1; ++i) {
             try {
@@ -75,27 +75,11 @@ public class SplashScreenActivity extends Activity {
             showSplashError();
             return;
         }
-
         publishProgress(50);
 
-        LinkedHashMap<String, Integer> regions = null;
-
-        for (int i = 0; i < 1; ++i) {
-            try {
-                regions = parser.getRegions();
-                break;
-            } catch (IOException e) {
-                String err = (e.getMessage()==null)? "No message" : e.getMessage();
-                Log.e(err);
-            }
-        }
-
-        if(regions == null) {
-            showSplashError();
-            return;
-        }
-
+        LinkedHashMap<String, Integer> regions = buildRegionsMap();
         publishProgress(70);
+
         populateData(brands, regions);
     }
 
@@ -112,6 +96,18 @@ public class SplashScreenActivity extends Activity {
     @UiThread
     void publishProgress(int progress) {
         progressBar.setProgress(progress);
+    }
+
+    private LinkedHashMap<String, Integer> buildRegionsMap() {
+        LinkedHashMap<String, Integer> regionsMap = new LinkedHashMap<String, Integer>();
+        int[] regionCodes = getResources().getIntArray(R.array.region_codes);
+        String[] regionNames = getResources().getStringArray(R.array.region_names);
+        int i = 0;
+        for(int c : regionCodes) {
+            regionsMap.put(regionNames[i], c);
+            ++i;
+        }
+        return regionsMap;
     }
 
 }

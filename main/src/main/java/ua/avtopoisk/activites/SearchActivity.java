@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
+import domain.SortType;
 import parsers.AvtopoiskBaseParser;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.AvtopoiskApplication;
@@ -56,6 +57,9 @@ public class SearchActivity extends Activity {
     @ViewById(R.id.year_from)
     protected Spinner yearFrom;
 
+    @ViewById(R.id.sort_by)
+    protected Spinner sortBy;
+
     @ViewById(R.id.year_to)
     protected Spinner yearTo;
 
@@ -74,10 +78,12 @@ public class SearchActivity extends Activity {
     LinkedHashMap<String, Integer> regionsMap;
 
     private LinkedHashMap<String, Integer> modelsMap;
+    private LinkedHashMap<String, SortType> sortTypesMap;
 
     @Inject
     private AvtopoiskParser parser;
     private ProgressDialog progressDialog;
+
 
     private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
@@ -97,8 +103,22 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         brandsMap = brandsAndRegionsHolder.brandsMap;
         regionsMap = brandsAndRegionsHolder.regionsMap;
+        if( brandsMap == null || regionsMap == null) {
+            finish();
+        }
+
+        buildSortTypesMap();
 
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+    }
+
+    private void buildSortTypesMap() {
+        sortTypesMap = new LinkedHashMap<String, SortType>();
+        sortTypesMap.put(getString(R.string.sort_by_date_text), SortType.DATE);
+        sortTypesMap.put(getString(R.string.sort_by_year_desc_text), SortType.YEAR_DESC);
+        sortTypesMap.put(getString(R.string.sort_by_year_inc_text), SortType.YEAR_INC);
+        sortTypesMap.put(getString(R.string.sort_by_price_desc_text), SortType.PRICE_DESC);
+        sortTypesMap.put(getString(R.string.sort_by_price_inc_text), SortType.PRICE_INC);
     }
 
     @AfterViews
@@ -107,6 +127,7 @@ public class SearchActivity extends Activity {
         populateRegions();
         populateYears();
         populatePrices();
+        populateSortTypes();
 
         brands.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -180,6 +201,13 @@ public class SearchActivity extends Activity {
         yearTo.setPrompt(getString(R.string.year_prompt));
     }
 
+    protected void populateSortTypes() {
+        ArrayAdapter sortTypesAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(sortTypesMap.keySet()));
+        sortTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sortBy.setAdapter(sortTypesAdapter);
+        yearFrom.setPrompt(getString(R.string.sort_hint));
+    }
+
     protected void populatePrices() {
         ArrayAdapter pricesAdapter = ArrayAdapter.createFromResource(this, R.array.prices, android.R.layout.simple_spinner_item);
         pricesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -207,7 +235,6 @@ public class SearchActivity extends Activity {
             models.invalidate();
         }
     }
-
 
     protected void populateRegions() {
         adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(regionsMap.keySet()));

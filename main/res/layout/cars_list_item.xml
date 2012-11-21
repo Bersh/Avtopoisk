@@ -63,6 +63,7 @@
                     android:id="@+id/footer"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:paddingBottom="2dip"
                     android:weightSum="2">
 
                 <!--price-->

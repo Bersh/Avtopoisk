@@ -41,6 +41,7 @@ public class SearchActivity extends Activity {
     public static final String YEAR_TO_KEY = "yearTo";
     public static final String PRICE_FROM_KEY = "priceFrom";
     public static final String PRICE_TO_KEY = "priceTo";
+    public static final String SORT_TYPE_KEY = "sortType";
 
     @Bean
     BrandsAndRegionsHolder brandsAndRegionsHolder;
@@ -171,6 +172,7 @@ public class SearchActivity extends Activity {
         intent.putExtra(PRICE_FROM_KEY, priceFrom.getSelectedItem().toString());
         intent.putExtra(PRICE_TO_KEY, priceTo.getSelectedItem().toString());
         intent.putExtra(REGION_ID_KEY, regionsMap.get(regions.getSelectedItem().toString()));
+        intent.putExtra(SORT_TYPE_KEY, sortTypesMap.get(sortBy.getSelectedItem().toString()));
         startActivity(intent);
     }
 

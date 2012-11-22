@@ -83,7 +83,7 @@ public class AvtopoiskBaseParser implements AvtopoiskParser {
         }
         if(sortType != null) {
             sb.append("&s=");
-            sb.append(sortType.ordinal());
+            sb.append(sortType.getAvtopoiskCode());
         }
         return sb.toString();
     }

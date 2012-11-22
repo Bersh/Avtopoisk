@@ -7,5 +7,34 @@ package domain;
  * @since 09.10.12
  */
 public enum SortType {
-    DATE, YEAR_DESC, PRICE_INC, YEAR_INC, PRICE_DESC
+    /**
+     * Don't change items order! It's uses for select current sort type in {@link ua.avtopoisk.activites.SearchResultActivity#onCreateOptionsMenu(android.view.Menu)}
+     */
+    DATE {
+        public int getAvtopoiskCode() {
+            return 0;
+        }
+    },
+    YEAR_DESC {
+        public int getAvtopoiskCode() {
+            return 1;
+        }
+    },
+    YEAR_INC {
+        public int getAvtopoiskCode() {
+            return 3;
+        }
+    },
+    PRICE_DESC {
+        public int getAvtopoiskCode() {
+            return 4;
+        }
+    },
+    PRICE_INC {
+        public int getAvtopoiskCode() {
+            return 2;
+        }
+    };
+
+    public abstract int getAvtopoiskCode();
 }

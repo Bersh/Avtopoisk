@@ -7,8 +7,7 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item android:id="@+id/sort_by_date"
-                      android:title="@string/sort_by_date_text"
-                        android:checked="true"/>
+                      android:title="@string/sort_by_date_text"/>
                 <item android:id="@+id/sort_by_year_desc"
                       android:title="@string/sort_by_year_desc_text"/>
                 <item android:id="@+id/sort_by_year_inc"

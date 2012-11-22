@@ -11,10 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
+import android.view.*;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -68,6 +65,9 @@ public class SearchResultActivity extends ListActivity {
     @Extra(SearchActivity.PRICE_TO_KEY)
     String priceTo;
 
+    @Extra(SearchActivity.SORT_TYPE_KEY)
+    SortType sortType;
+
     @StringRes(R.string.any)
     String anyString;
 
@@ -84,7 +84,6 @@ public class SearchResultActivity extends ListActivity {
     private CarAdapter adapter;
     private ArrayList<Car> currentResults = new ArrayList<Car>();
     private int loadedCount;
-    private SortType sortType = SortType.DATE;
 
     private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
@@ -122,6 +121,12 @@ public class SearchResultActivity extends ListActivity {
         });
 
         loadResults();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        menu.getItem(0).getSubMenu().getItem(sortType.ordinal()).setChecked(true);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

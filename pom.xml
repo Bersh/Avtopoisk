@@ -5,7 +5,7 @@
 
     <groupId>ua.avtopoisk</groupId>
     <artifactId>Avtopoisk-parent</artifactId>
-    <version>0.5.1</version>
+    <version>0.6</version>
     <packaging>pom</packaging>
     <name>Avtopoisk-parent</name>
 

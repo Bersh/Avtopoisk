@@ -139,8 +139,7 @@ public class AvtopoiskBaseParser implements AvtopoiskParser {
             Element imageContainer = carElement.getElementsByClass("foto").get(0);
             s = imageContainer.child(0).attr("style");   //background-image:url('http://i2.avtopoisk.ua/foto/1/4618918.jpg')
             strings = s.split("'");
-            String imageUrl = strings[1];
-
+            String imageUrl = strings[1].contains("no_foto") ? "" : strings[1];
 
             Element values = info.getElementsByClass("values").get(0); // get values separated by <br>
 

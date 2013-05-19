@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import domain.Car;
 
 import java.util.List;
@@ -19,10 +22,21 @@ import java.util.List;
  */
 public class CarAdapter extends ArrayAdapter<Car> {
     private Context context;
+    private ImageLoader imageLoader;
+    private DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder()
+            .showStubImage(R.drawable.no_photo)   //TODO need to find another stub image
+            .showImageForEmptyUri(R.drawable.no_photo)
+            .showImageOnFail(R.drawable.no_photo)
+            .resetViewBeforeLoading()
+            .cacheInMemory()
+            .cacheOnDisc()
+            .build();
 
     public CarAdapter(Context context, int resource, List<Car> data) {
         super(context, resource, data);
         this.context = context;
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(context));
     }
 
     @SuppressWarnings("unchecked")
@@ -42,11 +56,11 @@ public class CarAdapter extends ArrayAdapter<Car> {
             v.setTag(holder);
         }
 
-        Car car = (Car) getItem(position);
+        Car car = getItem(position);
         if (car != null) {
             ViewHolder holder = (ViewHolder) v.getTag();
 
-            holder.imageView.setImageBitmap(car.getImage());
+            imageLoader.displayImage(car.getImageUrl(), holder.imageView, displayImageOptions);
             holder.carInfoHeader.setText(car.getYear() + "' " + car.getBrand() + " " + car.getModel());
             holder.engineDesc.setText(car.getEngineDesc());
             holder.city.setText(car.getCity());

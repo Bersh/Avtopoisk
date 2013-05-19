@@ -13,7 +13,6 @@
         <module>main</module>
         <module>domain</module>
         <module>parser</module>
-        <!--<module>functional-tests</module>-->
     </modules>
 
     <repositories>
@@ -23,6 +22,19 @@
             <url>http://mvnrepository.com/</url>
         </repository>
     </repositories>
+    <properties>
+
+        <android.version>4.2.2_r2</android.version>
+        <compatibility.version>12</compatibility.version>
+
+        <!--<android.sdk.path>/opt/android/android-sdk-linux</android.sdk.path>-->
+    </properties>
+
+    <properties>
+        <android.version>4.2.2_r2</android.version>
+
+        <!--<android.sdk.path>/opt/android/android-sdk-linux</android.sdk.path>-->
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -40,11 +52,12 @@
             </dependency>
 
             <dependency>
-                <groupId>com.google.android</groupId>
+                <groupId>android</groupId>
                 <artifactId>android</artifactId>
-                <version>2.2.1</version>
                 <scope>provided</scope>
+                <version>${android.version}</version>
             </dependency>
+
             <!-- Androlog is a logging and reporting library for Android -->
             <dependency>
                 <groupId>de.akquinet.android.androlog</groupId>
@@ -58,6 +71,7 @@
                 <version>4.8.2</version>
                 <scope>test</scope>
             </dependency>
+
             <dependency>
                 <groupId>com.pivotallabs</groupId>
                	<artifactId>robolectric</artifactId>
@@ -91,9 +105,6 @@
                         </sdk>
                         <deleteConflictingFiles>true</deleteConflictingFiles>
                         <undeployBeforeDeploy>true</undeployBeforeDeploy>
-                        <sdk>
-                            <path>C:\Program Files (x86)\Android\android-sdk</path>
-                        </sdk>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -133,6 +144,7 @@
             <properties>
                 <rt.jar.path>${java.home}/jre/lib/rt.jar</rt.jar.path>
                 <jsse.jar.path>${java.home}/jre/lib/jsse.jar</jsse.jar.path>
+                <android.sdk.path>/opt/android/android-sdk-linux</android.sdk.path>
             </properties>
         </profile>
         <!-- mac profile has to be after unix since running on mac will trigger both -->

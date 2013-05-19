@@ -17,8 +17,10 @@
               android:layout_gravity="center_vertical"
               android:text="@string/model_hint_text"/>
 
-    <Spinner
+    <Button
             android:id="@+id/models"
+            android:gravity="left|center_vertical"
+            android:background="@android:drawable/btn_dropdown"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
 </LinearLayout>

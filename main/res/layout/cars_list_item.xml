@@ -24,7 +24,7 @@
         <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:paddingBottom="2dip"
+                android:paddingBottom="2dp"
                 android:paddingRight="2dip"
                 android:paddingLeft="5dip">
 
@@ -63,12 +63,12 @@
                     android:id="@+id/footer"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:paddingBottom="2dip"
+                    android:paddingBottom="2dp"
                     android:weightSum="2">
 
                 <!--price-->
                 <TextView android:layout_width="wrap_content"
-                          android:layout_height="18dip"
+                          android:layout_height="wrap_content"
                           android:id="@+id/price"
                           android:textSize="17dip"
                           android:textStyle="bold"
@@ -78,7 +78,7 @@
 
                 <!--date posted-->
                 <TextView android:layout_width="wrap_content"
-                          android:layout_height="18dip"
+                          android:layout_height="wrap_content"
                           android:id="@+id/date_posted"
                           android:paddingRight="2dip"
                           android:gravity="right"

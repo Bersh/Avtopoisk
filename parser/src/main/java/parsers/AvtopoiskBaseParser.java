@@ -89,7 +89,7 @@ public class AvtopoiskBaseParser implements AvtopoiskParser {
     }
 
     @Override
-    public ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo, int priceFrom, int priceTo, SortType sortType) throws IOException, DecoderException {
+    public ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo, int priceFrom, int priceTo, SortType sortType) throws IOException{
         ArrayList<Car> resultList = new ArrayList<Car>();
         String paramsString = buildParamsString(brandId, modelId, regionId, yearFrom, yearTo, priceFrom, priceTo, sortType);
         Document doc = Jsoup.connect(baseUrl + "?w=" + pageNumber + paramsString).get();
@@ -134,13 +134,17 @@ public class AvtopoiskBaseParser implements AvtopoiskParser {
             s = info.child(1).child(0).attr("href"); // /go/?s=1&c=217972&u=http%3A%2F%2Favtobazar.infocar.ua%2Fcar%2Fdnepropetrovskaya-oblast%2Fdnepropetrovsk%2Fvaz%2F2106%2Fsedan-1986-217972.html
             s = s.substring(s.indexOf("http"));
             URLCodec codec = new URLCodec();
-            String linkToDetails = codec.decode(s);
+            String linkToDetails;
+            try {
+                linkToDetails = codec.decode(s);
+            } catch (DecoderException e) {
+                continue;
+            }
 
             Element imageContainer = carElement.getElementsByClass("foto").get(0);
             s = imageContainer.child(0).attr("style");   //background-image:url('http://i2.avtopoisk.ua/foto/1/4618918.jpg')
             strings = s.split("'");
-            String imageUrl = strings[1];
-
+            String imageUrl = strings[1].contains("no_foto") ? "" : strings[1];
 
             Element values = info.getElementsByClass("values").get(0); // get values separated by <br>
 

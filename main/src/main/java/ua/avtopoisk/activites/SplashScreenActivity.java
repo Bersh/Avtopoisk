@@ -68,6 +68,7 @@ public class SplashScreenActivity extends Activity {
             } catch (IOException e) {
                 String err = (e.getMessage()==null)? "No message" : e.getMessage();
                 Log.e(err);
+                e.printStackTrace();
             }
         }
 

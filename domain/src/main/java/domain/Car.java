@@ -1,7 +1,5 @@
 package domain;
 
-import android.graphics.Bitmap;
-
 /**
  * Represents car
  *
@@ -19,7 +17,6 @@ public class Car {
     private EngineType engineType;
     private String linkToDetails;
     private String imageUrl;
-    private Bitmap image;
     private String city;
     private String datePosted;
     private String engineDesc; //pure engine description string. As it is on web page
@@ -96,13 +93,5 @@ public class Car {
 
     public String getEngineDesc() {
         return engineDesc;
-    }
-
-    public Bitmap getImage() {
-        return image;
-    }
-
-    public void setImage(Bitmap image) {
-        this.image = image;
     }
 }

@@ -7,8 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.*;
@@ -24,10 +22,8 @@ import domain.SortType;
 import org.apache.commons.lang.StringUtils;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.AvtopoiskApplication;
-import ua.avtopoisk.CarAdapter;
+import ua.avtopoisk.adapter.CarAdapter;
 import ua.avtopoisk.R;
-
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -175,24 +171,9 @@ public class SearchResultActivity extends ListActivity {
         } catch (Throwable e) {
             String err = (e.getMessage() == null) ? "No message" : e.getMessage();
             Log.e(err);
+            e.printStackTrace();
             showDataLoadingErrorDialog();
             return;
-        }
-
-        for (Car car : cars) {
-            URL url;
-            Bitmap bmp = null;
-            if (car.getImageUrl().contains("no_foto")) {  //if no photo load default image
-                bmp = BitmapFactory.decodeResource(getResources(), R.drawable.no_photo);
-            } else {  //if no photo present load it from net
-                try {
-                    url = new URL(car.getImageUrl());
-                    bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                } catch (Exception e) {
-                    Log.e(e.getMessage());
-                }
-            }
-            car.setImage(bmp);
         }
 
         populateResults(cars);

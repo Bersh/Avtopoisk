@@ -1,16 +1,17 @@
 package ua.avtopoisk.activites;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.*;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
@@ -47,7 +48,7 @@ public class SearchActivity extends Activity {
     BrandsAndRegionsHolder brandsAndRegionsHolder;
 
     @ViewById(R.id.brands)
-    protected Spinner brands;
+    protected Button brands;
 
     @ViewById(R.id.models)
     protected Spinner models;
@@ -84,13 +85,14 @@ public class SearchActivity extends Activity {
     @Inject
     private AvtopoiskParser parser;
     private ProgressDialog progressDialog;
+    private String currentBrand = "";
 
 
     private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
             switch (which) {
                 case Dialog.BUTTON_POSITIVE:
-                    brandSelected(brands.getSelectedItemPosition());
+                    brandSelected(brandsMap.get(currentBrand));
                     break;
                 case Dialog.BUTTON_NEGATIVE:
                     models.setEnabled(false);
@@ -130,7 +132,7 @@ public class SearchActivity extends Activity {
         populatePrices();
         populateSortTypes();
 
-        brands.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+/*        brands.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 brandSelected(position);
@@ -139,7 +141,7 @@ public class SearchActivity extends Activity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
-        });
+        });*/
 
         models.setEnabled(false);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_title);
@@ -149,7 +151,7 @@ public class SearchActivity extends Activity {
         models.setEnabled(position > 0);
         if (models.isEnabled()) {
             progressDialog = ProgressDialog.show(SearchActivity.this, "", getString(R.string.dlg_progress_data_loading), true);
-            getModels(brandsMap.get(brands.getSelectedItem().toString()));
+            getModels(brandsMap.get(brands.getText().toString()));
         }
     }
 
@@ -164,7 +166,7 @@ public class SearchActivity extends Activity {
     @Click(R.id.btn_find)
     protected void btnFindOnClick(View view) {
         final Intent intent = new Intent(SearchActivity.this, SearchResultActivity_.class);
-        intent.putExtra(BRAND_ID_KEY, brandsMap.get(brands.getSelectedItem().toString()));
+        intent.putExtra(BRAND_ID_KEY, brandsMap.get(brands.getText().toString()));
         int modelId = (models.isEnabled()) ? modelsMap.get(models.getSelectedItem().toString()) : 0;
         intent.putExtra(MODEL_ID_KEY, modelId);
         intent.putExtra(YEAR_FROM_KEY, yearFrom.getSelectedItem().toString());
@@ -188,10 +190,33 @@ public class SearchActivity extends Activity {
     }
 
     protected void populateBrands() {
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new ArrayList<String>(brandsMap.keySet()));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        brands.setAdapter(adapter);
-        brands.setPrompt(getString(R.string.brands_prompt));
+        final ArrayAdapter brandsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new ArrayList<String>(brandsMap.keySet()));
+        brandsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+/*        brands.setAdapter(adapter);
+        brands.setPrompt(getString(R.string.brands_prompt));*/
+        brands.setText((String)brandsMap.keySet().toArray()[0]);
+        brands.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder dialogBuilder;
+                if (Build.VERSION.SDK_INT >= 11) {
+                    dialogBuilder = new AlertDialog.Builder(SearchActivity.this);//, android.R.style.Theme_NoTitleBar);
+                } else {
+                    dialogBuilder = new AlertDialog.Builder(SearchActivity.this);
+                }
+                View dialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_list, null);
+                dialogBuilder.setView(dialogView);
+                final ListView list = (ListView)dialogView.findViewById(R.id.list);
+                list.setAdapter(brandsAdapter);
+                dialogBuilder.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentBrand = (String)list.getSelectedItem();
+                    }
+                });
+
+                dialogBuilder.create().show();
+            }
+        });
     }
 
     protected void populateYears() {

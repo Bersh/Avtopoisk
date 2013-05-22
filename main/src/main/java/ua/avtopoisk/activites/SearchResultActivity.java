@@ -173,6 +173,7 @@ public class SearchResultActivity extends ListActivity {
         } catch (Throwable e) {
             String err = (e.getMessage() == null) ? "No message" : e.getMessage();
             Log.e(err);
+            e.printStackTrace();
             showDataLoadingErrorDialog();
             return;
         }

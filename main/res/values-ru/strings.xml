@@ -48,4 +48,6 @@
     <!--SplashScreenActivity-->
     <string name="splash_error_text">Произошла ошибка при загрузке данных. Перезапустите приложение</string>
     <!--/SplashScreenActivity-->
+
+    <string name="txt_loading">Загрузка…</string>
 </resources>

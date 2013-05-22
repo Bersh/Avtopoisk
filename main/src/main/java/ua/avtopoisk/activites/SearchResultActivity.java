@@ -4,17 +4,15 @@ package ua.avtopoisk.activites;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.*;
-import android.widget.LinearLayout;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ListView;
-import android.widget.TextView;
+import com.commonsware.cwac.endless.EndlessAdapter;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.*;
 import com.googlecode.androidannotations.annotations.res.StringRes;
@@ -26,7 +24,9 @@ import parsers.AvtopoiskParser;
 import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.CarAdapter;
 import ua.avtopoisk.R;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Search result activity. List of cars returned by parser
@@ -78,10 +78,13 @@ public class SearchResultActivity extends ListActivity {
     @App
     AvtopoiskApplication application;
 
-    private View loadMoreView;
-    private CarAdapter adapter;
+    private EndlessAdapter adapter;
     private ArrayList<Car> currentResults = new ArrayList<Car>();
     private int loadedCount;
+    private int currentYearFrom;
+    private int currentYearTo;
+    private int currentPriceFrom;
+    private int currentPriceTo;
 
     private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
@@ -101,9 +104,11 @@ public class SearchResultActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_title);
-        loadMoreView = ((LayoutInflater) this
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                .inflate(R.layout.loadmore_item, null, false);
+
+        currentYearFrom = StringUtils.isEmpty(yearFrom) || yearFrom.equals(anyString) ? 0 : Integer.parseInt(yearFrom);
+        currentYearTo = StringUtils.isEmpty(yearTo) || yearTo.equals(anyString) ? 0 : Integer.parseInt(yearTo);
+        currentPriceFrom = StringUtils.isEmpty(priceFrom) || priceFrom.equals(anyString2) ? 0 : Integer.parseInt(priceFrom);
+        currentPriceTo = StringUtils.isEmpty(priceTo) || priceTo.equals(anyString2) ? 0 : Integer.parseInt(priceTo);
     }
 
     @AfterViews
@@ -111,18 +116,12 @@ public class SearchResultActivity extends ListActivity {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_title);
         getListView().setDividerHeight(0);
         getListView().setFooterDividersEnabled(false);
-        loadMoreView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadResults();
-            }
-        });
 
         loadResults();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         menu.getItem(0).getSubMenu().getItem(sortType.ordinal()).setChecked(true);
         return super.onCreateOptionsMenu(menu);
     }
@@ -164,12 +163,10 @@ public class SearchResultActivity extends ListActivity {
     void loadResults() {
         showProgressDialog();
         ArrayList<Car> cars;
-        int aYearFrom = StringUtils.isEmpty(yearFrom) || yearFrom.equals(anyString) ? 0 : Integer.parseInt(yearFrom);
-        int aYearTo = StringUtils.isEmpty(yearTo) || yearTo.equals(anyString) ? 0 : Integer.parseInt(yearTo);
-        int aPriceFrom = StringUtils.isEmpty(priceFrom) || priceFrom.equals(anyString2) ? 0 : Integer.parseInt(priceFrom);
-        int aPriceTo = StringUtils.isEmpty(priceTo) || priceTo.equals(anyString2) ? 0 : Integer.parseInt(priceTo);
+
         try {
-            cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo, aPriceFrom, aPriceTo, sortType);
+            cars = parser.parse(brandId, modelId, regionId, currentYearFrom, currentYearTo, currentPriceFrom,
+                    currentPriceTo, sortType);
         } catch (Throwable e) {
             String err = (e.getMessage() == null) ? "No message" : e.getMessage();
             Log.e(err);
@@ -184,26 +181,49 @@ public class SearchResultActivity extends ListActivity {
     @UiThread
     void populateResults(ArrayList<Car> cars) {
         ListView listView = getListView();
-        loadedCount += cars.size();
-        int resultsCount = parser.getLastRequestResultsCount();
+/*        loadedCount += cars.size();
+        int resultsCount = parser.getLastRequestResultsCount();*/
 
-        //add load more button and text
+/*        //add load more button and text
         TextView loadedCountText = (TextView) loadMoreView.findViewById(R.id.loaded_count_text);
         loadedCountText.setText(String.format(getString(R.string.loaded_count_text), loadedCount, resultsCount));
 
         if (listView.getFooterViewsCount() == 0) {
             listView.addFooterView(loadMoreView);
         }
-        if ((cars.isEmpty() || /*cars.size() < CARS_PER_PAGE ||*/ loadedCount == resultsCount) && listView.getFooterViewsCount() > 0) {
+        if ((cars.isEmpty() || *//*cars.size() < CARS_PER_PAGE ||*//* loadedCount == resultsCount) && listView.getFooterViewsCount() > 0) {
             View loadTenMoreText = loadMoreView.findViewById(R.id.load_ten_more_text);
             ((LinearLayout) loadMoreView).removeView(loadTenMoreText);
             loadedCountText.setPadding(0, 10, 0, 10);
             loadMoreView.setOnClickListener(null);
-        }
+        }*/
         currentResults.addAll(cars);
 
         if (adapter == null) {
-            adapter = new CarAdapter(this, R.layout.cars_list_item, currentResults);
+            final CarAdapter carAdapter = new CarAdapter(this, R.layout.cars_list_item, currentResults);
+            adapter = new EndlessAdapter(this, carAdapter, R.layout.loading_item) {
+                private List<Car> cars = null;
+
+                @Override
+                protected boolean cacheInBackground() throws Exception {
+                    try {
+                        cars = parser.parse(brandId, modelId, regionId, currentYearFrom, currentYearTo, currentPriceFrom,
+                                currentPriceTo, sortType);
+                    } catch (Throwable e) {
+                        String err = (e.getMessage() == null) ? "No message" : e.getMessage();
+                        Log.e(err);
+                        showDataLoadingErrorDialog();
+                    }
+                    return (cars != null && !cars.isEmpty());
+                }
+
+                @Override
+                protected void appendCachedData() {
+                    if (cars != null) {
+                        carAdapter.addAll(cars);
+                    }
+                }
+            };
             listView.setAdapter(adapter);
         } else {
             adapter.notifyDataSetChanged();

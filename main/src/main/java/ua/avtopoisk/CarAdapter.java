@@ -31,12 +31,18 @@ public class CarAdapter extends ArrayAdapter<Car> {
             .cacheInMemory()
             .cacheOnDisc()
             .build();
+    private List<Car> cars;
 
     public CarAdapter(Context context, int resource, List<Car> data) {
         super(context, resource, data);
+        this.cars = data;
         this.context = context;
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(context));
+    }
+
+    public void addAll(List<Car> cars) {
+        this.cars.addAll(cars);
     }
 
     @SuppressWarnings("unchecked")

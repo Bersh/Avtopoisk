@@ -16,12 +16,20 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <imageLoader.version>1.8.4</imageLoader.version>
+        <endlessAdapter.version>1.2.0</endlessAdapter.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.roboguice</groupId>
             <artifactId>roboguice</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.cwac</groupId>
+            <artifactId>cwac-endless</artifactId>
+            <version>${endlessAdapter.version}</version>
+            <type>apklib</type>
         </dependency>
 
         <dependency>
@@ -45,7 +53,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.android</groupId>
+            <groupId>android</groupId>
             <artifactId>android</artifactId>
         </dependency>
 
@@ -95,7 +103,7 @@
                 <sign.alias>bersh_alias</sign.alias>
                 <sign.keypass>sd2jEY4</sign.keypass>
                 <sign.storepass>sd2jEY4</sign.storepass>
-                <android.sdk.path>C:\Program Files (x86)\Android\android-sdk</android.sdk.path>
+                <android.sdk.path>/opt/android/android-sdk-linux</android.sdk.path>
             </properties>
             <build>
                 <plugins>

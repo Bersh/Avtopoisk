@@ -24,6 +24,13 @@
         </repository>
     </repositories>
 
+    <properties>
+        <android.version>4.2.2_r2</android.version>
+        <support-v4.version>r7</support-v4.version>
+        <maps.version>17_r2</maps.version>
+        <compatibility.version>12</compatibility.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -40,10 +47,10 @@
             </dependency>
 
             <dependency>
-                <groupId>com.google.android</groupId>
+                <groupId>android</groupId>
                 <artifactId>android</artifactId>
-                <version>2.2.1</version>
                 <scope>provided</scope>
+                <version>${android.version}</version>
             </dependency>
             <!-- Androlog is a logging and reporting library for Android -->
             <dependency>
@@ -91,9 +98,6 @@
                         </sdk>
                         <deleteConflictingFiles>true</deleteConflictingFiles>
                         <undeployBeforeDeploy>true</undeployBeforeDeploy>
-                        <sdk>
-                            <path>C:\Program Files (x86)\Android\android-sdk</path>
-                        </sdk>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -133,6 +137,7 @@
             <properties>
                 <rt.jar.path>${java.home}/jre/lib/rt.jar</rt.jar.path>
                 <jsse.jar.path>${java.home}/jre/lib/jsse.jar</jsse.jar.path>
+                <android.sdk.path>/opt/android/android-sdk-linux</android.sdk.path>
             </properties>
         </profile>
         <!-- mac profile has to be after unix since running on mac will trigger both -->

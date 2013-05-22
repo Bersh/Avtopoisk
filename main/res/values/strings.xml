@@ -48,4 +48,6 @@
     <!--SplashScreenActivity-->
     <string name="splash_error_text">Error while loading data. Restart application</string>
     <!--/SplashScreenActivity-->
+
+    <string name="txt_loading">Loading…</string>
 </resources>

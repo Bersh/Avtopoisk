@@ -20,6 +20,7 @@ import parsers.AvtopoiskBaseParser;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.BrandsAndRegionsHolder;
+import ua.avtopoisk.Constants;
 import ua.avtopoisk.R;
 
 import java.io.IOException;
@@ -43,6 +44,8 @@ public class SearchActivity extends Activity {
     public static final String PRICE_FROM_KEY = "priceFrom";
     public static final String PRICE_TO_KEY = "priceTo";
     public static final String SORT_TYPE_KEY = "sortType";
+
+    private static final int REQUEST_CODE_BRANDS_LIST = 1;
 
     @Bean
     BrandsAndRegionsHolder brandsAndRegionsHolder;
@@ -190,27 +193,31 @@ public class SearchActivity extends Activity {
     }
 
     protected void populateBrands() {
-        final ArrayAdapter brandsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new ArrayList<String>(brandsMap.keySet()));
+        ArrayList<String> brandNames = new ArrayList<String>(brandsMap.keySet());
+        final ArrayAdapter brandsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, brandNames);
         brandsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Intent intent = new Intent(this, ListActivity.class);
+        intent.putStringArrayListExtra(Constants.KEY_EXTRA_BRAND_NAMES, brandNames);
+        startActivityForResult(intent, REQUEST_CODE_BRANDS_LIST);
 /*        brands.setAdapter(adapter);
         brands.setPrompt(getString(R.string.brands_prompt));*/
-        brands.setText((String)brandsMap.keySet().toArray()[0]);
+        brands.setText(brandNames.get(0));
         brands.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder dialogBuilder;
-                if (Build.VERSION.SDK_INT >= 11) {
+                if (Build.VERSION.SDK_INT >= Constants.SDK_VERSION_11) {
                     dialogBuilder = new AlertDialog.Builder(SearchActivity.this);//, android.R.style.Theme_NoTitleBar);
                 } else {
                     dialogBuilder = new AlertDialog.Builder(SearchActivity.this);
                 }
                 View dialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_list, null);
                 dialogBuilder.setView(dialogView);
-                final ListView list = (ListView)dialogView.findViewById(R.id.list);
+                final ListView list = (ListView) dialogView.findViewById(R.id.list);
                 list.setAdapter(brandsAdapter);
                 dialogBuilder.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        currentBrand = (String)list.getSelectedItem();
+                        currentBrand = (String) list.getSelectedItem();
                     }
                 });
 

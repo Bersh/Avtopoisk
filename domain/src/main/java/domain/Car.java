@@ -1,7 +1,5 @@
 package domain;
 
-import android.graphics.Bitmap;
-
 /**
  * Represents car
  *

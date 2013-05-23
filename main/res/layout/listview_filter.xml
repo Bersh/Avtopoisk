@@ -10,7 +10,7 @@
     android:layout_marginLeft="10dp">
 
     <EditText
-        android:id="@+id/contacts_filter"
+        android:id="@+id/edit_filter"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:background="@drawable/textfield_search"

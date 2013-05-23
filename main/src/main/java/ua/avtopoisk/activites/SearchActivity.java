@@ -89,6 +89,7 @@ public class SearchActivity extends Activity {
     private AvtopoiskParser parser;
     private ProgressDialog progressDialog;
     private String currentBrand = "";
+    private ArrayList<String> brandNames;
 
 
     private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = new DialogInterface.OnClickListener() {
@@ -181,6 +182,13 @@ public class SearchActivity extends Activity {
         startActivity(intent);
     }
 
+    @Click(R.id.brands)
+    protected void btnSelectBrandClick(View view) {
+        Intent intent = new Intent(this, ListActivity_.class);
+        intent.putStringArrayListExtra(Constants.KEY_EXTRA_BRAND_NAMES, brandNames);
+        startActivityForResult(intent, REQUEST_CODE_BRANDS_LIST);
+    }
+
     @Background
     protected void getModels(int brandId) {
         LinkedHashMap<String, Integer> aModels = null;
@@ -193,37 +201,16 @@ public class SearchActivity extends Activity {
     }
 
     protected void populateBrands() {
-        ArrayList<String> brandNames = new ArrayList<String>(brandsMap.keySet());
-        final ArrayAdapter brandsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, brandNames);
-        brandsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Intent intent = new Intent(this, ListActivity.class);
-        intent.putStringArrayListExtra(Constants.KEY_EXTRA_BRAND_NAMES, brandNames);
-        startActivityForResult(intent, REQUEST_CODE_BRANDS_LIST);
-/*        brands.setAdapter(adapter);
-        brands.setPrompt(getString(R.string.brands_prompt));*/
+        brandNames = new ArrayList<String>(brandsMap.keySet());
         brands.setText(brandNames.get(0));
-        brands.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final AlertDialog.Builder dialogBuilder;
-                if (Build.VERSION.SDK_INT >= Constants.SDK_VERSION_11) {
-                    dialogBuilder = new AlertDialog.Builder(SearchActivity.this);//, android.R.style.Theme_NoTitleBar);
-                } else {
-                    dialogBuilder = new AlertDialog.Builder(SearchActivity.this);
-                }
-                View dialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_list, null);
-                dialogBuilder.setView(dialogView);
-                final ListView list = (ListView) dialogView.findViewById(R.id.list);
-                list.setAdapter(brandsAdapter);
-                dialogBuilder.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        currentBrand = (String) list.getSelectedItem();
-                    }
-                });
+    }
 
-                dialogBuilder.create().show();
-            }
-        });
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_BRANDS_LIST) {
+            brands.setText(data.getStringExtra(Constants.KEY_EXTRA_BRAND));
+        }
     }
 
     protected void populateYears() {

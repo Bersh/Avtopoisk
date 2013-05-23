@@ -23,12 +23,15 @@ public interface AvtopoiskParser {
      * @param yearTo year to
      * @param priceFrom price from
      * @param priceTo price to
-     * @param sortType sorting type (like "by date")
+     * @param sortType sorting type (for example "by date")
+     * @param bodyType car body type (for example "sedan")
+     * @param addedType added filter
      * @return list of {@link domain.Car} by given params
      * @throws IOException if parser fails
      * @throws DecoderException if URL decoder fails
      */
-    ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo, int priceFrom, int priceTo, SortType sortType) throws IOException, DecoderException;
+    ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo, int priceFrom, int priceTo,
+                         SortType sortType, int bodyType, int addedType) throws IOException, DecoderException;
 
     /**
      * Parse brands list from select

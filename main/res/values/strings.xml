@@ -4,6 +4,7 @@
     <string name="app_name">Avtopoisk</string>
     <string name="dlg_progress_data_loading">Loading…</string>
     <string name="any">Any</string>
+    <string name="all">All</string>
     <string name="any2">Any</string>
     <string name="error">Error</string>
 
@@ -29,6 +30,8 @@
     <string name="to_hint">To:</string>
     <string name="price_section_hint_text">Price:</string>
     <string name="sort_hint">Sort by:</string>
+    <string name="body_type_hint">Body type:</string>
+    <string name="added_type_hint">Added:</string>
     <!--/SearchActivity-->
 
     <!--SearchResultActivity-->

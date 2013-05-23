@@ -1,0 +1,55 @@
+<resources>
+    <string-array name="region_names">
+        <item>@string/any</item>
+        <item>Винница</item>
+        <item>Днепропетровск</item>
+        <item>Донецк</item>
+        <item>Житомир</item>
+        <item>Запорожье</item>
+        <item>Ивано-Франковск</item>
+        <item>Киев</item>
+        <item>Кировоград</item>
+        <item>Крым</item>
+        <item>Луганск</item>
+        <item>Луцк</item>
+        <item>Львов</item>
+        <item>Николаев</item>
+        <item>Одесса</item>
+        <item>Полтава</item>
+        <item>Ровно</item>
+        <item>Суммы</item>
+        <item>Тернополь</item>
+        <item>Ужгород</item>
+        <item>Харьков</item>
+        <item>Херсон</item>
+        <item>Хмельницкий</item>
+        <item>Черкасы</item>
+        <item>Чернигов</item>
+        <item>Черновцы</item>
+    </string-array>
+
+    <string-array name="body_types">
+        <item>@string/any</item>
+        <item>Седан</item>
+        <item>Купе</item>
+        <item>Хечбэк</item>
+        <item>Универсал</item>
+        <item>Кабриолет</item>
+        <item>Внедорожник</item>
+        <item>Минивэн</item>
+        <item>Пикап</item>
+        <item>Фургон</item>
+        <item>Лимузин</item>
+        <item>Лифтбек</item>
+        <item>Грузовик</item>
+        <item>Автобус</item>
+        <item>Мотоцикл</item>
+    </string-array>
+
+    <string-array name="added_types">
+        <item>@string/all</item>
+        <item>За сегодня</item>
+        <item>За 7 дней</item>
+        <item>За 30 дней</item>
+    </string-array>
+</resources>

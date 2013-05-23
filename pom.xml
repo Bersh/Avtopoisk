@@ -5,7 +5,7 @@
 
     <groupId>ua.avtopoisk</groupId>
     <artifactId>Avtopoisk-parent</artifactId>
-    <version>0.6</version>
+    <version>0.7</version>
     <packaging>pom</packaging>
     <name>Avtopoisk-parent</name>
 
@@ -21,17 +21,17 @@
             <name>central</name>
             <url>http://mvnrepository.com/</url>
         </repository>
+
+        <repository>
+       		<id>snapshots-repository</id>
+       		<name>Sonatype oss snapshot repo</name>
+       		<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+       	</repository>
     </repositories>
     <properties>
 
         <android.version>4.2.2_r2</android.version>
         <compatibility.version>12</compatibility.version>
-
-        <!--<android.sdk.path>/opt/android/android-sdk-linux</android.sdk.path>-->
-    </properties>
-
-    <properties>
-        <android.version>4.2.2_r2</android.version>
 
         <!--<android.sdk.path>/opt/android/android-sdk-linux</android.sdk.path>-->
     </properties>

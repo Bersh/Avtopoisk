@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ApplicationInfo;
 import com.google.inject.Module;
-import com.googlecode.androidannotations.annotations.EApplication;
+import org.androidannotations.annotations.EApplication;
 import de.akquinet.android.androlog.Log;
 import parsers.AvtopoiskBaseParser;
 import parsers.AvtopoiskParser;

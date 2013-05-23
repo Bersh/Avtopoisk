@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import com.googlecode.androidannotations.annotations.*;
+import org.androidannotations.annotations.*;
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.R;
 
@@ -48,7 +48,7 @@ public class ListActivity extends Activity {
     };
 
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
     }
@@ -60,7 +60,7 @@ public class ListActivity extends Activity {
     }
 
     @Click(R.id.btn_clear_filter)
-    protected void btnClearFilterClick(View view){
+    protected void btnClearFilterClick(View view) {
         filter.setText("");
     }
 

@@ -6,6 +6,7 @@
     <string name="any">Буд’який</string>
     <string name="any2">Буд’яка</string>
     <string name="error">Помилка</string>
+    <string name="all">Усi</string>
 
     <!--error data loading dialog-->
     <string name="error_dlg_text">При завантаженнi данных сталася помилка. Повторити запит?</string>
@@ -29,6 +30,8 @@
     <string name="to_hint">До:</string>
     <string name="price_section_hint_text">Цiна:</string>
     <string name="sort_hint">Сортувати:</string>
+    <string name="body_type_hint">Тип кузова:</string>
+    <string name="added_type_hint">Створені:</string>
     <!--/SearchActivity-->
 
     <!--SearchResultActivity-->

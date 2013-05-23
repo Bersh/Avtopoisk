@@ -5,6 +5,7 @@
     <string name="dlg_progress_data_loading">Загрузка данных…</string>
     <string name="any">Любой</string>
     <string name="any2">Любая</string>
+    <string name="all">Все</string>
     <string name="error">Ошибка</string>
 
     <!--error data loading dialog-->
@@ -30,6 +31,8 @@
     <string name="to_hint">До:</string>
     <string name="price_section_hint_text">Цена:</string>
     <string name="sort_hint">Сортировка:</string>
+    <string name="body_type_hint">Тип кузова:</string>
+    <string name="added_type_hint">Добавлены:</string>
     <!--/SearchActivity-->
 
     <!--SearchResultActivity-->

@@ -17,32 +17,31 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dip">
 
-                <!--brands-->
                 <include layout="@layout/search_brands"/>
 
-                <!--bottom line-->
                 <View android:background="#C6C6C6" android:layout_width="fill_parent" android:layout_height="1dip"/>
 
-                <!--models-->
                 <include layout="@layout/search_models"/>
 
-                <!--bottom line-->
                 <View android:background="#C6C6C6" android:layout_width="fill_parent" android:layout_height="1dip"/>
 
-                <!--regions-->
                 <include layout="@layout/search_regions"/>
 
-                <!--bottom line-->
                 <View android:background="#C6C6C6" android:layout_width="fill_parent" android:layout_height="1dip"/>
 
-                <!--sort by-->
                 <include layout="@layout/search_sort_by"/>
 
-                <!--bottom line-->
+                <View android:background="#C6C6C6" android:layout_width="fill_parent" android:layout_height="1dip"/>
+
+                <include layout="@layout/search_body_type"/>
+
+                <View android:background="#C6C6C6" android:layout_width="fill_parent" android:layout_height="1dip"/>
+
+                <include layout="@layout/search_added_type"/>
+
                 <View android:background="#C6C6C6" android:layout_width="fill_parent" android:layout_height="1dip"/>
 
                 <!--year section-->
-
                 <!--year text-->
                 <TextView android:layout_width="fill_parent"
                           android:layout_height="wrap_content"

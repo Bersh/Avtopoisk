@@ -1,0 +1,55 @@
+<resources>
+    <string-array name="region_names">
+        <item>@string/any</item>
+        <item>Винница</item>
+        <item>Днепропетровск</item>
+        <item>Донецк</item>
+        <item>Житомир</item>
+        <item>Запорожье</item>
+        <item>Ивано-Франковск</item>
+        <item>Киев</item>
+        <item>Кировоград</item>
+        <item>Крым</item>
+        <item>Луганск</item>
+        <item>Луцк</item>
+        <item>Львов</item>
+        <item>Николаев</item>
+        <item>Одесса</item>
+        <item>Полтава</item>
+        <item>Ровно</item>
+        <item>Суммы</item>
+        <item>Тернополь</item>
+        <item>Ужгород</item>
+        <item>Харьков</item>
+        <item>Херсон</item>
+        <item>Хмельницкий</item>
+        <item>Черкасы</item>
+        <item>Чернигов</item>
+        <item>Черновцы</item>
+    </string-array>
+
+    <string-array name="body_types">
+        <item>@string/any</item>
+        <item>Седан</item>
+        <item>Купе</item>
+        <item>Хечбэк</item>
+        <item>Універсал</item>
+        <item>Кабріолет</item>
+        <item>Позашляховик</item>
+        <item>Мінівен</item>
+        <item>Пікап</item>
+        <item>Фургон</item>
+        <item>Лімузин</item>
+        <item>Ліфтбек</item>
+        <item>Вантажівка</item>
+        <item>Автобус</item>
+        <item>Мотоцикл</item>
+    </string-array>
+
+    <string-array name="added_types">
+        <item>@string/all</item>
+        <item>За сьогодні</item>
+        <item>За 7 днів</item>
+        <item>За 30 днів</item>
+    </string-array>
+</resources>

@@ -51,7 +51,7 @@ public class AvtopoiskBaseParser implements AvtopoiskParser {
      * @return result params string like &m[]=223&n[]=1761&r[]=2
      */
     private String buildParamsString(int brandId, int modelId, int regionId, int yearFrom, int yearTo,
-                                     int priceFrom, int priceTo, SortType sortType) {
+                                     int priceFrom, int priceTo, SortType sortType, int bodyType, int addedType) {
         StringBuilder sb = new StringBuilder();
         if (brandId > 0) {
             sb.append("&m[]=");
@@ -81,17 +81,27 @@ public class AvtopoiskBaseParser implements AvtopoiskParser {
             sb.append("&p2=");
             sb.append(priceTo);
         }
-        if(sortType != null) {
+        if (sortType != null) {
             sb.append("&s=");
             sb.append(sortType.getAvtopoiskCode());
+        }
+        if (bodyType > 0) {
+            sb.append("&k[]=");
+            sb.append(bodyType);
+        }
+        if (addedType > 0) {
+            sb.append("&a=");
+            sb.append(addedType);
         }
         return sb.toString();
     }
 
     @Override
-    public ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo, int priceFrom, int priceTo, SortType sortType) throws IOException{
+    public ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo, int priceFrom, int priceTo,
+                                SortType sortType, int bodyType, int addedType) throws IOException {
         ArrayList<Car> resultList = new ArrayList<Car>();
-        String paramsString = buildParamsString(brandId, modelId, regionId, yearFrom, yearTo, priceFrom, priceTo, sortType);
+        String paramsString = buildParamsString(brandId, modelId, regionId, yearFrom, yearTo, priceFrom, priceTo,
+                sortType, bodyType, addedType);
         Document doc = Jsoup.connect(baseUrl + "?w=" + pageNumber + paramsString).get();
         ++pageNumber;
 

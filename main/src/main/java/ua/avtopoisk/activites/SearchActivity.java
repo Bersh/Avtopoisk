@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import com.google.inject.Inject;
-import com.googlecode.androidannotations.annotations.*;
+import org.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
 import domain.SortType;
 import parsers.AvtopoiskParser;
@@ -35,15 +35,6 @@ import java.util.LinkedHashMap;
 @EActivity(R.layout.layout_search)
 @RoboGuice
 public class SearchActivity extends Activity {
-    public static final String BRAND_ID_KEY = "brand";
-    public static final String MODEL_ID_KEY = "model";
-    public static final String REGION_ID_KEY = "region";
-    public static final String YEAR_FROM_KEY = "yearFrom";
-    public static final String YEAR_TO_KEY = "yearTo";
-    public static final String PRICE_FROM_KEY = "priceFrom";
-    public static final String PRICE_TO_KEY = "priceTo";
-    public static final String SORT_TYPE_KEY = "sortType";
-
     private static final int REQUEST_CODE_BRANDS_LIST = 1;
     private static final int REQUEST_CODE_MODELS_LIST = 2;
 
@@ -65,6 +56,12 @@ public class SearchActivity extends Activity {
     @ViewById(R.id.sort_by)
     protected Spinner sortBy;
 
+    @ViewById(R.id.body_type)
+    protected Spinner bodyType;
+
+    @ViewById(R.id.added_type)
+    protected Spinner addedType;
+
     @ViewById(R.id.year_to)
     protected Spinner yearTo;
 
@@ -84,6 +81,8 @@ public class SearchActivity extends Activity {
 
     private LinkedHashMap<String, Integer> modelsMap;
     private LinkedHashMap<String, SortType> sortTypesMap;
+    private LinkedHashMap<String, Integer> bodyTypesMap = new LinkedHashMap<String, Integer>();
+    private LinkedHashMap<String, Integer> addedTypesMap = new LinkedHashMap<String, Integer>();
 
     @Inject
     private AvtopoiskParser parser;
@@ -115,6 +114,8 @@ public class SearchActivity extends Activity {
         }
 
         buildSortTypesMap();
+        buildBodyTypesMap();
+        buildAddedTypesMap();
 
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
     }
@@ -135,6 +136,8 @@ public class SearchActivity extends Activity {
         populateYears();
         populatePrices();
         populateSortTypes();
+        populateBodyTypes();
+        populateAddedTypes();
 
         models.setEnabled(false);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_title);
@@ -159,15 +162,17 @@ public class SearchActivity extends Activity {
     @Click(R.id.btn_find)
     protected void btnFindOnClick(View view) {
         final Intent intent = new Intent(SearchActivity.this, SearchResultActivity_.class);
-        intent.putExtra(BRAND_ID_KEY, brandsMap.get(brands.getText().toString()));
+        intent.putExtra(Constants.BRAND_ID_KEY, brandsMap.get(brands.getText().toString()));
         int modelId = (models.isEnabled()) ? modelsMap.get(models.getText().toString()) : 0;
-        intent.putExtra(MODEL_ID_KEY, modelId);
-        intent.putExtra(YEAR_FROM_KEY, yearFrom.getSelectedItem().toString());
-        intent.putExtra(YEAR_TO_KEY, yearTo.getSelectedItem().toString());
-        intent.putExtra(PRICE_FROM_KEY, priceFrom.getSelectedItem().toString());
-        intent.putExtra(PRICE_TO_KEY, priceTo.getSelectedItem().toString());
-        intent.putExtra(REGION_ID_KEY, regionsMap.get(regions.getSelectedItem().toString()));
-        intent.putExtra(SORT_TYPE_KEY, sortTypesMap.get(sortBy.getSelectedItem().toString()));
+        intent.putExtra(Constants.MODEL_ID_KEY, modelId);
+        intent.putExtra(Constants.YEAR_FROM_KEY, yearFrom.getSelectedItem().toString());
+        intent.putExtra(Constants.YEAR_TO_KEY, yearTo.getSelectedItem().toString());
+        intent.putExtra(Constants.PRICE_FROM_KEY, priceFrom.getSelectedItem().toString());
+        intent.putExtra(Constants.PRICE_TO_KEY, priceTo.getSelectedItem().toString());
+        intent.putExtra(Constants.REGION_ID_KEY, regionsMap.get(regions.getSelectedItem().toString()));
+        intent.putExtra(Constants.SORT_TYPE_KEY, sortTypesMap.get(sortBy.getSelectedItem().toString()));
+        intent.putExtra(Constants.BODY_TYPE_KEY, bodyTypesMap.get(bodyType.getSelectedItem().toString()));
+        intent.putExtra(Constants.ADDED_TYPE_KEY, addedTypesMap.get(addedType.getSelectedItem().toString()));
         startActivity(intent);
     }
 
@@ -235,7 +240,41 @@ public class SearchActivity extends Activity {
         ArrayAdapter sortTypesAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(sortTypesMap.keySet()));
         sortTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortBy.setAdapter(sortTypesAdapter);
-        yearFrom.setPrompt(getString(R.string.sort_hint));
+        sortBy.setPrompt(getString(R.string.sort_hint));
+    }
+
+    private void buildAddedTypesMap() {
+        int[] addedTypeCodes = getResources().getIntArray(R.array.added_codes);
+        String[] addedTypeNames = getResources().getStringArray(R.array.added_types);
+        int i = 0;
+        for (int c : addedTypeCodes) {
+            addedTypesMap.put(addedTypeNames[i], c);
+            ++i;
+        }
+    }
+
+    protected void populateAddedTypes() {
+        ArrayAdapter addedTypesAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(addedTypesMap.keySet()));
+        addedTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        addedType.setAdapter(addedTypesAdapter);
+        addedType.setPrompt(getString(R.string.added_type_hint));
+    }
+
+    private void buildBodyTypesMap() {
+        int[] bodyTypeCodes = getResources().getIntArray(R.array.body_type_codes);
+        String[] bodyTypeNames = getResources().getStringArray(R.array.body_types);
+        int i = 0;
+        for (int c : bodyTypeCodes) {
+            bodyTypesMap.put(bodyTypeNames[i], c);
+            ++i;
+        }
+    }
+
+    protected void populateBodyTypes() {
+        ArrayAdapter bodyTypesAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(bodyTypesMap.keySet()));
+        bodyTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        bodyType.setAdapter(bodyTypesAdapter);
+        bodyType.setPrompt(getString(R.string.body_type_hint));
     }
 
     protected void populatePrices() {

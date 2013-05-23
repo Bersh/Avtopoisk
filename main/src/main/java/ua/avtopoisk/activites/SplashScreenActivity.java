@@ -7,9 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 import com.google.inject.Inject;
-import com.googlecode.androidannotations.annotations.*;
+import org.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
-import parsers.AvtopoiskBaseParser;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.R;
@@ -66,13 +65,13 @@ public class SplashScreenActivity extends Activity {
                 brands = parser.getBrands();
                 break;
             } catch (IOException e) {
-                String err = (e.getMessage()==null)? "No message" : e.getMessage();
+                String err = (e.getMessage() == null) ? "No message" : e.getMessage();
                 Log.e(err);
                 e.printStackTrace();
             }
         }
 
-        if(brands == null) {
+        if (brands == null) {
             showSplashError();
             return;
         }
@@ -104,7 +103,7 @@ public class SplashScreenActivity extends Activity {
         int[] regionCodes = getResources().getIntArray(R.array.region_codes);
         String[] regionNames = getResources().getStringArray(R.array.region_names);
         int i = 0;
-        for(int c : regionCodes) {
+        for (int c : regionCodes) {
             regionsMap.put(regionNames[i], c);
             ++i;
         }

@@ -144,4 +144,54 @@
         <item>Чернигов</item>
         <item>Черновцы</item>
     </string-array>
+
+    <integer-array name="body_type_codes">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+    </integer-array>
+
+    <string-array name="body_types">
+        <item>@string/any</item>
+        <item>Седан</item>
+        <item>Купе</item>
+        <item>Хечбэк</item>
+        <item>Универсал</item>
+        <item>Кабриолет</item>
+        <item>Внедорожник</item>
+        <item>Минивэн</item>
+        <item>Пикап</item>
+        <item>Фургон</item>
+        <item>Лимузин</item>
+        <item>Лифтбек</item>
+        <item>Грузовик</item>
+        <item>Автобус</item>
+        <item>Мотоцикл</item>
+    </string-array>
+
+    <integer-array name="added_codes">
+        <item>0</item>
+        <item>1</item>
+        <item>7</item>
+        <item>30</item>
+    </integer-array>
+
+    <string-array name="added_types">
+        <item>@string/all</item>
+        <item>За сегодня</item>
+        <item>За 7 дней</item>
+        <item>За 30 дней</item>
+    </string-array>
 </resources>

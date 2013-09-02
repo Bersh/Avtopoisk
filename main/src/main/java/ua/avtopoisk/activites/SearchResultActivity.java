@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -20,7 +21,6 @@ import domain.Car;
 import domain.SortType;
 import org.androidannotations.annotations.*;
 import org.androidannotations.annotations.res.StringRes;
-import org.apache.commons.lang.StringUtils;
 import parsers.AvtopoiskParser;
 import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.Constants;
@@ -179,10 +179,10 @@ public class SearchResultActivity extends ListActivity {
     void loadResults() {
         showProgressDialog();
         ArrayList<Car> cars;
-        int aYearFrom = StringUtils.isEmpty(yearFrom) || yearFrom.equals(anyString) ? 0 : Integer.parseInt(yearFrom);
-        int aYearTo = StringUtils.isEmpty(yearTo) || yearTo.equals(anyString) ? 0 : Integer.parseInt(yearTo);
-        int aPriceFrom = StringUtils.isEmpty(priceFrom) || priceFrom.equals(anyString2) ? 0 : Integer.parseInt(priceFrom);
-        int aPriceTo = StringUtils.isEmpty(priceTo) || priceTo.equals(anyString2) ? 0 : Integer.parseInt(priceTo);
+        int aYearFrom = TextUtils.isEmpty(yearFrom) || yearFrom.equals(anyString) ? 0 : Integer.parseInt(yearFrom);
+        int aYearTo = TextUtils.isEmpty(yearTo) || yearTo.equals(anyString) ? 0 : Integer.parseInt(yearTo);
+        int aPriceFrom = TextUtils.isEmpty(priceFrom) || priceFrom.equals(anyString2) ? 0 : Integer.parseInt(priceFrom);
+        int aPriceTo = TextUtils.isEmpty(priceTo) || priceTo.equals(anyString2) ? 0 : Integer.parseInt(priceTo);
         try {
             cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo, aPriceFrom, aPriceTo, sortType, bodyType,
                     addedType);

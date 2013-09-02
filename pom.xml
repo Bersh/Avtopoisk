@@ -5,7 +5,7 @@
 
     <groupId>ua.avtopoisk</groupId>
     <artifactId>Avtopoisk-parent</artifactId>
-    <version>0.7</version>
+    <version>0.7.1</version>
     <packaging>pom</packaging>
     <name>Avtopoisk-parent</name>
 
@@ -31,6 +31,7 @@
     <properties>
 
         <android.version>4.2.2_r2</android.version>
+        <android.maven.version>3.6.1</android.maven.version>
         <compatibility.version>12</compatibility.version>
 
         <!--<android.sdk.path>/opt/android/android-sdk-linux</android.sdk.path>-->
@@ -93,7 +94,7 @@
                 <plugin>
                     <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                     <artifactId>android-maven-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>${android.maven.version}</version>
                     <inherited>true</inherited>
                     <configuration>
                         <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>

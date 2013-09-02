@@ -6,7 +6,7 @@
     <parent>
         <artifactId>Avtopoisk-parent</artifactId>
         <groupId>ua.avtopoisk</groupId>
-        <version>0.7</version>
+        <version>0.7.1</version>
     </parent>
 
     <artifactId>main</artifactId>

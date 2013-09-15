@@ -1,19 +1,10 @@
 package ua.avtopoisk;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.ApplicationInfo;
-import com.google.inject.Module;
 import org.androidannotations.annotations.EApplication;
-import de.akquinet.android.androlog.Log;
-import parsers.AvtopoiskBaseParser;
-import parsers.AvtopoiskParser;
-import roboguice.application.RoboApplication;
-import roboguice.config.AbstractAndroidModule;
-
-import java.lang.reflect.Method;
-import java.util.List;
 
 /**
  * Application class to switch on strict mode if present
@@ -22,10 +13,10 @@ import java.util.List;
  * @since 12.10.12
  */
 @EApplication
-public class AvtopoiskApplication extends RoboApplication {
+public class AvtopoiskApplication extends Application {
     @Override
     public void onCreate() {
-        int applicationFlags = getApplicationInfo().flags;
+/*        int applicationFlags = getApplicationInfo().flags;
         if ((applicationFlags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
             try {
                 Class strictMode = Class.forName("android.os.StrictMode");
@@ -34,23 +25,11 @@ public class AvtopoiskApplication extends RoboApplication {
             } catch (Throwable throwable) {
                 Log.d("No StrictMode");
             }
-        }
+        }*/
         super.onCreate();
     }
 
-    @Override
-    protected void addApplicationModules(List<Module> modules) {
-        modules.add(new AvtopoiskModule());
-    }
-
-    static class AvtopoiskModule extends AbstractAndroidModule {
-        @Override
-        protected void configure() {
-            bind(AvtopoiskParser.class).to(AvtopoiskBaseParser.class);
-        }
-    }
-
-    public void showDataLoadingErrorDialog(Context context, DialogInterface.OnClickListener onClickListener) {
+    public static void showDataLoadingErrorDialog(Context context, DialogInterface.OnClickListener onClickListener) {
         AlertDialog.Builder adb = new AlertDialog.Builder(context);
         adb.setCancelable(false);
         adb.setTitle(R.string.error);

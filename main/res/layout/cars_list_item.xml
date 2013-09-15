@@ -1,64 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="fill_parent">
+        android:layout_height="match_parent">
 
     <!--layout added to place all info left to image-->
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
 
         <!--image-->
-        <ImageView android:layout_width="130dip"
-                   android:layout_height="100dip"
-                   android:layout_marginLeft="2dp"
-                   android:id="@+id/img"
-                   android:src="@drawable/sample_car_image"
-                   android:contentDescription="@string/car_photo_description"/>
+        <ImageView
+                android:layout_width="130dip"
+                android:layout_height="100dip"
+                android:layout_marginLeft="2dp"
+                android:id="@+id/img"
+                android:src="@drawable/sample_car_image"
+                android:contentDescription="@string/car_photo_description"/>
 
         <!--all information-->
         <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:paddingBottom="2dp"
                 android:paddingRight="2dip"
                 android:paddingLeft="5dip">
 
             <!--year, brand and model-->
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/car_info_header"
-                      android:textColor="#000"
-                      android:textStyle="bold"
-                      android:textSize="14dip"
-                      android:paddingBottom="0dip"
-                      android:maxLines="2"
-                      android:text="2007' Subary Legacy Special Editiion"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/car_info_header"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="14dip"
+                    android:paddingBottom="0dip"
+                    android:maxLines="2"
+                    android:text="2007' Subary Legacy Special Editiion"/>
 
             <!--engine description as it is on web page-->
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="18dip"
-                      android:id="@+id/engine_desc"
-                      android:layout_below="@+id/car_info_header"
-                      android:textColor="#606060"
-                      android:text="1.6, i (инж.), бензин"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dip"
+                    android:id="@+id/engine_desc"
+                    android:layout_below="@+id/car_info_header"
+                    android:textColor="#606060"
+                    android:text="1.6, i (инж.), бензин"/>
 
             <!--city-->
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="18dip"
-                      android:id="@+id/city"
-                      android:layout_above="@+id/footer"
-                      android:textColor="#606060"
-                      android:text="Днепропетровск"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dip"
+                    android:id="@+id/city"
+                    android:layout_above="@+id/footer"
+                    android:textColor="#606060"
+                    android:text="Днепропетровск"/>
 
             <!--price and date posted-->
             <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:id="@+id/footer"
                     android:layout_height="wrap_content"
@@ -67,23 +71,25 @@
                     android:weightSum="2">
 
                 <!--price-->
-                <TextView android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:id="@+id/price"
-                          android:textSize="17dip"
-                          android:textStyle="bold"
-                          android:textColor="#09B700"
-                          android:layout_weight="2"
-                          android:text="20000000$"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/price"
+                        android:textSize="17dip"
+                        android:textStyle="bold"
+                        android:textColor="#09B700"
+                        android:layout_weight="2"
+                        android:text="20000000$"/>
 
                 <!--date posted-->
-                <TextView android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:id="@+id/date_posted"
-                          android:paddingRight="2dip"
-                          android:gravity="right"
-                          android:layout_weight="1"
-                          android:text="сегодня, 11:00"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/date_posted"
+                        android:paddingRight="2dip"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        android:text="сегодня, 11:00"/>
             </LinearLayout>
 
         </RelativeLayout>
@@ -91,5 +97,8 @@
     </LinearLayout>
 
     <!--bottom black line-->
-    <View android:background="#000" android:layout_width="fill_parent" android:layout_height="1dip"/>
+    <View
+            android:background="#000"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"/>
 </LinearLayout>

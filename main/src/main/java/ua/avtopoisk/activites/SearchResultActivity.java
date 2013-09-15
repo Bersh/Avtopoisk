@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.*;
@@ -15,17 +14,16 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.google.inject.Inject;
 import de.akquinet.android.androlog.Log;
-import domain.Car;
-import domain.SortType;
 import org.androidannotations.annotations.*;
 import org.androidannotations.annotations.res.StringRes;
-import parsers.AvtopoiskParser;
 import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.R;
 import ua.avtopoisk.adapter.CarAdapter;
+import ua.avtopoisk.model.Car;
+import ua.avtopoisk.model.SortType;
+import ua.avtopoisk.parser.AvtopoiskParser;
 
 import java.util.ArrayList;
 
@@ -36,9 +34,8 @@ import java.util.ArrayList;
  * @since 12.10.12
  */
 
-@EActivity(R.layout.layout_search_result)
+@EActivity(R.layout.activity_search_result)
 @OptionsMenu(R.menu.search_result_menu)
-@RoboGuice
 public class SearchResultActivity extends ListActivity {
     public static final int CARS_PER_PAGE = 10;
     private ProgressDialog progressDialog;
@@ -79,11 +76,8 @@ public class SearchResultActivity extends ListActivity {
     @StringRes(R.string.any2)
     String anyString2;
 
-    @Inject
-    private AvtopoiskParser parser;
-
-    @App
-    AvtopoiskApplication application;
+    @Bean
+    protected AvtopoiskParser parser;
 
     private View loadMoreView;
     private CarAdapter adapter;
@@ -107,7 +101,6 @@ public class SearchResultActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_title);
         loadMoreView = ((LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.loadmore_item, null, false);
@@ -129,7 +122,9 @@ public class SearchResultActivity extends ListActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Car clicked = adapter.getItem(position);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(clicked.getLinkToDetails()));
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(clicked.getLinkToDetails()));
+                Intent intent = new Intent(SearchResultActivity.this, CarDetailsActivity_.class);
+                intent.putExtra(Constants.KEY_EXTRA_CAR, clicked);
                 startActivity(intent);
             }
         });
@@ -172,7 +167,7 @@ public class SearchResultActivity extends ListActivity {
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
-        application.showDataLoadingErrorDialog(this, dataLoadingErrorDialogClickListener);
+        AvtopoiskApplication.showDataLoadingErrorDialog(this, dataLoadingErrorDialogClickListener);
     }
 
     @Background

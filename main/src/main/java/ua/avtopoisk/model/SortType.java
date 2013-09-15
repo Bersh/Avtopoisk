@@ -1,4 +1,4 @@
-package domain;
+package ua.avtopoisk.model;
 
 /**
  * Represents sorting type

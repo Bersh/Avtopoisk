@@ -12,15 +12,14 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import com.google.inject.Inject;
-import org.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
-import domain.SortType;
-import parsers.AvtopoiskParser;
+import org.androidannotations.annotations.*;
 import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.R;
+import ua.avtopoisk.model.SortType;
+import ua.avtopoisk.parser.AvtopoiskParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,8 +31,7 @@ import java.util.LinkedHashMap;
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 12.10.12
  */
-@EActivity(R.layout.layout_search)
-@RoboGuice
+@EActivity(R.layout.activity_search)
 public class SearchActivity extends Activity {
     private static final int REQUEST_CODE_BRANDS_LIST = 1;
     private static final int REQUEST_CODE_MODELS_LIST = 2;
@@ -74,8 +72,6 @@ public class SearchActivity extends Activity {
     @App
     AvtopoiskApplication application;
 
-    private ArrayAdapter<String> adapter;
-
     LinkedHashMap<String, Integer> brandsMap;
     LinkedHashMap<String, Integer> regionsMap;
 
@@ -84,8 +80,8 @@ public class SearchActivity extends Activity {
     private LinkedHashMap<String, Integer> bodyTypesMap = new LinkedHashMap<String, Integer>();
     private LinkedHashMap<String, Integer> addedTypesMap = new LinkedHashMap<String, Integer>();
 
-    @Inject
-    private AvtopoiskParser parser;
+    @Bean
+    protected AvtopoiskParser parser;
     private ProgressDialog progressDialog;
     private String currentBrand = "";
     private ArrayList<String> brandNames;
@@ -293,9 +289,9 @@ public class SearchActivity extends Activity {
             progressDialog.dismiss();
         }
 
-        if (modelsMap == null) {
+        if (modelsMap == null || modelsMap.isEmpty()) {
             models.setEnabled(false);
-            application.showDataLoadingErrorDialog(this, dataLoadingErrorDialogClickListener);
+            AvtopoiskApplication.showDataLoadingErrorDialog(this, dataLoadingErrorDialogClickListener);
         } else {
             modelNames = new ArrayList<String>(modelsMap.keySet());
             String currentModel = modelNames.get(0);
@@ -305,7 +301,7 @@ public class SearchActivity extends Activity {
     }
 
     protected void populateRegions() {
-        adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(regionsMap.keySet()));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(regionsMap.keySet()));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         regions.setPrompt(getString(R.string.regions_prompt));
         regions.setAdapter(adapter);

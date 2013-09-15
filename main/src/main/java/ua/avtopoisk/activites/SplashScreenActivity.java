@@ -6,12 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ProgressBar;
-import com.google.inject.Inject;
-import org.androidannotations.annotations.*;
 import de.akquinet.android.androlog.Log;
-import parsers.AvtopoiskParser;
+import org.androidannotations.annotations.*;
 import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.R;
+import ua.avtopoisk.parser.AvtopoiskParser;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -22,12 +21,11 @@ import java.util.LinkedHashMap;
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 19.10.12
  */
-@EActivity(R.layout.layout_splash)
-@RoboGuice
+@EActivity(R.layout.activity_splash)
 public class SplashScreenActivity extends Activity {
 
-    @Inject
-    private AvtopoiskParser parser;
+    @Bean
+    protected AvtopoiskParser parser;
 
     @Bean
     BrandsAndRegionsHolder brandsAndRegionsHolder;

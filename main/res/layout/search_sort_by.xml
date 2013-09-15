@@ -2,23 +2,24 @@
 
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dip"
         android:orientation="horizontal">
 
-    <TextView android:layout_width="100dip"
-              android:layout_height="wrap_content"
-              android:id="@+id/sort_hint"
-              android:paddingRight="2dip"
-              android:gravity="left"
-              android:textStyle="bold"
-              android:textColor="#000"
-              android:layout_gravity="center_vertical"
-              android:text="@string/sort_hint"/>
+    <TextView
+            android:layout_width="100dip"
+            android:layout_height="wrap_content"
+            android:id="@+id/sort_hint"
+            android:paddingRight="2dip"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:layout_gravity="center_vertical"
+            android:text="@string/sort_hint"/>
 
     <Spinner
             android:id="@+id/sort_by"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -10,8 +10,8 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import domain.Car;
 import ua.avtopoisk.R;
+import ua.avtopoisk.model.Car;
 
 import java.util.List;
 

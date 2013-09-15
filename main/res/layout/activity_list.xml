@@ -14,8 +14,8 @@
             android:id="@+id/list"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scrollingCache="false"/>
 
 </LinearLayout>

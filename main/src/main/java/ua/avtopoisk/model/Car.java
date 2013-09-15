@@ -1,4 +1,7 @@
-package domain;
+package ua.avtopoisk.model;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Represents car
@@ -6,7 +9,7 @@ package domain;
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 07.10.12
  */
-public class Car {
+public class Car implements Parcelable {
     private String model;
     private String brand;
     private int mileage;
@@ -94,4 +97,53 @@ public class Car {
     public String getEngineDesc() {
         return engineDesc;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.model);
+        dest.writeString(this.brand);
+        dest.writeInt(this.mileage);
+        dest.writeInt(this.year);
+        dest.writeFloat(this.engineCapacity);
+        dest.writeLong(this.price);
+        dest.writeParcelable(this.transmissionType, flags);
+        dest.writeParcelable(this.engineType, flags);
+        dest.writeString(this.linkToDetails);
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.city);
+        dest.writeString(this.datePosted);
+        dest.writeString(this.engineDesc);
+    }
+
+    private Car(Parcel in) {
+        this.model = in.readString();
+        this.brand = in.readString();
+        this.mileage = in.readInt();
+        this.year = in.readInt();
+        this.engineCapacity = in.readFloat();
+        this.price = in.readLong();
+        this.transmissionType = in.readParcelable(TransmissionType.class.getClassLoader());
+        this.engineType = in.readParcelable(EngineType.class.getClassLoader());
+        this.linkToDetails = in.readString();
+        this.imageUrl = in.readString();
+        this.city = in.readString();
+        this.datePosted = in.readString();
+        this.engineDesc = in.readString();
+    }
+
+    public static Parcelable.Creator<Car> CREATOR = new Parcelable.Creator<Car>() {
+        public Car createFromParcel(Parcel source) {
+            return new Car(source);
+        }
+
+        public Car[] newArray(int size) {
+            return new Car[size];
+        }
+    };
 }

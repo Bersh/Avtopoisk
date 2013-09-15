@@ -6,7 +6,7 @@
     <parent>
         <artifactId>Avtopoisk-parent</artifactId>
         <groupId>ua.avtopoisk</groupId>
-        <version>0.7.1</version>
+        <version>0.7.5</version>
     </parent>
 
     <artifactId>main</artifactId>
@@ -19,10 +19,10 @@
     </properties>
 
     <dependencies>
-        <dependency>
+<!--        <dependency>
             <groupId>org.roboguice</groupId>
             <artifactId>roboguice</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>com.nostra13.universalimageloader</groupId>
@@ -53,25 +53,15 @@
         </dependency>
 
         <dependency>
-            <groupId>ua.avtopoisk</groupId>
-            <artifactId>domain</artifactId>
-            <version>${project.parent.version}</version>
+        	<groupId>commons-codec</groupId>
+        	<artifactId>commons-codec</artifactId>
+        	<version>1.8</version>
         </dependency>
 
         <dependency>
-            <groupId>ua.avtopoisk</groupId>
-            <artifactId>parser</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.pivotallabs</groupId>
-            <artifactId>robolectric</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+        	<groupId>org.jsoup</groupId>
+        	<artifactId>jsoup</artifactId>
+        	<version>1.7.2</version>
         </dependency>
     </dependencies>
 

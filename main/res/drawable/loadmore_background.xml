@@ -2,8 +2,13 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <gradient android:startColor="#ffa800" android:endColor="#FFEAA8" android:angle="90"/>
-            <stroke android:width="2px" android:color="#808080" />
+            <gradient
+                    android:startColor="#ffa800"
+                    android:endColor="#FFEAA8"
+                    android:angle="90"/>
+            <stroke
+                    android:width="2px"
+                    android:color="#808080"/>
         </shape>
     </item>
 </layer-list>

@@ -1,8 +1,8 @@
-package parsers;
+package ua.avtopoisk.parser;
 
-import domain.Car;
-import domain.SortType;
 import org.apache.commons.codec.DecoderException;
+import ua.avtopoisk.model.Car;
+import ua.avtopoisk.model.SortType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,24 +10,26 @@ import java.util.LinkedHashMap;
 
 /**
  * Parser interface
+ *
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 22.10.12
  */
-public interface AvtopoiskParser {
+public interface AvtopoiskParserInterface {
     /**
      * Basic parse function
-     * @param brandId brand id
-     * @param modelId model id
-     * @param regionId region id
-     * @param yearFrom year from
-     * @param yearTo year to
+     *
+     * @param brandId   brand id
+     * @param modelId   model id
+     * @param regionId  region id
+     * @param yearFrom  year from
+     * @param yearTo    year to
      * @param priceFrom price from
-     * @param priceTo price to
-     * @param sortType sorting type (for example "by date")
-     * @param bodyType car body type (for example "sedan")
+     * @param priceTo   price to
+     * @param sortType  sorting type (for example "by date")
+     * @param bodyType  car body type (for example "sedan")
      * @param addedType added filter
-     * @return list of {@link domain.Car} by given params
-     * @throws IOException if parser fails
+     * @return list of {@link Car} by given params
+     * @throws IOException      if parser fails
      * @throws DecoderException if URL decoder fails
      */
     ArrayList<Car> parse(int brandId, int modelId, int regionId, int yearFrom, int yearTo, int priceFrom, int priceTo,

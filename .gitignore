@@ -13,14 +13,12 @@ bin/
 gen/
 out/
 target/
-slidingmenu/bin/
-slidingmenu/gen/
-slidingmenu/out/
-slidingmanu/target/
-slidingmenu/gen-external-apklibs/
-planIt/gen-external-apklibs/
-planIt/target/
-planIt/gen/
+classes/
+*.settings
+tmp/
+
+*.keystore
+images/
 
 # Local configuration file (sdk path, etc)
 local.properties

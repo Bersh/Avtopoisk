@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
               android:gravity="center_vertical"
               android:padding="0dp"
               android:background="@drawable/title_background">
+
     <ImageView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:id="@+id/logo_header"
             android:src="@drawable/avtopoisk_logo_header"
             android:contentDescription="@string/app_name"/>
+
+    <ProgressBar
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:id="@+id/titile_progress"
+            android:layout_margin="5dp"
+            android:visibility="gone"/>
 
 </LinearLayout>

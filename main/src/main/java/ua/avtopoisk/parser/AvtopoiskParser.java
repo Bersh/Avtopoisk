@@ -1,14 +1,14 @@
-package parsers;
+package ua.avtopoisk.parser;
 
-import com.google.inject.Singleton;
-import domain.Car;
-import domain.SortType;
+import org.androidannotations.annotations.EBean;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.URLCodec;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ua.avtopoisk.model.Car;
+import ua.avtopoisk.model.SortType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,8 +19,8 @@ import java.util.LinkedHashMap;
  * @since 09.10.12
  */
 
-@Singleton
-public class AvtopoiskBaseParser implements AvtopoiskParser {
+@EBean(scope = EBean.Scope.Singleton)
+public class AvtopoiskParser implements AvtopoiskParserInterface {
     private static final String baseUrl = "http://www.avtopoisk.ua/";
 
     //cached document instance to receive base data

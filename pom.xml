@@ -5,14 +5,12 @@
 
     <groupId>ua.avtopoisk</groupId>
     <artifactId>Avtopoisk-parent</artifactId>
-    <version>0.7.1</version>
+    <version>0.7.5</version>
     <packaging>pom</packaging>
     <name>Avtopoisk-parent</name>
 
     <modules>
         <module>main</module>
-        <module>domain</module>
-        <module>parser</module>
     </modules>
 
     <repositories>
@@ -23,27 +21,27 @@
         </repository>
 
         <repository>
-       		<id>snapshots-repository</id>
-       		<name>Sonatype oss snapshot repo</name>
-       		<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-       	</repository>
+            <id>snapshots-repository</id>
+            <name>Sonatype oss snapshot repo</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
     </repositories>
     <properties>
 
         <android.version>4.2.2_r2</android.version>
         <android.maven.version>3.6.1</android.maven.version>
-        <compatibility.version>12</compatibility.version>
-
+        <compatibility.version>18</compatibility.version>
+        <!--<roboguice.version>2.0</roboguice.version>-->
         <!--<android.sdk.path>/opt/android/android-sdk-linux</android.sdk.path>-->
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
+<!--            <dependency>
                 <groupId>org.roboguice</groupId>
                 <artifactId>roboguice</artifactId>
-                <version>1.1.1</version>
-            </dependency>
+                <version>${roboguice.version}</version>
+            </dependency>-->
 
             <!-- For the optional Nullable annotation -->
             <dependency>
@@ -59,32 +57,27 @@
                 <version>${android.version}</version>
             </dependency>
 
-            <!-- Androlog is a logging and reporting library for Android -->
-            <dependency>
-                <groupId>de.akquinet.android.androlog</groupId>
-                <artifactId>androlog</artifactId>
-                <version>1.0.4</version>
-            </dependency>
+            <!--      TODO uncomment when unit tests will be created
+                        <dependency>
+                            <groupId>junit</groupId>
+                            <artifactId>junit</artifactId>
+                            <version>4.8.2</version>
+                            <scope>test</scope>
+                        </dependency>
 
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.8.2</version>
-                <scope>test</scope>
-            </dependency>
+                        <dependency>
+                            <groupId>com.pivotallabs</groupId>
+                            <artifactId>robolectric</artifactId>
+                            <version>0.9.8</version>
+                            <scope>test</scope>
+                        </dependency>
 
-            <dependency>
-                <groupId>com.pivotallabs</groupId>
-               	<artifactId>robolectric</artifactId>
-               	<version>0.9.8</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-            	<groupId>org.mockito</groupId>
-            	<artifactId>mockito-all</artifactId>
-            	<version>1.8.4</version>
-            </dependency>
+                        <dependency>
+                            <groupId>org.mockito</groupId>
+                            <artifactId>mockito-all</artifactId>
+                            <version>1.8.4</version>
+                        </dependency>
+                    -->
         </dependencies>
     </dependencyManagement>
 

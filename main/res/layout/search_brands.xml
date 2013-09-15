@@ -2,25 +2,26 @@
 
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dip"
         android:orientation="horizontal">
 
-    <TextView android:layout_width="100dip"
-              android:layout_height="wrap_content"
-              android:id="@+id/brand_hint"
-              android:paddingRight="2dip"
-              android:textStyle="bold"
-              android:gravity="left"
-              android:textColor="#000"
-              android:layout_gravity="center_vertical"
-              android:text="@string/brand_hint_text"/>
+    <TextView
+            android:layout_width="100dip"
+            android:layout_height="wrap_content"
+            android:id="@+id/brand_hint"
+            android:paddingRight="2dip"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:textColor="#000"
+            android:layout_gravity="center_vertical"
+            android:text="@string/brand_hint_text"/>
 
     <Button
             android:id="@+id/brands"
             android:gravity="left|center_vertical"
             android:background="@android:drawable/btn_dropdown"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 </LinearLayout>

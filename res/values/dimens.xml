@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="indent_small">5dp</dimen>
+    <dimen name="indent_standard">10dp</dimen>
+    <dimen name="indent_big">20dp</dimen>
+    <dimen name="price_any_year_spinner_size">120dp</dimen>
+</resources>

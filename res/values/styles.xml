@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AvtopoiskTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar"/>
+
+    <style name="SplashScreen" parent="AvtopoiskTheme">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowTitleSize">0dp</item>
+    </style>
+
+    <style name="BaseRootLayoutStyle">
+        <item name="android:background">@drawable/bitmap_background</item>
+    </style>
+
+    <style name="BaseMatchParentRootLayoutStyle" parent="BaseRootLayoutStyle">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="BaseMatchParentWidthRootLayoutStyle" parent="BaseRootLayoutStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="ActivityListRootLayoutStyle" parent="BaseMatchParentRootLayoutStyle">
+        <item name="android:paddingTop">@dimen/indent_small</item>
+    </style>
+</resources>

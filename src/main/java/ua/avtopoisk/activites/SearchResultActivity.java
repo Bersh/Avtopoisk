@@ -182,8 +182,7 @@ public class SearchResultActivity extends BaseActivity {
                     addedType);
         } catch (Throwable e) {
             String err = (e.getMessage() == null) ? "No message" : e.getMessage();
-            Log.e(Constants.LOG_TAG, err);
-            e.printStackTrace();
+            Log.e(Constants.LOG_TAG, err, e);
             showDataLoadingErrorDialog();
             return;
         }

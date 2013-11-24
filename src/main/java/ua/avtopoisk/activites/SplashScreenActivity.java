@@ -68,21 +68,15 @@ public class SplashScreenActivity extends BaseActivity {
                 break;
             } catch (IOException e) {
                 String err = (e.getMessage() == null) ? "No message" : e.getMessage();
-                Log.e(Constants.LOG_TAG, err);
+                Log.e(Constants.LOG_TAG, err, e);
                 e.printStackTrace();
             }
         }
 
-        if (brands == null) {
+        if (brands == null || brands.isEmpty()) {
             showSplashError();
             return;
         }
-/*
-
-        for(java.util.Map.Entry<String, Integer> entry : brands.entrySet()) {
-            Brand brand = new Brand();
-        }
-*/
 
         publishProgress(50);
 

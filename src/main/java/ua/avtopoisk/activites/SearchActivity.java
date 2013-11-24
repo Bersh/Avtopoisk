@@ -186,12 +186,14 @@ public class SearchActivity extends BaseActivity {
     @Background
     protected void getModels(int brandId) {
         LinkedHashMap<String, Integer> aModels = null;
+        boolean wasError = false;
         try {
             aModels = parser.getModels(brandId);
         } catch (IOException e) {
-            Log.e(Constants.LOG_TAG, e.getMessage());
+            Log.e(Constants.LOG_TAG, e.getMessage(), e);
+            wasError = true;
         }
-        populateModels(aModels);
+        populateModels(aModels, wasError);
     }
 
     protected void populateBrands() {
@@ -280,15 +282,19 @@ public class SearchActivity extends BaseActivity {
     }
 
     @UiThread
-    protected void populateModels(LinkedHashMap<String, Integer> aModels) {
+    protected void populateModels(LinkedHashMap<String, Integer> aModels, boolean wasError) {
         modelsMap = aModels;
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
 
+        if (wasError) {
+            AvtopoiskApplication.showDataLoadingErrorDialog(this, dataLoadingErrorDialogClickListener);
+            return;
+        }
+
         if (modelsMap == null || modelsMap.isEmpty()) {
             models.setEnabled(false);
-            AvtopoiskApplication.showDataLoadingErrorDialog(this, dataLoadingErrorDialogClickListener);
         } else {
             modelNames = new ArrayList<String>(modelsMap.keySet());
             String currentModel = modelNames.get(0);

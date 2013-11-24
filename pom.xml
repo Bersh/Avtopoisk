@@ -5,7 +5,7 @@
 
     <groupId>ua.avtopoisk</groupId>
     <artifactId>Avtopoisk</artifactId>
-    <version>0.7.7</version>
+    <version>0.7.8</version>
     <name>Avtopoisk</name>
     <packaging>apk</packaging>
 
@@ -25,7 +25,7 @@
         <imageLoader.version>1.8.4</imageLoader.version>
         <androidannotations.version>3.0-SNAPSHOT</androidannotations.version>
         <commons.codec.version>1.8</commons.codec.version>
-        <jsoup.version>1.7.2</jsoup.version>
+        <jsoup.version>1.7.3</jsoup.version>
         <ormlite.version>4.46</ormlite.version>
         <!--<android.sdk.path>/opt/android/android-sdk-linux</android.sdk.path>-->
     </properties>

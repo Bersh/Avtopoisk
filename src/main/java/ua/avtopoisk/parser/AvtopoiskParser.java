@@ -1,5 +1,6 @@
 package ua.avtopoisk.parser;
 
+import android.content.Context;
 import org.androidannotations.annotations.EBean;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.URLCodec;
@@ -7,10 +8,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ua.avtopoisk.Constants;
 import ua.avtopoisk.model.Car;
 import ua.avtopoisk.model.SortType;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -102,7 +105,7 @@ public class AvtopoiskParser implements AvtopoiskParserInterface {
         ArrayList<Car> resultList = new ArrayList<Car>();
         String paramsString = buildParamsString(brandId, modelId, regionId, yearFrom, yearTo, priceFrom, priceTo,
                 sortType, bodyType, addedType);
-        Document doc = Jsoup.connect(baseUrl + "?w=" + pageNumber + paramsString).get();
+        final Document doc = parseUrl(baseUrl + "?w=" + pageNumber + paramsString);
         ++pageNumber;
 
         //get results count
@@ -173,7 +176,7 @@ public class AvtopoiskParser implements AvtopoiskParserInterface {
                 mileage *= 1000;
             }
 
-            values = info.getElementsByClass("city").get(0);  // city + datePosted + site + id   separated <by br>
+            values = info.getElementsByClass("city").get(0);  // city + datePosted + site + id   separated by <br>
             strings = values.html().replaceAll("\n", "").split("<br />");
             String city = Jsoup.parse(strings[0]).text();
             String datePosted = Jsoup.parse(strings[1]).text().replace(" ", "");
@@ -197,11 +200,12 @@ public class AvtopoiskParser implements AvtopoiskParserInterface {
     @Override
     public LinkedHashMap<String, Integer> getModels(int brandId) throws IOException {
         LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
-        Document doc = Jsoup.connect(baseUrl + "?m[]=" + brandId).get();
+        Document doc = parseUrl(baseUrl + "?m[]=" + brandId);
         Elements models = doc.getElementsByAttributeValue("name", "n[]").get(0).children();
         for (Element model : models) {
             result.put(model.text(), Integer.parseInt(model.val()));
         }
+
         return result;
     }
 
@@ -230,12 +234,15 @@ public class AvtopoiskParser implements AvtopoiskParserInterface {
     /**
      * Load baseDoc if null
      *
-     * @throws IOException if connect fails
+     * @throws IOException if parsing fails
      */
     private void checkBaseDoc() throws IOException {
         if (baseDoc == null) {
-            baseDoc = Jsoup.connect(baseUrl).get();
+            baseDoc = parseUrl(baseUrl);
         }
     }
 
+    private Document parseUrl(String url) throws IOException {
+        return Jsoup.parse(new URL(url), Constants.DEFAULT_TIMEOUT);
+    }
 }

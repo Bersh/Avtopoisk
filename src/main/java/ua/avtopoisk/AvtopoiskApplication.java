@@ -14,20 +14,6 @@ import org.androidannotations.annotations.EApplication;
  */
 @EApplication
 public class AvtopoiskApplication extends Application {
-    @Override
-    public void onCreate() {
-/*        int applicationFlags = getApplicationInfo().flags;
-        if ((applicationFlags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
-            try {
-                Class strictMode = Class.forName("android.os.StrictMode");
-                Method enableDefaults = strictMode.getMethod("enableDefaults");
-                enableDefaults.invoke(strictMode);
-            } catch (Throwable throwable) {
-                Log.d("No StrictMode");
-            }
-        }*/
-        super.onCreate();
-    }
 
     public static void showDataLoadingErrorDialog(Context context, DialogInterface.OnClickListener onClickListener) {
         AlertDialog.Builder adb = new AlertDialog.Builder(context);

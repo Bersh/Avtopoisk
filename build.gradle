@@ -1,0 +1,96 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://oss.sonatype.org/content/groups/public"
+        }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.1'
+    }
+}
+
+apply plugin: 'android'
+apply plugin: 'android-apt'
+apply plugin: 'idea'
+
+repositories {
+    maven {
+        url 'http://www.bugsense.com/gradle/'
+    }
+    mavenCentral()
+}
+
+apt {
+    arguments {
+        androidManifestFile variant.processResources.manifestFile
+        resourcePackageName 'ua.avtopoisk'
+    }
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.0"
+
+    defaultConfig {
+        minSdkVersion 10
+        targetSdkVersion 19
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('debug_work.keystore')
+        }
+
+        release {
+            storeFile file(".") //key file path
+            storePassword System.getenv("ANDROID_STORE_PASS")
+            keyAlias "android release key"
+            keyPassword System.getenv("ANDROID_KEY_PASS")
+        }
+    }
+
+    buildTypes {
+        debug {
+            packageNameSuffix ".debug"
+        }
+//        release {
+//            signingConfig signingConfigs.release
+//        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+idea {
+    downloadJavadoc = true
+    downloadSources = true
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:support-v4:+'
+    compile 'com.android.support:support-v13:+'
+    compile "com.google.code.findbugs:jsr305:+"
+    compile "com.nostra13.universalimageloader:universal-image-loader:1.8.4"
+    compile "org.androidannotations:androidannotations:3.0.1"
+    compile "org.androidannotations:androidannotations-api:3.0.1"
+    compile "commons-codec:commons-codec:1.8"
+    compile "org.jsoup:jsoup:1.7.3"
+
+
+    compile "com.j256.ormlite:ormlite-android:4.47"
+}

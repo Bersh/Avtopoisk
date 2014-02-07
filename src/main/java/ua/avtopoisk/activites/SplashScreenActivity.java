@@ -1,22 +1,19 @@
 package ua.avtopoisk.activites;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import org.androidannotations.annotations.*;
-import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.R;
-import ua.avtopoisk.db.DBHelper;
-import ua.avtopoisk.model.Brand;
+import ua.avtopoisk.SharedPreferencesManager;
 import ua.avtopoisk.parser.AvtopoiskParser;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**
@@ -31,16 +28,23 @@ public class SplashScreenActivity extends BaseActivity {
     @Bean
     protected AvtopoiskParser parser;
 
-    @Bean
-    BrandsAndRegionsHolder brandsAndRegionsHolder;
-
     @ViewById(R.id.splash_progress)
     ProgressBar progressBar;
+    private SharedPreferencesManager sharedPreferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadData();
+        sharedPreferencesManager = new SharedPreferencesManager(this);
+
+        Date lastUpdateDate = sharedPreferencesManager.getLastUpdateDate();
+        Date currentDate = new Date();
+        int daysDiff = Math.abs((int) ((currentDate.getTime() - lastUpdateDate.getTime()) / (3600 * 24 * 1000)));
+        if (daysDiff > Constants.DATA_UPDATE_INTERVAL) {
+            loadData();
+        } else {
+            startSearchActivity();
+        }
     }
 
     @UiThread
@@ -88,10 +92,14 @@ public class SplashScreenActivity extends BaseActivity {
 
     @UiThread
     protected void populateData(LinkedHashMap<String, Integer> brands, LinkedHashMap<String, Integer> regions) {
-        Intent intent = new Intent(SplashScreenActivity.this, SearchActivity_.class);
-        brandsAndRegionsHolder.brandsMap = brands;
-        brandsAndRegionsHolder.regionsMap = regions;
+        dbManager.createBrandsAndRegions(brands.entrySet(), regions.entrySet());
+        sharedPreferencesManager.setLastUpdateDate(new Date());
         publishProgress(100);
+        startSearchActivity();
+    }
+
+    private void startSearchActivity() {
+        Intent intent = new Intent(SplashScreenActivity.this, SearchActivity_.class);
         startActivity(intent);
         finish();
     }

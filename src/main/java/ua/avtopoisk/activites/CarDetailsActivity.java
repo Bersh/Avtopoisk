@@ -38,8 +38,6 @@ public class CarDetailsActivity extends BaseActivity {
 
     @AfterViews
     protected void init() {
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_title);
-
         WebSettings webSettings = webViewCarDetails.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUserAgentString("Avtopoisk-android");

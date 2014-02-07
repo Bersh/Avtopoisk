@@ -1,6 +1,5 @@
 package ua.avtopoisk.activites;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -9,21 +8,23 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import org.androidannotations.annotations.*;
 import ua.avtopoisk.AvtopoiskApplication;
-import ua.avtopoisk.BrandsAndRegionsHolder;
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.R;
+import ua.avtopoisk.db.DBManager;
+import ua.avtopoisk.model.Brand;
+import ua.avtopoisk.model.Region;
 import ua.avtopoisk.model.SortType;
 import ua.avtopoisk.parser.AvtopoiskParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Start activity. Search params located here
@@ -35,9 +36,6 @@ import java.util.LinkedHashMap;
 public class SearchActivity extends BaseActivity {
     private static final int REQUEST_CODE_BRANDS_LIST = 1;
     private static final int REQUEST_CODE_MODELS_LIST = 2;
-
-    @Bean
-    BrandsAndRegionsHolder brandsAndRegionsHolder;
 
     @ViewById(R.id.brands)
     protected Button brands;
@@ -72,19 +70,16 @@ public class SearchActivity extends BaseActivity {
     @App
     AvtopoiskApplication application;
 
-    LinkedHashMap<String, Integer> brandsMap;
-    LinkedHashMap<String, Integer> regionsMap;
+    @Bean
+    protected AvtopoiskParser parser;
 
     private LinkedHashMap<String, Integer> modelsMap;
     private LinkedHashMap<String, SortType> sortTypesMap;
     private LinkedHashMap<String, Integer> bodyTypesMap = new LinkedHashMap<String, Integer>();
     private LinkedHashMap<String, Integer> addedTypesMap = new LinkedHashMap<String, Integer>();
-
-    @Bean
-    protected AvtopoiskParser parser;
     private ProgressDialog progressDialog;
-    private String currentBrand = "";
-    private ArrayList<String> brandNames;
+    private String currentBrandName = "";
+    private int currentBrandId = 0;
     private ArrayList<String> modelNames;
 
     private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = new DialogInterface.OnClickListener() {
@@ -103,11 +98,6 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        brandsMap = brandsAndRegionsHolder.brandsMap;
-        regionsMap = brandsAndRegionsHolder.regionsMap;
-        if (brandsMap == null || regionsMap == null) {
-            finish();
-        }
 
         buildSortTypesMap();
         buildBodyTypesMap();
@@ -137,10 +127,10 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void brandSelected() {
-        models.setEnabled(!TextUtils.isEmpty(currentBrand));
+        models.setEnabled(!TextUtils.isEmpty(currentBrandName));
         if (models.isEnabled()) {
             progressDialog = ProgressDialog.show(SearchActivity.this, "", getString(R.string.dlg_progress_data_loading), true);
-            getModels(brandsMap.get(currentBrand));
+            getModels(currentBrandId);
         }
     }
 
@@ -155,14 +145,14 @@ public class SearchActivity extends BaseActivity {
     @Click(R.id.btn_find)
     protected void btnFindOnClick(View view) {
         final Intent intent = new Intent(SearchActivity.this, SearchResultActivity_.class);
-        intent.putExtra(Constants.BRAND_ID_KEY, brandsMap.get(brands.getText().toString()));
+        intent.putExtra(Constants.BRAND_ID_KEY, currentBrandId);
         int modelId = (models.isEnabled()) ? modelsMap.get(models.getText().toString()) : 0;
         intent.putExtra(Constants.MODEL_ID_KEY, modelId);
         intent.putExtra(Constants.YEAR_FROM_KEY, yearFrom.getSelectedItem().toString());
         intent.putExtra(Constants.YEAR_TO_KEY, yearTo.getSelectedItem().toString());
         intent.putExtra(Constants.PRICE_FROM_KEY, priceFrom.getSelectedItem().toString());
         intent.putExtra(Constants.PRICE_TO_KEY, priceTo.getSelectedItem().toString());
-        intent.putExtra(Constants.REGION_ID_KEY, regionsMap.get(regions.getSelectedItem().toString()));
+        intent.putExtra(Constants.REGION_ID_KEY, ((Region) regions.getSelectedItem()).getId());
         intent.putExtra(Constants.SORT_TYPE_KEY, sortTypesMap.get(sortBy.getSelectedItem().toString()));
         intent.putExtra(Constants.BODY_TYPE_KEY, bodyTypesMap.get(bodyType.getSelectedItem().toString()));
         intent.putExtra(Constants.ADDED_TYPE_KEY, addedTypesMap.get(addedType.getSelectedItem().toString()));
@@ -172,7 +162,7 @@ public class SearchActivity extends BaseActivity {
     @Click(R.id.brands)
     protected void btnSelectBrandClick(View view) {
         Intent intent = new Intent(this, ListActivity_.class);
-        intent.putStringArrayListExtra(Constants.KEY_EXTRA_COLLECTION, brandNames);
+        intent.putExtra(Constants.KEY_EXTRA_SELECTION_MODE, Constants.SelectionMode.SELECTION_MODE_BRANDS);
         startActivityForResult(intent, REQUEST_CODE_BRANDS_LIST);
     }
 
@@ -180,6 +170,7 @@ public class SearchActivity extends BaseActivity {
     protected void btnSelectModelClick(View view) {
         Intent intent = new Intent(this, ListActivity_.class);
         intent.putStringArrayListExtra(Constants.KEY_EXTRA_COLLECTION, modelNames);
+        intent.putExtra(Constants.KEY_EXTRA_SELECTION_MODE, Constants.SelectionMode.SELECTION_MODE_MODELS);
         startActivityForResult(intent, REQUEST_CODE_MODELS_LIST);
     }
 
@@ -197,8 +188,10 @@ public class SearchActivity extends BaseActivity {
     }
 
     protected void populateBrands() {
-        brandNames = new ArrayList<String>(brandsMap.keySet());
-        brands.setText(brandNames.get(0));
+        Brand currentBrand = dbManager.getBrandById(currentBrandId);
+        if (currentBrand != null) {
+            brands.setText(currentBrand.getName());
+        }
     }
 
     @Override
@@ -207,8 +200,13 @@ public class SearchActivity extends BaseActivity {
         switch (requestCode) {
             case REQUEST_CODE_BRANDS_LIST:
                 if (data != null) {
-                    currentBrand = data.getStringExtra(Constants.KEY_EXTRA_SELECTED);
-                    brands.setText(currentBrand);
+                    currentBrandId = data.getIntExtra(Constants.KEY_EXTRA_SELECTED, 0);
+                    Brand brand = dbManager.getBrandById(currentBrandId);
+                    if (brand == null) {
+                        return;
+                    }
+                    currentBrandName = brand.getName();
+                    brands.setText(currentBrandName);
                     models.setText("");
                     models.setEnabled(false);
                     brandSelected();
@@ -304,7 +302,9 @@ public class SearchActivity extends BaseActivity {
     }
 
     protected void populateRegions() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(regionsMap.keySet()));
+        List<Region> regionsList = dbManager.getAllRegions();
+
+        ArrayAdapter<Region> adapter = new ArrayAdapter<Region>(SearchActivity.this, android.R.layout.simple_spinner_item, regionsList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         regions.setPrompt(getString(R.string.regions_prompt));
         regions.setAdapter(adapter);

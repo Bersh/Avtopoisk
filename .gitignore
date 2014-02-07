@@ -16,6 +16,7 @@ target/
 classes/
 *.settings
 tmp/
+build/
 
 *.keystore
 images/

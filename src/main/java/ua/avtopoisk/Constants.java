@@ -22,5 +22,18 @@ public class Constants {
     public static final String KEY_EXTRA_SELECTED = "selected";
     public static final String KEY_EXTRA_CAR = "car";
 
+    public static final String KEY_EXTRA_SELECTION_MODE= "selection_mode";
+
     public static final int DEFAULT_TIMEOUT = 10000;
+    public static final int DATA_UPDATE_INTERVAL = 20; //in days
+
+    public static class SelectionMode {
+        public static final int SELECTION_MODE_BRANDS = 0;
+        public static final int SELECTION_MODE_MODELS = 1;
+    }
+
+    public static class SharedPreferences {
+        public static final String SHARED_PREFERENCES_NAME = "Avtopoisk";
+        public static final String SHARED_PREFERENCES_KEY_LAST_UPDATED_DATE = "last_updated_date";
+    }
 }

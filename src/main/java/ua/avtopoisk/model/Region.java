@@ -10,7 +10,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class Region {
     @DatabaseField(id = true)
-    private long id;
+    private int id;
 
     @DatabaseField
     private String name;
@@ -18,11 +18,16 @@ public class Region {
     public Region() {
     }
 
-    public long getId() {
+    public Region(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -32,5 +37,10 @@ public class Region {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

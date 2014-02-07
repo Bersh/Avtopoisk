@@ -10,7 +10,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class Brand {
     @DatabaseField(id = true)
-    private long id;
+    private int id;
 
     @DatabaseField
     private String name;
@@ -18,16 +18,16 @@ public class Brand {
     public Brand() {
     }
 
-    public Brand(long id, String name) {
+    public Brand(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -37,5 +37,10 @@ public class Brand {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

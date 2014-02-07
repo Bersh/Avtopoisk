@@ -15,17 +15,14 @@ import ua.avtopoisk.model.Region;
 
 import java.sql.SQLException;
 
-@EBean(scope = EBean.Scope.Singleton)
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "avtopoisk.db";
     private static final int DATABASE_VERSION = 1;
-    @RootContext
-    static Context context;
 
     private Dao<Brand, Long> brandsDao = null;
     private Dao<Region, Long> regionsDao = null;
 
-    public DBHelper() {
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

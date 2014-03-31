@@ -65,9 +65,11 @@ android {
         debug {
             packageNameSuffix ".debug"
         }
-//        release {
-//            signingConfig signingConfigs.release
-//        }
+        release {
+            signingConfig signingConfigs.release
+            runProguard false
+            zipAlign true
+        }
     }
 
     lintOptions {

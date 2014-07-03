@@ -9,13 +9,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import org.androidannotations.annotations.*;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
+
+import java.util.ArrayList;
+
 import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.R;
@@ -23,8 +38,6 @@ import ua.avtopoisk.adapter.CarAdapter;
 import ua.avtopoisk.model.Car;
 import ua.avtopoisk.model.SortType;
 import ua.avtopoisk.parser.AvtopoiskParser;
-
-import java.util.ArrayList;
 
 /**
  * Search result activity. List of cars returned by parser
@@ -118,7 +131,7 @@ public class SearchResultActivity extends BaseActivity {
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {  //TODO remove this
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Car clicked = adapter.getItem(position);
@@ -149,12 +162,6 @@ public class SearchResultActivity extends BaseActivity {
         }
         super.onDestroy();
     }
-
-/*    @ItemClick    TODO make this work!
-    public void listItemClicked(Car clicked) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(clicked.getLinkToDetails()));
-        startActivity(intent);
-    }*/
 
     @UiThread
     void showProgressDialog() {

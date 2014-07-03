@@ -4,11 +4,10 @@ import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
+
 import org.androidannotations.annotations.EApplication;
 
 /**
- * Application class to switch on strict mode if present
- *
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
  * @since 12.10.12
  */

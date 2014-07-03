@@ -7,12 +7,12 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.1'
+        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.+'
     }
 }
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'idea'
 
@@ -32,7 +32,7 @@ apt {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.0"
+    buildToolsVersion "20.0.0"
 
     defaultConfig {
         minSdkVersion 10
@@ -63,7 +63,7 @@ android {
 
     buildTypes {
         debug {
-            packageNameSuffix ".debug"
+            applicationIdSuffix ".debug"
         }
         release {
             signingConfig signingConfigs.release
@@ -82,17 +82,20 @@ idea {
     downloadSources = true
 }
 
+def AAVersion = '3.0.1'
+
 dependencies {
-    compile 'com.android.support:appcompat-v7:+'
-    compile 'com.android.support:support-v4:+'
-    compile 'com.android.support:support-v13:+'
+    compile 'com.android.support:appcompat-v7:19.1.0'
+    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.android.support:support-v13:19.1.0'
     compile "com.google.code.findbugs:jsr305:+"
     compile "com.nostra13.universalimageloader:universal-image-loader:1.8.4"
-    compile "org.androidannotations:androidannotations:3.0.1"
-    compile "org.androidannotations:androidannotations-api:3.0.1"
+    compile "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+    apt "org.androidannotations:androidannotations:$AAVersion"
     compile "commons-codec:commons-codec:1.8"
     compile "org.jsoup:jsoup:1.7.3"
-
+    compile "com.github.hotchemi:android-rate:0.3.1"
 
     compile "com.j256.ormlite:ormlite-android:4.47"
 }

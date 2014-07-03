@@ -1,19 +1,19 @@
 package ua.avtopoisk.activites;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
+
+import hotchemi.android.rate.AppRate;
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.R;
 import ua.avtopoisk.model.Car;
@@ -29,11 +29,19 @@ public class CarDetailsActivity extends BaseActivity {
 
     @ViewById(R.id.info)
     protected WebView webViewCarDetails;
+    private AppRate appRate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS); //request progress bar in action bar
+        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS); //request progress bar in action bar
+        appRate = AppRate.build()
+                .setInstallDays(2) // default 10, 0 means install day.
+                .setLaunchTimes(2) // default 10
+                .setRemindInterval(2) // default 1
+                .setShowNeutralButton(true) // default true
+                .setDebug(false) // default false
+                .monitor(this);
     }
 
     @AfterViews
@@ -51,13 +59,14 @@ public class CarDetailsActivity extends BaseActivity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                setProgressBarIndeterminateVisibility(false);
+                setSupportProgressBarIndeterminateVisibility(false);
+                appRate.showRateDialogIfMeetsConditions(CarDetailsActivity.this);
                 super.onPageFinished(view, url);
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                setProgressBarIndeterminateVisibility(true);
+                setSupportProgressBarIndeterminateVisibility(true);
                 super.onPageStarted(view, url, favicon);
             }
         });

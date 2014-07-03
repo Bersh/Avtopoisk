@@ -4,12 +4,14 @@ package ua.avtopoisk.activites;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+
 import com.j256.ormlite.android.apptools.OpenHelperManager;
+
+import java.sql.SQLException;
+
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.db.DBHelper;
 import ua.avtopoisk.db.DBManager;
-
-import java.sql.SQLException;
 
 /**
  * @author ibershadskiy <a href="mailto:iBersh20@gmail.com">Ilya Bershadskiy</a>
@@ -36,10 +38,5 @@ public abstract class BaseActivity extends ActionBarActivity {
     protected void onDestroy() {
         super.onDestroy();
         OpenHelperManager.releaseHelper();
-    }
-
-    @Override
-    public android.support.v4.app.FragmentManager getSupportFragmentManager() {
-        return null;  //TODO implement this
     }
 }

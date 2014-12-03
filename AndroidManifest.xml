@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="ua.avtopoisk"
-          android:versionCode="11" android:versionName="0.8.1">
+    package="ua.avtopoisk"
+    android:versionName="0.8.2">
 
-    <uses-sdk android:minSdkVersion="10"
-              android:targetSdkVersion="19"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <application android:name=".AvtopoiskApplication_" android:icon="@drawable/icon" android:label="@string/app_name"
-                 android:theme="@style/AvtopoiskTheme">
-        <activity android:name=".activites.SplashScreenActivity_"
-                  android:screenOrientation="portrait"
-                  android:configChanges="keyboardHidden|orientation"
-                  android:theme="@style/SplashScreen">
+    <application
+        android:name=".AvtopoiskApplication_"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AvtopoiskTheme">
+        <activity
+            android:name=".activites.SplashScreenActivity_"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashScreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activites.SearchActivity_"
-                  android:screenOrientation="portrait"
-                  android:configChanges="keyboardHidden|orientation"
-                  android:label="@string/app_name"/>
-        <activity android:name=".activites.SearchResultActivity_"
-                  android:screenOrientation="portrait"
-                  android:configChanges="keyboardHidden|orientation"
-                  android:label="@string/app_name"/>
-        <activity android:name=".activites.ListActivity_"
-                  android:screenOrientation="portrait"
-                  android:configChanges="keyboardHidden|orientation"
-                  android:label="@string/app_name"/>
-        <activity android:name=".activites.CarDetailsActivity_"
-                  android:screenOrientation="portrait"
-                  android:configChanges="keyboardHidden|orientation"
-                  android:label="@string/app_name"/>
+        <activity
+            android:name=".activites.SearchActivity_"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activites.SearchResultActivity_"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activites.ListActivity_"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activites.CarDetailsActivity_"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
     </application>
 
 

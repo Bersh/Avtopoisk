@@ -60,7 +60,9 @@ public class CarDetailsActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 setSupportProgressBarIndeterminateVisibility(false);
-                appRate.showRateDialogIfMeetsConditions(CarDetailsActivity.this);
+                if (!CarDetailsActivity.this.isFinishing()) {
+                    appRate.showRateDialogIfMeetsConditions(CarDetailsActivity.this);
+                }
                 super.onPageFinished(view, url);
             }
 

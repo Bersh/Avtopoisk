@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.splunk.mint.Mint;
 
 import java.sql.SQLException;
 
@@ -30,6 +31,7 @@ public abstract class BaseActivity extends ActionBarActivity {
         } catch (SQLException e) {
             Log.e(Constants.LOG_TAG, "Can't create DBManager");
             Log.e(Constants.LOG_TAG, "SQLException", e);
+            Mint.logException(e);
             finish();
         }
     }

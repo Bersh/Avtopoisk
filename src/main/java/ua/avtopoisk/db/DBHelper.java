@@ -3,17 +3,17 @@ package ua.avtopoisk.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
+
+import java.sql.SQLException;
+
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.model.Brand;
 import ua.avtopoisk.model.Region;
-
-import java.sql.SQLException;
 
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "avtopoisk.db";

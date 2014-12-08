@@ -2,6 +2,8 @@ package ua.avtopoisk.db;
 
 import android.util.Log;
 import com.j256.ormlite.dao.Dao;
+import com.splunk.mint.Mint;
+
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.model.Brand;
 import ua.avtopoisk.model.Region;
@@ -34,6 +36,7 @@ public class DBManager {
             brands.addAll(brandsDao.queryForAll());
         } catch (SQLException e) {
             Log.e(Constants.LOG_TAG, "SQLException", e);
+            Mint.logException(e);
         }
         return brands;
     }
@@ -45,6 +48,7 @@ public class DBManager {
             regions.addAll(regionsDao.queryForAll());
         } catch (SQLException e) {
             Log.e(Constants.LOG_TAG, "SQLException", e);
+            Mint.logException(e);
         }
         return regions;
     }
@@ -56,6 +60,7 @@ public class DBManager {
             result = brandsDao.queryForId(brandId);
         } catch (SQLException e) {
             Log.e(Constants.LOG_TAG, "SQLException", e);
+            Mint.logException(e);
         }
         return result;
     }
@@ -73,6 +78,7 @@ public class DBManager {
             }
         } catch (SQLException e) {
             Log.e(Constants.LOG_TAG, "SQLException createBrandsAndRegions", e);
+            Mint.logException(e);
         }
     }
 }

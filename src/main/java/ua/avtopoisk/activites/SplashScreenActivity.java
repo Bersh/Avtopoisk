@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
+
+import com.splunk.mint.Mint;
+
 import org.androidannotations.annotations.*;
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.R;
@@ -71,6 +74,7 @@ public class SplashScreenActivity extends BaseActivity {
                 brands = parser.getBrands();
                 break;
             } catch (IOException e) {
+                Mint.logException(e);
                 String err = (e.getMessage() == null) ? "No message" : e.getMessage();
                 Log.e(Constants.LOG_TAG, err, e);
                 e.printStackTrace();

@@ -9,6 +9,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.splunk.mint.Mint;
+
 import org.androidannotations.annotations.*;
 import ua.avtopoisk.Constants;
 import ua.avtopoisk.R;
@@ -102,6 +105,7 @@ public class ListActivity extends BaseActivity {
             filter.addTextChangedListener(filterTextWatcher);
         } catch (SQLException e) {
             e.printStackTrace();
+            Mint.logException(e);
         }
     }
 }

@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+
+import com.splunk.mint.Mint;
+
 import org.androidannotations.annotations.*;
 import ua.avtopoisk.AvtopoiskApplication;
 import ua.avtopoisk.Constants;
@@ -182,6 +185,7 @@ public class SearchActivity extends BaseActivity {
             aModels = parser.getModels(brandId);
         } catch (IOException e) {
             Log.e(Constants.LOG_TAG, e.getMessage(), e);
+            Mint.logException(e);
             wasError = true;
         }
         populateModels(aModels, wasError);

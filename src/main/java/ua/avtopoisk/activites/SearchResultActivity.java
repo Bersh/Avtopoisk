@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.splunk.mint.Mint;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -187,7 +189,8 @@ public class SearchResultActivity extends BaseActivity {
         try {
             cars = parser.parse(brandId, modelId, regionId, aYearFrom, aYearTo, aPriceFrom, aPriceTo, sortType, bodyType,
                     addedType);
-        } catch (Throwable e) {
+        } catch (Exception e) {
+            Mint.logException(e);
             String err = (e.getMessage() == null) ? "No message" : e.getMessage();
             Log.e(Constants.LOG_TAG, err, e);
             showDataLoadingErrorDialog();

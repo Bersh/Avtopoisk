@@ -234,7 +234,7 @@ public class SearchActivity extends BaseActivity {
     }
 
     protected void populateSortTypes() {
-        ArrayAdapter sortTypesAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(sortTypesMap.keySet()));
+        ArrayAdapter sortTypesAdapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(sortTypesMap.keySet()));
         sortTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortBy.setAdapter(sortTypesAdapter);
         sortBy.setPrompt(getString(R.string.sort_hint));
@@ -251,7 +251,7 @@ public class SearchActivity extends BaseActivity {
     }
 
     protected void populateAddedTypes() {
-        ArrayAdapter addedTypesAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(addedTypesMap.keySet()));
+        ArrayAdapter addedTypesAdapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(addedTypesMap.keySet()));
         addedTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         addedType.setAdapter(addedTypesAdapter);
         addedType.setPrompt(getString(R.string.added_type_hint));
@@ -268,7 +268,7 @@ public class SearchActivity extends BaseActivity {
     }
 
     protected void populateBodyTypes() {
-        ArrayAdapter bodyTypesAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(bodyTypesMap.keySet()));
+        ArrayAdapter bodyTypesAdapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>(bodyTypesMap.keySet()));
         bodyTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bodyType.setAdapter(bodyTypesAdapter);
         bodyType.setPrompt(getString(R.string.body_type_hint));
@@ -298,7 +298,7 @@ public class SearchActivity extends BaseActivity {
         if (modelsMap == null || modelsMap.isEmpty()) {
             models.setEnabled(false);
         } else {
-            modelNames = new ArrayList<String>(modelsMap.keySet());
+            modelNames = new ArrayList<>(modelsMap.keySet());
             String currentModel = modelNames.get(0);
             models.setText(currentModel);
             models.setEnabled(!TextUtils.isEmpty(currentModel));
@@ -308,7 +308,7 @@ public class SearchActivity extends BaseActivity {
     protected void populateRegions() {
         List<Region> regionsList = dbManager.getAllRegions();
 
-        ArrayAdapter<Region> adapter = new ArrayAdapter<Region>(SearchActivity.this, android.R.layout.simple_spinner_item, regionsList);
+        ArrayAdapter<Region> adapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_spinner_item, regionsList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         regions.setPrompt(getString(R.string.regions_prompt));
         regions.setAdapter(adapter);

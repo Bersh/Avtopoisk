@@ -78,27 +78,21 @@ public class ListActivity extends BaseActivity {
                     List<Brand> brands = dbHelper.getBrandsDao().queryForAll();
                     adapter = new ArrayAdapter<Brand>(this, android.R.layout.simple_list_item_1, brands);
                     list.setAdapter(adapter);
-                    list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent();
-                            intent.putExtra(Constants.KEY_EXTRA_SELECTED, ((Brand)adapter.getItem(position)).getId());
-                            setResult(RESULT_OK, intent);
-                            finish();
-                        }
+                    list.setOnItemClickListener((parent, view, position, id) -> {
+                        Intent intent = new Intent();
+                        intent.putExtra(Constants.KEY_EXTRA_SELECTED, ((Brand)adapter.getItem(position)).getId());
+                        setResult(RESULT_OK, intent);
+                        finish();
                     });
                     break;
                 default:
                     adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, collection);
                     list.setAdapter(adapter);
-                    list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent();
-                            intent.putExtra(Constants.KEY_EXTRA_SELECTED, adapter.getItem(position).toString());
-                            setResult(RESULT_OK, intent);
-                            finish();
-                        }
+                    list.setOnItemClickListener((parent, view, position, id) -> {
+                        Intent intent = new Intent();
+                        intent.putExtra(Constants.KEY_EXTRA_SELECTED, adapter.getItem(position).toString());
+                        setResult(RESULT_OK, intent);
+                        finish();
                     });
                     break;
             }

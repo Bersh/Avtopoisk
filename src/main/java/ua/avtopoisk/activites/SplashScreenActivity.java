@@ -56,11 +56,7 @@ public class SplashScreenActivity extends BaseActivity {
         builder.setMessage(R.string.splash_error_text)
                 .setTitle(R.string.error)
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        finish();
-                    }
-                });
+                .setPositiveButton("OK", (dialog, id) -> finish());
         AlertDialog alert = builder.create();
         alert.show();
     }

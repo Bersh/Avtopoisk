@@ -98,19 +98,17 @@ public class SearchResultActivity extends BaseActivity {
 
     private View loadMoreView;
     private CarAdapter adapter;
-    private ArrayList<Car> currentResults = new ArrayList<Car>();
+    private ArrayList<Car> currentResults = new ArrayList<>();
     private int loadedCount;
 
-    private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which) {
-                case Dialog.BUTTON_POSITIVE:
-                    loadResults();
-                    break;
-                case Dialog.BUTTON_NEGATIVE:
-                    finish();
-                    break;
-            }
+    private DialogInterface.OnClickListener dataLoadingErrorDialogClickListener = (dialog, which) -> {
+        switch (which) {
+            case Dialog.BUTTON_POSITIVE:
+                loadResults();
+                break;
+            case Dialog.BUTTON_NEGATIVE:
+                finish();
+                break;
         }
     };
 
@@ -126,21 +124,13 @@ public class SearchResultActivity extends BaseActivity {
     protected void init() {
         listView.setDividerHeight(0);
         listView.setFooterDividersEnabled(false);
-        loadMoreView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadResults();
-            }
-        });
+        loadMoreView.setOnClickListener(v -> loadResults());
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Car clicked = adapter.getItem(position);
-                Intent intent = new Intent(SearchResultActivity.this, CarDetailsActivity_.class);
-                intent.putExtra(Constants.KEY_EXTRA_CAR, clicked);
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Car clicked = adapter.getItem(position);
+            Intent intent = new Intent(SearchResultActivity.this, CarDetailsActivity_.class);
+            intent.putExtra(Constants.KEY_EXTRA_CAR, clicked);
+            startActivity(intent);
         });
         loadResults();
     }
@@ -213,7 +203,7 @@ public class SearchResultActivity extends BaseActivity {
         if (listView.getFooterViewsCount() == 0) {
             listView.addFooterView(loadMoreView);
         }
-        if ((cars.isEmpty() || /*cars.size() < CARS_PER_PAGE ||*/ loadedCount == resultsCount) && listView.getFooterViewsCount() > 0) {
+        if ((cars.isEmpty() || loadedCount == resultsCount) && listView.getFooterViewsCount() > 0) {
             View loadTenMoreText = loadMoreView.findViewById(R.id.load_ten_more_text);
             ((LinearLayout) loadMoreView).removeView(loadTenMoreText);
             loadedCountText.setPadding(0, 10, 0, 10);

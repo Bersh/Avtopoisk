@@ -1,5 +1,6 @@
 package ua.avtopoisk.activites;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -44,6 +45,7 @@ public class CarDetailsActivity extends BaseActivity {
                 .monitor(this);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @AfterViews
     protected void init() {
         WebSettings webSettings = webViewCarDetails.getSettings();

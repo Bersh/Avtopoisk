@@ -62,15 +62,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         TableUtils.dropTable(connectionSource, Region.class, true);
     }
 
-    public void recreateDB() {
-        try {
-            dropDB(getConnectionSource());
-            createDB(getConnectionSource());
-        } catch (SQLException e) {
-            Log.e(Constants.LOG_TAG, e.getMessage());
-        }
-    }
-
     public Dao<Brand, Long> getBrandsDao() throws SQLException {
         if (brandsDao == null) {
             brandsDao = getDao(Brand.class);

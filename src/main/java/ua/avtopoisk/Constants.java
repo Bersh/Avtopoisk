@@ -7,6 +7,8 @@ package ua.avtopoisk;
 public class Constants {
     public static final String LOG_TAG = "Avtopoisk";
 
+    public static final boolean IS_DEBUG = BuildConfig.DEBUG;
+
     public static final String BRAND_ID_KEY = "brand";
     public static final String MODEL_ID_KEY = "model";
     public static final String REGION_ID_KEY = "region";

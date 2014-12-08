@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import com.splunk.mint.Mint;
+
 import org.androidannotations.annotations.EApplication;
 
 /**
@@ -13,6 +15,14 @@ import org.androidannotations.annotations.EApplication;
  */
 @EApplication
 public class AvtopoiskApplication extends Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (!Constants.IS_DEBUG) {
+            Mint.initAndStartSession(this, "d41ee481");
+        }
+    }
 
     public static void showDataLoadingErrorDialog(Context context, DialogInterface.OnClickListener onClickListener) {
         AlertDialog.Builder adb = new AlertDialog.Builder(context);
